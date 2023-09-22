@@ -1,0 +1,1 @@
+﻿using UnityEngine;public interface IGameObjectFactoryByPath {	public T Get<T>(string path) where T : MonoBehaviour;}
