@@ -8,21 +8,15 @@ public class GameplaySceneInstaller : MonoInstaller {
 	public override void InstallBindings() {
 		InstallFactory();
 		InstallResourcesFactory();
+	//	Container.Bind<Paddle>().AsSingle();
 		InstallInitialGameState();
 		InstallPlayState();
 		InstallGameScenario();
-		InstallControls();
-		Container.Bind<Paddle>().AsSingle();
 	}
 	private void InstallPlayState() {
-
-		Container.Bind<PlayState>().AsSingle();
+		Container.Bind<GameplayState>().AsSingle();
 	}
 
-	private void InstallControls() {
-		Container.Bind<KeyboardConfig>().FromInstance(keyboardConfig).AsSingle();
-		Container.Bind<IInput>().To<KeyboardInput>().AsSingle();
-	}
 	private void InstallGameScenario() {
 		Container.Bind<GameScenario>().AsSingle().NonLazy();
 	}
@@ -40,9 +34,5 @@ public class GameplaySceneInstaller : MonoInstaller {
 		Container.Bind<StorageConfig>().FromInstance(storageConfig);
 		Container.Bind<StateSwitcher>().AsSingle();
 		Container.Bind<InitialState>().AsSingle();
-	}
-	
-	public override void Start() {
-		
 	}
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
   map:
-  - level: {fileID: 261211456573491107, guid: 7c4e3e2618e077f45a287578ab950cd5, type: 3}
+  - level: {fileID: 3382277058085687778, guid: b2c1fb9dd62d4174e958a6bf642e7cad, type: 3}
     environment: {fileID: 8826672461503233850, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
   paddle: {fileID: 4379953654239011457, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}

@@ -28,7 +28,7 @@ using UnityEngine;
         private void OnCollisionEnter(Collision collision) {
             OnCollisionEvent?.Invoke(collision.contacts[0].point);
 
-            var paddle = collision.transform.GetComponent<IPaddle>();
+            var paddle = collision.transform.GetComponent<Paddle>();
             if (paddle != null) return;
             Reflect(collision.contacts[0].normal);
 

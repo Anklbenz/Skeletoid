@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class Paddle : Motor, IPaddle {
+public class Paddle : Motor{
 	private const float MAX_REFLECT_ANGLE = 70;
 
 	[SerializeField] private Transform ballParent;
@@ -10,7 +10,7 @@ public class Paddle : Motor, IPaddle {
 	private IInput _input;
 
 	[Inject]
-	public void Constructor(IInput input) {
+	public void Initialize(IInput input) {
 		_input = input;
 		_input.Left += MoveLeft;
 		_input.Right += MoveRight;

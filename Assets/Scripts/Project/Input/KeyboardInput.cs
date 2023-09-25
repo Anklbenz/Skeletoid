@@ -14,9 +14,9 @@ public class KeyboardInput : IInput, ITickable {
 	}
 
 	public void Tick() {
-		if (Input.GetKeyDown(_config.keyLeft) || Input.GetKeyDown(_config.keyLeftExtra))
+		if (Input.GetKey(_config.keyLeft) || Input.GetKey(_config.keyLeftExtra))
 			Left?.Invoke();
-		if (Input.GetKeyDown(_config.keyRight) || Input.GetKeyDown(_config.keyRightExtra))
+		if (Input.GetKey(_config.keyRight) || Input.GetKey(_config.keyRightExtra))
 			Right?.Invoke();
 		if (Input.GetKeyDown(_config.keyLeft) || Input.GetKeyDown(_config.keyLeftExtra))
 			Shot?.Invoke();
