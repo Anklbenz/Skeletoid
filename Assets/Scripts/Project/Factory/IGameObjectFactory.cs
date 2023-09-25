@@ -1,1 +1,0 @@
-﻿using UnityEngine;public interface IGameObjectFactory {	public T Get<T>(T prefab) where T : MonoBehaviour;}

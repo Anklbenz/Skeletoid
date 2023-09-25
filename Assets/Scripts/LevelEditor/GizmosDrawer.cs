@@ -16,7 +16,7 @@ public class GizmosDrawer : MonoBehaviour
 	[Header("PaddleZone")] [SerializeField]
 	private bool isPaddleZoneVisible = true;
 
-	[SerializeField] private int lineNumber = -3;
+	[SerializeField] private int lineNumber = 3;
 	[SerializeField] private Color paddleZoneColor = Color.white;
 
 	[Header("HorizontalCenterLine")] [SerializeField]
@@ -74,7 +74,7 @@ public class GizmosDrawer : MonoBehaviour
 		Gizmos.color = wallsColor;
 		Gizmos.DrawWireCube(new Vector3(-realSize.x / 2 - STEP / 2, STEP / 2, 0), new Vector3(STEP, STEP, realSize.z));
 		Gizmos.DrawWireCube(new Vector3(+realSize.x / 2 + STEP / 2, STEP / 2, 0), new Vector3(STEP, STEP, realSize.z));
-		Gizmos.DrawWireCube(new Vector3(0, STEP / 2, -realSize.z / 2 - STEP / 2), new Vector3(realSize.x, STEP, STEP));
+		Gizmos.DrawWireCube(new Vector3(0, STEP / 2, realSize.z / 2 + STEP / 2), new Vector3(realSize.x, STEP, STEP));
 	}
 
 	private void DrawGrid() {

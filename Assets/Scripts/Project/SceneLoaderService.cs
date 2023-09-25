@@ -1,15 +1,15 @@
 using UnityEngine.SceneManagement;
 
 public class SceneLoaderService {
-	private readonly SceneIndexesStorage _indexesStorage;
+	private readonly SceneIndexes _indexes;
 	
-	public SceneLoaderService(SceneIndexesStorage indexesStorage) {
-		_indexesStorage = indexesStorage;
+	public SceneLoaderService(SceneIndexes indexes) {
+		_indexes = indexes;
 	}
 
 	public void GoToLevelSelectScene() =>
-			SceneManager.LoadScene(_indexesStorage.levelSelectIndex, LoadSceneMode.Single);
+			SceneManager.LoadScene(_indexes.levelSelectIndex, LoadSceneMode.Single);
 
 	public void GoToGameplayScene() =>
-			SceneManager.LoadScene(_indexesStorage.coreSessionIndex, LoadSceneMode.Single);
+			SceneManager.LoadScene(_indexes.coreSessionIndex, LoadSceneMode.Single);
 }

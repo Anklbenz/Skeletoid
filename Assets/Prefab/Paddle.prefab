@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   ballParent: {fileID: 7942078375253538739}
-  boxCollider: {fileID: 0}
+  boxCollider: {fileID: 5874231671476026423}
 --- !u!54 &4379953654239011456
 Rigidbody:
   m_ObjectHideFlags: 0

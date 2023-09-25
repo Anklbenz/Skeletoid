@@ -1,0 +1,1 @@
+﻿using UnityEngine;public interface IFactory {	public T Get<T>(T prefab) where T : Object;}

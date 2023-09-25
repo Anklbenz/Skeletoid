@@ -3,10 +3,10 @@ using UnityEngine;
 using Zenject;
 
 public class NewBehaviourScript : MonoBehaviour {
-	private IGameObjectFactoryByPath _factory;
+	private IResourcesFactory _factory;
 	
 	[Inject] 
-	public void Constructor(IGameObjectFactoryByPath factory) {
+	public void Constructor(IResourcesFactory factory) {
 		_factory = factory;
 	}
 
