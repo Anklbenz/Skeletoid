@@ -1,47 +1,55 @@
 using UnityEngine;
+using Zenject;
 
-public class Paddle : Motor, IPaddle
-{
-    private const float MAX_REFLECT_ANGLE = 70;
+public class Paddle : Motor, IPaddle {
+	private const float MAX_REFLECT_ANGLE = 70;
 
-    [SerializeField] private Transform ballParent;
-    [SerializeField] private BoxCollider boxCollider;
-    public Transform ballTransform => ballParent;
-    private Controller _controller;
+	[SerializeField] private Transform ballParent;
+	[SerializeField] private BoxCollider boxCollider;
+	public Transform ballTransform => ballParent;
+	private IInput _input;
 
-    public void Initialize(Controller controller) {
-        _controller = controller;
-        _controller.SidePressedEvent += Move;
-    }
+	[Inject]
+	public void Constructor(IInput input) {
+		_input = input;
+		_input.Left += MoveLeft;
+		_input.Right += MoveRight;
+	}
 
-    private void OnCollisionEnter(Collision collision) {
-        var reflectInstance = collision.transform.GetComponent<IReflect>();
-        if (reflectInstance is null) return;
+	private void MoveLeft() =>
+			Move(Vector3.left);
 
-        var hitPoint = collision.contacts[0].point;
-        var normal = collision.contacts[0].normal;
+	private void MoveRight() =>
+			Move(Vector3.right);
 
-        var isFrontSideHit = Vector3.Dot(transform.forward, normal) < 0;
+	private void OnCollisionEnter(Collision collision) {
+		var reflectInstance = collision.transform.GetComponent<IReflect>();
+		if (reflectInstance is null) return;
 
-        if (!isFrontSideHit) {
-            reflectInstance.Reflect(-normal);
-            return;
-        }
+		var hitPoint = collision.contacts[0].point;
+		var normal = collision.contacts[0].normal;
 
-        var dir = GetDirectionDependsOnLocalPaddleHitPoint(hitPoint);
-        reflectInstance.SetDirection(dir);
-    }
+		var isFrontSideHit = Vector3.Dot(transform.forward, normal) < 0;
 
-    private Vector3 GetDirectionDependsOnLocalPaddleHitPoint(Vector3 collisionPoint) {
-        var colliderMinX = boxCollider.center.x - boxCollider.size.x / 2;
-        var colliderMaxX = boxCollider.center.x + boxCollider.size.x / 2;
+		if (!isFrontSideHit) {
+			reflectInstance.Reflect(-normal);
+			return;
+		}
 
-        var hitPointLocal = transform.InverseTransformPoint(collisionPoint);
-        var lerpX = Mathf.InverseLerp(colliderMinX, colliderMaxX, hitPointLocal.x);
-        var angle = Mathf.Lerp(-MAX_REFLECT_ANGLE, MAX_REFLECT_ANGLE, lerpX);
+		var dir = GetDirectionDependsOnLocalPaddleHitPoint(hitPoint);
+		reflectInstance.SetDirection(dir);
+	}
 
-        return (Quaternion.AngleAxis(angle, Vector3.up) * transform.forward);
-    }
+	private Vector3 GetDirectionDependsOnLocalPaddleHitPoint(Vector3 collisionPoint) {
+		var colliderMinX = boxCollider.center.x - boxCollider.size.x / 2;
+		var colliderMaxX = boxCollider.center.x + boxCollider.size.x / 2;
+
+		var hitPointLocal = transform.InverseTransformPoint(collisionPoint);
+		var lerpX = Mathf.InverseLerp(colliderMinX, colliderMaxX, hitPointLocal.x);
+		var angle = Mathf.Lerp(-MAX_REFLECT_ANGLE, MAX_REFLECT_ANGLE, lerpX);
+
+		return (Quaternion.AngleAxis(angle, Vector3.up) * transform.forward);
+	}
 }
 
 //Debug.Log($"Angle {angle}, minX {colliderMinX} maxX {colliderMaxX} hitX {hitPointLocal.x}");

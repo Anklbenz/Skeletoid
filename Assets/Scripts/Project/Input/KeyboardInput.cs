@@ -1,18 +1,24 @@
 using System;
 using Zenject;
+using UnityEngine;
 
-public class KeyboardInput : IInput, ITickable
-{
+public class KeyboardInput : IInput, ITickable {
 	public event Action Left;
 	public event Action Right;
-	public event Action Shoot;
+	public event Action Shot;
 
-			//private 
-	public KeyboardInput() {
-		
+	private readonly KeyboardConfig _config;
+
+	public KeyboardInput(KeyboardConfig config) {
+		_config = config;
 	}
-	
+
 	public void Tick() {
-		
+		if (Input.GetKeyDown(_config.keyLeft) || Input.GetKeyDown(_config.keyLeftExtra))
+			Left?.Invoke();
+		if (Input.GetKeyDown(_config.keyRight) || Input.GetKeyDown(_config.keyRightExtra))
+			Right?.Invoke();
+		if (Input.GetKeyDown(_config.keyLeft) || Input.GetKeyDown(_config.keyLeftExtra))
+			Shot?.Invoke();
 	}
 }

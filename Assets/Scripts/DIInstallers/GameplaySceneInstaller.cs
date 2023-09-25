@@ -3,11 +3,27 @@ using Zenject;
 
 public class GameplaySceneInstaller : MonoInstaller {
 	[SerializeField] private StorageConfig storageConfig;
+	[SerializeField] private KeyboardConfig keyboardConfig; 
 
 	public override void InstallBindings() {
 		InstallFactory();
 		InstallResourcesFactory();
-		InstallGameStates();
+		InstallInitialGameState();
+		InstallPlayState();
+		InstallGameScenario();
+		InstallControls();
+		Container.Bind<Paddle>().AsSingle();
+	}
+	private void InstallPlayState() {
+
+		Container.Bind<PlayState>().AsSingle();
+	}
+
+	private void InstallControls() {
+		Container.Bind<KeyboardConfig>().FromInstance(keyboardConfig).AsSingle();
+		Container.Bind<IInput>().To<KeyboardInput>().AsSingle();
+	}
+	private void InstallGameScenario() {
 		Container.Bind<GameScenario>().AsSingle().NonLazy();
 	}
 
@@ -20,10 +36,10 @@ public class GameplaySceneInstaller : MonoInstaller {
 		Container.Bind<IResourcesFactory>().To<ResourcesFactory>().AsSingle();
 	}
 	
-	private void InstallGameStates() {
+	private void InstallInitialGameState() {
 		Container.Bind<StorageConfig>().FromInstance(storageConfig);
 		Container.Bind<StateSwitcher>().AsSingle();
-		Container.Bind<InitializeState>().AsSingle();
+		Container.Bind<InitialState>().AsSingle();
 	}
 	
 	public override void Start() {

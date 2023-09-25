@@ -4,9 +4,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "keyboardConfig", menuName = "Configs/keyboardConfig")]
 public class KeyboardConfig : ScriptableObject {
 	[SerializeField] private KeyCode left,
-			leftAdditional,
+			leftExtra,
 			right,
-			rightAdditional,
+			rightExtra,
 			shot,
-			shotAdditional;
+			shotExtra;
+
+	public KeyCode keyLeft => left;
+	public KeyCode keyLeftExtra => leftExtra;
+	public KeyCode keyRight => right;
+	public KeyCode keyRightExtra => rightExtra;
+	public KeyCode keyShot => shot;
+	public KeyCode keyShotExtra => shotExtra;
 }

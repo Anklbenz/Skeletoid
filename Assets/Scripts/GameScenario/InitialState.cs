@@ -1,8 +1,8 @@
-public class InitializeState : State {
+public class InitialState : State {
 	private readonly IFactory _factory;
 	private readonly StorageConfig _storageConfig;
 	
-    public InitializeState(StateSwitcher stateSwitcher, StorageConfig config, IFactory factory) : base(stateSwitcher) {
+    public InitialState(StateSwitcher stateSwitcher, StorageConfig config, IFactory factory) : base(stateSwitcher) {
 	    _factory = factory;
 	    _storageConfig = config;
     }
@@ -20,5 +20,5 @@ public class InitializeState : State {
 	    var paddleInstance = _factory.Get(paddlePrefab);
 	    paddleInstance.transform.position = levelInstance.paddleOrigin.position;
     }
-    
 }
+
