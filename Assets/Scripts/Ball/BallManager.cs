@@ -4,14 +4,14 @@ using UnityEngine;
 public class BallManager
 {
     [SerializeField] private Ball ballPrefab;
-    [SerializeField] private ParticlesPlayer particlesPlayerPlayer;
+    [SerializeField] private ParticlesFactory _particlesFactoryFactory;
     [SerializeField] private Transform activeTransform;
     private Ball _ball;
 
     public void Initialize(Transform idleTransform) {
         _ball = Object.Instantiate(ballPrefab, idleTransform);
         _ball.OnCollisionEvent += OnBallCollision;
-        particlesPlayerPlayer.Initialize();
+      //  particlesPlayerPlayer.Initialize();
     }
 
     public void Throw(Vector3 direction) {
@@ -21,6 +21,6 @@ public class BallManager
     }
 
     private void OnBallCollision(Vector3 position) {
-        particlesPlayerPlayer.BallCollisionPlay(position);
+        _particlesFactoryFactory.PlayCollision(position);
     }
 }

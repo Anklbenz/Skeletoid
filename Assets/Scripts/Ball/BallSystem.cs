@@ -10,7 +10,7 @@ public class BallSystem {
 		input.Shot += Throw;
 	}
 	private void Throw() {
-		ball.SetDirection(new Vector3(0, 0, 0.5f));
+		ball.SetDirection(new Vector3(0, 0, 1f));
 		ball.isActive = true;
 	}
 

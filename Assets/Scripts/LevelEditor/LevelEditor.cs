@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
 public class LevelEditor : MonoBehaviour
 {
 	[SerializeField] private Transform parent;
+	[SerializeField] private GizmosDrawer gizmosDrawer;
 	[SerializeField] private string path = "Assets/Levels/";
 	[SerializeField] private string fileName = "Level";
 	[SerializeField] private string fileExtension = ".prefab";
@@ -20,21 +22,34 @@ public class LevelEditor : MonoBehaviour
 		var level = container.AddComponent<Level>();
 
 		foreach (Transform child in parent) {
-			if (child.TryGetComponent<Brick>(out var brick)) {
-				var brickCopy = Instantiate(brick, brick.transform.position, brick.transform.rotation, container.transform);
-				level.bricks.Add(brickCopy);
-				continue;
-			}
-
-			if (!child.TryGetComponent<Paddle>(out var paddle)) continue;
-			
-			var paddleOrigin = new GameObject("paddleOrigin");
-			paddleOrigin.transform.position = paddle.transform.position;
-			paddleOrigin.transform.SetParent(container.transform);
-			level.paddleOrigin = paddleOrigin.transform;
+			if (!child.TryGetComponent<Brick>(out var brick)) continue;
+			var brickCopy = Instantiate(brick, brick.transform.position, brick.transform.rotation, container.transform);
+			level.bricks.Add(brickCopy);
 		}
 
+		level.paddleOrigin = AddPaddleOriginToContainer(container.transform);
+		level.deadZone = CreateDeadZone(container.transform);
 		return container;
+	}
+
+	private DeadZone CreateDeadZone(Transform transformParent) {
+		var deadZone = new GameObject("DeadZone");
+		
+		var boxCollider = deadZone.AddComponent<BoxCollider>();
+		boxCollider.isTrigger = true;
+		
+		deadZone.transform.position = gizmosDrawer.deadZoneCenter;
+		deadZone.transform.localScale = gizmosDrawer.deadZoneSize;
+		deadZone.transform.SetParent(transformParent);
+
+		return deadZone.AddComponent<DeadZone>();
+	}
+
+	private Transform AddPaddleOriginToContainer(Transform container) {
+		var paddleOrigin = new GameObject("paddleOrigin");
+		paddleOrigin.transform.position = gizmosDrawer.paddleCenter;
+		paddleOrigin.transform.SetParent(container.transform);
+		return paddleOrigin.transform;
 	}
 
 	public void Clear() {

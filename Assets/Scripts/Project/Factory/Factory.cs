@@ -1,10 +1,10 @@
 using UnityEngine;
 using Zenject;
 
-public class Factory : IFactory {
+public class DIFactory : IFactory {
 	private readonly DiContainer _diContainer;
 
-	public Factory(DiContainer diContainer) {
+	public DIFactory(DiContainer diContainer) {
 		_diContainer = diContainer;
 	}
 
@@ -12,8 +12,6 @@ public class Factory : IFactory {
 		return _diContainer.InstantiatePrefabResourceForComponent<T>(path);
 	}
 	public T Get<T>(T prefab) where T : UnityEngine.Object {
-		//var type = typeof(T); 
-		//if(type.IsInterface() || type.DerivesFrom<Component>())
-		return _diContainer.InstantiatePrefabForComponent<T>(prefab); //)Instantiate(prefab, Vector3.zero, Quaternion.identity, null);}
+		return _diContainer.InstantiatePrefabForComponent<T>(prefab); 
 	}
 }

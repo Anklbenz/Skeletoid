@@ -6,7 +6,7 @@ public class SpawnSphere : MonoInstaller{
 	}
 	private void BindGameObjectFactory() {
 		Container.Bind<ResourcesLoader>().AsSingle();
-		Container.Bind<IFactory>().To<Factory>().AsSingle();
+		Container.Bind<IFactory>().To<DIFactory>().AsSingle();
 		Container.Bind<IResourcesFactory>().To<ResourcesFactory>().AsSingle();
 	}
 

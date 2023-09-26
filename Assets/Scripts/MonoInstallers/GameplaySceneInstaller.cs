@@ -3,14 +3,25 @@ using Zenject;
 
 public class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameObjectsConfig gameObjectsConfig;
+	[SerializeField] private ParticlesConfig particlesConfig;
 	
 	public override void InstallBindings() {
-		InstallFactory();
-	//	InstallInitialGameState();
-	//	InstallPlayState();
+		InstallFactoryDI();
+	//	InstallFactory();
+		InstallParticlesFactory();
 		InstallGameScenario();
 		InstallInitializeForThis();
 	}
+
+	private void InstallParticlesFactory() {
+		Container.Bind<ParticlesConfig>().FromInstance(particlesConfig);
+		Container.Bind<ParticlesFactory>().AsSingle();
+	}
+
+	/*private void InstallFactory() {
+		Container.Bind<Factory>().AsSingle();
+	}*/
+
 	private void InstallInitializeForThis() =>
 		Container.Bind<IInitializable>().FromInstance(this).AsSingle();
 
@@ -24,9 +35,8 @@ public class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<GameScenario>().AsSingle();
 	}
 	
-	private void InstallFactory() =>
-		Container.Bind<IFactory>().To<Factory>().AsSingle();
-
+	private void InstallFactoryDI() =>
+		Container.Bind<IFactory>().To<DIFactory>().AsSingle();
 	
 	public void Initialize() {
 		var gameScenario = Container.Resolve<GameScenario>();
