@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6919904815795975565}
   - component: {fileID: 6919904815795975566}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,8 +31,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 6924349408512602985}
   - {fileID: 1905651954729377202}
+  - {fileID: 6924349408512602985}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -81,7 +81,6 @@ MonoBehaviour:
   damage: 1
   permissibleAngle: 20
   correctionStep: 2
-  magnitude: 0
 --- !u!1001 &6919904816019215539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8825450667271997697, guid: 47930975c934f6640885ce35da15a61d, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8825450667271997697, guid: 47930975c934f6640885ce35da15a61d, type: 3}
       propertyPath: m_LocalScale.x
@@ -181,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4587015470151368, guid: 5f8180c8cd2c58f45a1398370321abc9, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4587015470151368, guid: 5f8180c8cd2c58f45a1398370321abc9, type: 3}
       propertyPath: m_LocalScale.x

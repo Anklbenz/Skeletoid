@@ -67,6 +67,62 @@ Transform:
   m_Father: {fileID: 8826672462622175632}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3915443969145606046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4212158097628731763}
+  - component: {fileID: 1161240362410149708}
+  m_Layer: 0
+  m_Name: Gizmos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4212158097628731763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915443969145606046}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.6472275, y: -0.6898812, z: 4.107625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8826672461503233845}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1161240362410149708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915443969145606046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b981589f5d81b48811e7554a71e6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameFieldSize: {x: 10, y: 22}
+  isGridVisible: 1
+  gridColor: {r: 1, g: 1, b: 1, a: 1}
+  isWallsVisible: 1
+  wallsColor: {r: 1, g: 1, b: 1, a: 1}
+  isPaddleZoneVisible: 1
+  lineNumber: 3
+  paddleZoneColor: {r: 1, g: 0.16391526, b: 0, a: 1}
+  isHorizontalCenterLineVisible: 1
+  horizontalCenterLineColor: {r: 0.9716981, g: 0.44815856, b: 0.10450332, a: 1}
+  isVerticalCenterLineVisible: 1
+  verticalCenterLineColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &4663298730070374795
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +254,7 @@ Transform:
   - {fileID: 8826672463170459742}
   - {fileID: 8826672462622175632}
   m_Father: {fileID: 8826672461503233845}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8826672461503233850
 GameObject:
@@ -209,7 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8826672461503233845}
-  - component: {fileID: 2118766599047409183}
+  - component: {fileID: 5460121658281674284}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Untagged
@@ -229,13 +285,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4212158097628731763}
   - {fileID: 8826672462095676822}
   - {fileID: 8748494829313630090}
   - {fileID: 8826672461899516359}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2118766599047409183
+--- !u!114 &5460121658281674284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,21 +301,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8826672461503233850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45b981589f5d81b48811e7554a71e6c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 63cad653414abd544b39e56d9055dd2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFieldSize: {x: 10, y: 22}
-  isGridVisible: 1
-  gridColor: {r: 1, g: 1, b: 1, a: 1}
-  isWallsVisible: 1
-  wallsColor: {r: 1, g: 1, b: 1, a: 1}
-  isPaddleZoneVisible: 1
-  lineNumber: 3
-  paddleZoneColor: {r: 1, g: 0.16391526, b: 0, a: 1}
-  isHorizontalCenterLineVisible: 1
-  horizontalCenterLineColor: {r: 0.9716981, g: 0.44815856, b: 0.10450332, a: 1}
-  isVerticalCenterLineVisible: 1
-  verticalCenterLineColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &8826672461596923789
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +448,7 @@ Transform:
   m_Children:
   - {fileID: 8826672461624993268}
   m_Father: {fileID: 8826672461503233845}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8826672461899516362
 BoxCollider:
@@ -449,7 +494,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8826672461503233845}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 69.84, y: 0, z: 0}
 --- !u!108 &8826672462095676823
 Light:

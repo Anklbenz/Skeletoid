@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Level : MonoBehaviour {
 	public Transform paddleOrigin;
-	public List<Brick> bricks = new List<Brick>();
+	public List<Brick> bricks = new();
 	// public Vector3 paddlePosition => paddleOrigin.position;
 
 	/*public event Action AllBricksDestroyedEvent;

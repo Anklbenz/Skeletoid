@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c19729e7c08b46f4c8b7000403dbce76, type: 3}
-  m_Name: LevelConfig
+  m_Name: GameObjectsConfig
   m_EditorClassIdentifier: 
   map:
   - level: {fileID: 3382277058085687778, guid: b2c1fb9dd62d4174e958a6bf642e7cad, type: 3}
-    environment: {fileID: 8826672461503233850, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
+    environment: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
+  ball: {fileID: 6919904815795975566, guid: 8abbce41e8e4e944b8c2f9adc34ea5ad, type: 3}
   paddle: {fileID: 4379953654239011457, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}

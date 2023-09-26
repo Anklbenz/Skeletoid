@@ -1,28 +1,38 @@
+using System.Linq;
+using UnityEngine;
 public class InitialState : State {
 	private readonly IFactory _factory;
-	private readonly IInput _input;
-	private readonly StorageConfig _storageConfig;
+	private readonly GameObjectsConfig _gameObjectsConfig;
+	private readonly CurrentGameplayData _currentGameplayData;
 	
-    public InitialState(StateSwitcher stateSwitcher, StorageConfig config, IInput input, IFactory factory) : base(stateSwitcher) {
-	    _factory = factory;
-	    _storageConfig = config;
-	    _input = input;
-    }
+	public InitialState(StateSwitcher stateSwitcher, GameObjectsConfig config, CurrentGameplayData currentGameplayData, IFactory factory) : base(stateSwitcher) {
+		_factory = factory;
+		_gameObjectsConfig = config;
+		_currentGameplayData = currentGameplayData;
+	}
 
-    public override void Enter() {
-	    InstantiateSceneObjects();
-    }
-    
-    private void InstantiateSceneObjects() {
-	    var map = _storageConfig.GetPrefab(0);
-	    var paddlePrefab = _storageConfig.GetPaddlePrefab();
+	public override void Enter() {
+		InitializeSceneObjects();
+		SwitchToGameplay();
+	}
+	private void InitializeSceneObjects() {
+		var map = _gameObjectsConfig.GetMapPrefab(0);
+		var levelInstance = _factory.Get<Level>(map.level);
 
-	    _factory.Get(map.environment);
-	    var levelInstance = _factory.Get<Level>(map.level);
-	    var paddleInstance = _factory.Get(paddlePrefab);
-	   // paddleInstance.Initialize(_input);
-	    
-	    paddleInstance.transform.position = levelInstance.paddleOrigin.position;
-    }
+		var environmentInstance = _factory.Get<Environment>(map.environment);
+		var ballInstance = _factory.Get<Ball>(_gameObjectsConfig.ballPrefab);
+		var paddleInstance = _factory.Get<Paddle>(_gameObjectsConfig.paddlePrefab);
+		
+		paddleInstance.transform.position = levelInstance.paddleOrigin.position;
+
+		_currentGameplayData.bricks = levelInstance.bricks.ToList();
+		_currentGameplayData.paddle = paddleInstance;
+		_currentGameplayData.ball = ballInstance;
+		_currentGameplayData.environment = environmentInstance;
+		_currentGameplayData.ballOrigin = paddleInstance.ballTransform;
+	}
+	
+	private void SwitchToGameplay() {
+		switcher.SetState<GameplayState>();
+	}
 }
-

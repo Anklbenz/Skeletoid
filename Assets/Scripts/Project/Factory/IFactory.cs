@@ -1,1 +1,1 @@
-﻿using UnityEngine;public interface IFactory {	public T Get<T>(T prefab) where T : Object;}
+﻿public interface IFactory {	public T Get<T>(string path) where T : UnityEngine.Object;	public T Get<T>(T prefab) where T : UnityEngine.Object;}

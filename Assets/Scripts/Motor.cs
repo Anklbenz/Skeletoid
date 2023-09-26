@@ -1,19 +1,22 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Motor : MonoBehaviour
-{
-    [SerializeField] protected float speed;
-    private Rigidbody _rigidBody;
+public class Motor : MonoBehaviour {
+	[SerializeField] protected float speed;
+	public bool isActive { get; set; } = true;
 
-    private void Awake() =>
-        _rigidBody = GetComponent<Rigidbody>();
+	private Rigidbody _rigidBody;
 
-    protected void Move(Vector3 direction) =>
-        _rigidBody.velocity = direction * speed;
+	private void Awake() =>
+			_rigidBody = GetComponent<Rigidbody>();
 
-    private void OnDrawGizmos() {
-        if (_rigidBody == null) return;
-        Gizmos.DrawRay(transform.position, _rigidBody.velocity);
-    }
+	protected void Move(Vector3 direction) {
+		if (isActive)
+			_rigidBody.velocity = direction * speed;
+	}
+
+	private void OnDrawGizmos() {
+		if (_rigidBody == null) return;
+		Gizmos.DrawRay(transform.position, _rigidBody.velocity);
+	}
 }
