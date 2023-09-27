@@ -13,6 +13,7 @@ public class Ball : Motor, IReflect {
 		direction = dir;
 	}
 	private void FixedUpdate() {
+		Debug.Log($"Direction{direction} Magnitude {direction.magnitude}");
 		Move(direction);
 	}
 
