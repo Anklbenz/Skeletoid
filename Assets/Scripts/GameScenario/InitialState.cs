@@ -1,41 +1,27 @@
 using System.Linq;
 
-public class InitialState : State
-{
-	private readonly IFactory _factory;
-	private readonly GameObjectsConfig _gameObjectsConfig;
-	private readonly CurrentGameplayData _currentGameplayData;
-
-	public InitialState(StateSwitcher stateSwitcher, GameObjectsConfig config, CurrentGameplayData currentGameplayData, IFactory factory) : base(stateSwitcher) {
-		_factory = factory;
-		_gameObjectsConfig = config;
-		_currentGameplayData = currentGameplayData;
+public class InitialState : State {
+	private readonly GameplaySystem _gameplaySystem;
+	private readonly ParticlesService _particlesService;
+	private CoinService _coinService;
+	
+	public InitialState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, ParticlesService particlesService, CoinService coinService) : base(stateSwitcher) {
+		_gameplaySystem = gameplaySystem;
+		_particlesService = particlesService;
+		_coinService = coinService;
 	}
 
 	public override void Enter() {
-		InitializeSceneObjects();
+		Initialize();
 		SwitchToGameplay();
 	}
-
-	private void InitializeSceneObjects() {
-		var map = _gameObjectsConfig.GetMapPrefab(0);
-		var levelInstance = _factory.Get<Level>(map.level);
-
-		var environmentInstance = _factory.Get<Environment>(map.environment);
-		var ballInstance = _factory.Get<Ball>(_gameObjectsConfig.ballPrefab);
-		var paddleInstance = _factory.Get<Paddle>(_gameObjectsConfig.paddlePrefab);
-
-		paddleInstance.transform.position = levelInstance.paddleOrigin.position;
-
-		_currentGameplayData.bricks = levelInstance.bricks.ToList();
-		_currentGameplayData.paddle = paddleInstance;
-		_currentGameplayData.ball = ballInstance;
-		_currentGameplayData.environment = environmentInstance;
-		_currentGameplayData.ballOrigin = paddleInstance.ballTransform;
-		_currentGameplayData.deadZone = levelInstance.deadZone;
+	private void Initialize() {
+		_gameplaySystem.Initialize();
+		_particlesService.Initialize();
+		_coinService.Initialize();
 	}
 
 	private void SwitchToGameplay() {
-		switcher.SetState<GameplayState>();
+		switcher.SetState<GameState>();
 	}
 }

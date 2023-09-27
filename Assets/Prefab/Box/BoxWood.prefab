@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1001 &2334700137152153010
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class ProjectInstaller : MonoInstaller
 	}
 
 	private void InstallProjectStorage() {
-		Container.Bind<ProjectDataStorage>().AsSingle();
+		Container.Bind<ProgressData>().AsSingle();
 	}
 
 	private void InstallSceneLoader() {
