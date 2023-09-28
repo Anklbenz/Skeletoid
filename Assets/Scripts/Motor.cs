@@ -11,9 +11,7 @@ public class Motor : MonoBehaviour {
 			_rigidBody = GetComponent<Rigidbody>();
 
 	protected void Move(Vector3 direction) {
-		if (!isActive) return;
-
-		_rigidBody.velocity = direction * speed;
+		_rigidBody.velocity = isActive ? direction * speed : Vector3.zero;
 	}
 
 	private void OnDrawGizmos() {

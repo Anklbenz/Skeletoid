@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 130ab8effea81954ca270c53b435a2bb, type: 3}
-  m_Name: GameplayUIConfig
+  m_Name: LoseConfig
   m_EditorClassIdentifier: 
   parentedCanvas: {fileID: 8177432040843257580, guid: 93b762d8ef369d0469cf166701c5868d, type: 3}
   loseView: {fileID: 1533238059338633861, guid: c4c60cb9fbfdf0d4891cbdb64bc8f1e6, type: 3}

@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &558672002171478835
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &628476680670607220
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &936502516697880716
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,6 +858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &1586585104282310537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,6 +1079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &2582006009315886737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,6 +1375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &3242415107645543061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,6 +1422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &3268090703016056391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &4443591271103558320
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,6 +2217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &5634462758768901338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2718,6 +2727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &6554328456430369928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2842,6 +2852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &7193512673553062475
 GameObject:
   m_ObjectHideFlags: 0
@@ -3003,6 +3014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &7390679335444150261
 GameObject:
   m_ObjectHideFlags: 0
@@ -3196,6 +3208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &7805972286881032271
 GameObject:
   m_ObjectHideFlags: 0
@@ -3402,6 +3415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 1, y: 2}
 --- !u!1 &8689990592695574438
 GameObject:
   m_ObjectHideFlags: 0

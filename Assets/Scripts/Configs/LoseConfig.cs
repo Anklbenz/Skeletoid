@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "GameplayUIConfig",menuName = "Configs/GameplayUIConfig")]
-public class ResultUiConfig : ScriptableObject {
+public class LoseConfig : ScriptableObject {
 	[SerializeField] private Canvas parentedCanvas;
 	[SerializeField] private LoseView loseView;
 	[SerializeField] private PauseView pauseView;

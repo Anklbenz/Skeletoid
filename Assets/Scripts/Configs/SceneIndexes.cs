@@ -2,9 +2,9 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "ScenesIndexes", menuName = "Configs/ScenesIndexesConfig")]
 public class SceneIndexes : ScriptableObject {
-	[SerializeField] private int levelSelectSceneIndex;
-	[SerializeField] private int coreSessionSceneIndex;
+	[SerializeField] private int mainMenuSceneIndex;
+	[SerializeField] private int gamePlaySceneIndex;
 
-	public int levelSelectIndex => levelSelectSceneIndex;
-	public int coreSessionIndex => coreSessionSceneIndex;
+	public int mainMenuIndex => mainMenuSceneIndex;
+	public int gamePlayIndex => gamePlaySceneIndex;
 }

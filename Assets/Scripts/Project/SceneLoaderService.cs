@@ -7,9 +7,9 @@ public class SceneLoaderService {
 		_indexes = indexes;
 	}
 
-	public void GoToLevelSelectScene() =>
-			SceneManager.LoadScene(_indexes.levelSelectIndex, LoadSceneMode.Single);
+	public void GoToMainMenuScene() =>
+			SceneManager.LoadScene(_indexes.mainMenuIndex, LoadSceneMode.Single);
 
 	public void GoToGameplayScene() =>
-			SceneManager.LoadScene(_indexes.coreSessionIndex, LoadSceneMode.Single);
+			SceneManager.LoadScene(_indexes.gamePlayIndex, LoadSceneMode.Single);
 }

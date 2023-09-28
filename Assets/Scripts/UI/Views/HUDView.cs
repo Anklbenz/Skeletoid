@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class HUDView : AnimatedView {
 	[SerializeField] private TMP_Text skullsCountText;
 	[SerializeField] private TMP_Text coinsCountText;
-	[SerializeField] private Button pauseButton;
+	[SerializeField] private Button pauseButton, muteButton;
 
 	public event Action PauseClickedEvent;
 

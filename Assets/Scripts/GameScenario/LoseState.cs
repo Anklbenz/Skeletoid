@@ -16,7 +16,7 @@ public class LoseState : State {
 	}
 
 	private void OnQuitSelected() =>
-			_sceneLoaderService.GoToLevelSelectScene();
+			_sceneLoaderService.GoToMainMenuScene();
 
 	private void OnRestartSelected() =>
 			_stateSwitcher.SetState<GameState>();

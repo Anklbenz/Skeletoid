@@ -9,9 +9,9 @@ public class Ball : Motor, IReflect {
 	public Action<Vector3> OnCollisionEvent;
 	public Vector3 direction { get; set; }
 
-	private void FixedUpdate() {
+	private void FixedUpdate() =>
 		Move(direction);
-	}
+	
 
 	private void OnCollisionEnter(Collision collision) {
 		OnCollisionEvent?.Invoke(collision.contacts[0].point);

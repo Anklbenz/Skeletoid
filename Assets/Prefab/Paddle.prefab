@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e956668a28e8f0649bcb94e1356b0a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 6
   ballParent: {fileID: 7942078375253538739}
   boxCollider: {fileID: 5874231671476026423}
 --- !u!54 &4379953654239011456

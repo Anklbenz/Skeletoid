@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd254a2a7cd25d44ab8396a1468ba8be, type: 3}
   m_Name: ScenesIndexes
   m_EditorClassIdentifier: 
-  levelSelectSceneIndex: 1
-  coreSessionSceneIndex: 1
+  mainMenuSceneIndex: 1
+  gamePlaySceneIndex: 2
