@@ -1,6 +1,24 @@
+public class LoseState : State {
 
-public class LoseState : State
-{
-    public LoseState(StateSwitcher stateSwitcher) : base(stateSwitcher) {
-    }
+	private readonly StateSwitcher _stateSwitcher;
+	private readonly LoseSystem _loseSystem;
+	private readonly SceneLoaderService _sceneLoaderService;
+
+	public LoseState(StateSwitcher stateSwitcher, LoseSystem loseSystem, SceneLoaderService sceneLoaderService) : base(stateSwitcher) {
+		_loseSystem = loseSystem;
+		_stateSwitcher = stateSwitcher;
+		_sceneLoaderService = sceneLoaderService;
+		_loseSystem.RestartEvent += OnRestartSelected;
+		_loseSystem.QuitEvent += OnQuitSelected;
+	}
+	public override void Enter() {
+		_loseSystem.OnLose();
+	}
+
+	private void OnQuitSelected() =>
+			_sceneLoaderService.GoToLevelSelectScene();
+
+	private void OnRestartSelected() =>
+			_stateSwitcher.SetState<GameState>();
+
 }

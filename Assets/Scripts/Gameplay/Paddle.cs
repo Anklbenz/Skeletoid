@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class Paddle : Motor{
+public class Paddle : Motor, IPaddle{
 	private const float MAX_REFLECT_ANGLE = 70;
 
 	[SerializeField] private Transform ballParent;
@@ -12,15 +12,11 @@ public class Paddle : Motor{
 	[Inject]
 	public void Constructor(IInput input) {
 		_input = input;
-		_input.Left += MoveLeft;
-		_input.Right += MoveRight;
+		_input.HorizontalAxisChangedEvent += Move;
 	}
 
-	private void MoveLeft() =>
-			Move(Vector3.left);
-
-	private void MoveRight() =>
-			Move(Vector3.right);
+	private void Move(float xValue) =>
+			Move(new Vector3(xValue,0,0));
 
 	private void OnCollisionEnter(Collision collision) {
 		var reflectInstance = collision.transform.GetComponent<IReflect>();
@@ -37,7 +33,7 @@ public class Paddle : Motor{
 		}
 
 		var dir = GetDirectionDependsOnLocalPaddleHitPoint(hitPoint);
-		reflectInstance.SetDirection(dir);
+		reflectInstance.direction= dir;
 	}
 
 	private Vector3 GetDirectionDependsOnLocalPaddleHitPoint(Vector3 collisionPoint) {

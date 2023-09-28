@@ -3,6 +3,7 @@ using Zenject;
 
 public class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameplayConfig gameplayConfig;
+	[SerializeField] private ResultUiConfig resultUiConfig;
 	[SerializeField] private ParticlesConfig particlesConfig;
 	[SerializeField] private CoinServiceConfig coinsConfig;
 	
@@ -11,10 +12,16 @@ public class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	   InstallGameplaySystem();
 		InstallParticlesService();
 		InstallCoinService();
+		InstallUISystem();
 		
 		InstallGameScenario();
 		InstallInitializeForThis();
 	}
+	private void InstallUISystem() {
+		Container.Bind<ResultUiConfig>().FromInstance(resultUiConfig).AsSingle();
+		Container.Bind<LoseSystem>().AsSingle();
+	}
+	
 	private void InstallCoinService() {
 		Container.Bind<CoinServiceConfig>().FromInstance(coinsConfig).AsSingle();
 		Container.Bind<CoinService>().AsSingle();
@@ -36,6 +43,7 @@ public class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<StateSwitcher>().AsSingle();
 		Container.Bind<InitialState>().AsSingle();
 		Container.Bind<GameState>().AsSingle();
+		Container.Bind<LoseState>().AsSingle();
 		Container.Bind<GameScenario>().AsSingle();
 	}
 	

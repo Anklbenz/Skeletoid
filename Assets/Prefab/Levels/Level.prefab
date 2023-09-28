@@ -434,7 +434,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paddleOrigin: {fileID: 3485753887810369030}
-  bricks: {fileID: 1360184363299281476}
+  bricks:
+  - {fileID: 0}
+  deadZone: {fileID: 0}
 --- !u!114 &7088902326873435249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,9 +449,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b981589f5d81b48811e7554a71e6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 10, y: 22}
-  offset: {x: 0, y: 0}
+  gameFieldSize: {x: 10, y: 22}
+  isGridVisible: 1
   gridColor: {r: 1, g: 0.7325909, b: 0, a: 1}
+  isWallsVisible: 1
+  wallsColor: {r: 1, g: 1, b: 1, a: 1}
+  isPaddleZoneVisible: 1
+  lineNumber: 3
+  paddleZoneColor: {r: 1, g: 1, b: 1, a: 1}
+  isDeadZoneVisible: 1
+  deadZoneLineNumber: 5
+  deadZoneColor: {r: 1, g: 1, b: 1, a: 1}
+  isHorizontalCenterLineVisible: 1
+  horizontalCenterLineColor: {r: 1, g: 1, b: 1, a: 1}
+  isVerticalCenterLineVisible: 1
+  verticalCenterLineColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1360184363154619355
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +505,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1360184363299281475}
-  - component: {fileID: 1360184363299281476}
   m_Layer: 0
   m_Name: Bricks
   m_TagString: Untagged
@@ -558,18 +571,6 @@ Transform:
   m_Father: {fileID: 1360184363094662344}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1360184363299281476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1360184363299281474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 099ca90ec1a9cfc479dbaa88a99d54b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1360184363313838518
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,6 +841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 1
+  scoreInterval: {x: 0, y: 0}
 --- !u!136 &1754196622903891005
 CapsuleCollider:
   m_ObjectHideFlags: 0

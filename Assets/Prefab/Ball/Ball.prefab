@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skull2
       objectReference: {fileID: 0}
+    - target: {fileID: 7188763822341759247, guid: 47930975c934f6640885ce35da15a61d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8825450667271997697, guid: 47930975c934f6640885ce35da15a61d, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130ab8effea81954ca270c53b435a2bb, type: 3}
+  m_Name: GameplayUIConfig
+  m_EditorClassIdentifier: 
+  parentedCanvas: {fileID: 8177432040843257580, guid: 93b762d8ef369d0469cf166701c5868d, type: 3}
+  loseView: {fileID: 1533238059338633861, guid: c4c60cb9fbfdf0d4891cbdb64bc8f1e6, type: 3}
+  pauseView: {fileID: 507204548490699162, guid: a9227b8c757ab394790df9815fd27235, type: 3}
+  winView: {fileID: 9142914961384569938, guid: 9e38c338b517566418209b119f82f212, type: 3}

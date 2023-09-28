@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 public class GameState : State {
 	private readonly IInput _input;
 	private readonly ParticlesService _particlesService;
@@ -10,19 +9,18 @@ public class GameState : State {
 
 	private CoinService _coinService;
 
-	public GameState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, ParticlesService particlesService,CoinService coinService, ProgressData progress, IInput input) : base(stateSwitcher) {
-		_stateSwitcher = stateSwitcher;
-		_progressData = progress;
+	public GameState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, ParticlesService particlesService, CoinService coinService, ProgressData progress, IInput input) : base(stateSwitcher) {
 		_input = input;
+		_progressData = progress;
+		_coinService = coinService;
+		_stateSwitcher = stateSwitcher;
 		_gameplaySystem = gameplaySystem;
 		_particlesService = particlesService;
 
-		_coinService = coinService;
-		
+		_gameplaySystem.DeadZoneReachedEvent += OnLoss;
 		_gameplaySystem.BallCollisionEvent += OnBallCollision;
 		_gameplaySystem.BrickDestroyedEvent += OnBrickDestroy;
 		_gameplaySystem.AllBricksDestroyedEvent += OnAllBrickDestroyed;
-		_gameplaySystem.DeadZoneReachedEvent += OnLoss;
 	}
 	public override void Enter() {
 		_input.Enabled = true;
@@ -32,15 +30,21 @@ public class GameState : State {
 	public override void Exit() {
 		_input.Enabled = false;
 	}
-	private void OnLoss() {
-		Debug.Log("GotoLoss");
-	}
+	
 	private void OnAllBrickDestroyed() {
 		Debug.Log("GotoWin");
 	}
-	private void OnBrickDestroy(Vector3 obj) {
-		_particlesService.PlayDestroy(obj);
-		_coinService.SpawnCoins(obj, 3);
+	
+	private void OnLoss() {
+		_stateSwitcher.SetState<LoseState>();
+	}
+
+	private void OnBrickDestroy(Brick brick) {
+		var destroyedBrickPosition = brick.transform.position;
+		_progressData.coins += brick.costs;
+
+		_particlesService.PlayDestroy(destroyedBrickPosition);
+		_coinService.SpawnCoins(destroyedBrickPosition, brick.costs);
 	}
 	private void OnBallCollision(Vector3 obj) {
 		_particlesService.PlayCollision(obj);

@@ -1,10 +1,11 @@
 public class GameScenario {
 	private readonly StateSwitcher _stateSwitcher;
 
-	public GameScenario(StateSwitcher stateSwitcher, InitialState initialState, GameState gameState){//GameObjectsConfig gameObjectsConfig, IInput input, IFactory factory) {
+	public GameScenario(StateSwitcher stateSwitcher, InitialState initialState, GameState gameState, LoseState loseState){
 		_stateSwitcher = stateSwitcher;
 		_stateSwitcher.AddState(initialState);
 		_stateSwitcher.AddState(gameState);
+		_stateSwitcher.AddState(loseState);
 	}
 
 	public void Start() {

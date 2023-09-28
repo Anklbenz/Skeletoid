@@ -1,1 +1,1 @@
-﻿using UnityEngine;public interface IFactory {	public T Get<T>(string path) where T : UnityEngine.Object;	public T Get<T>(T prefab, Transform parent = null, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion)) where T : UnityEngine.Object;}
+﻿using UnityEngine;public interface IFactory {	public T Create<T>(string path) where T : UnityEngine.Object;	public T Create<T>(T prefab, Transform parent = null, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion)) where T : UnityEngine.Object;}

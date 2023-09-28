@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameObjectsConfig", menuName = "Configs/GameObjectsConfig")]
+[CreateAssetMenu(fileName = "GameplayConfig", menuName = "Configs/GameplayConfig")]
 public class GameplayConfig : ScriptableObject {
 	[SerializeField] private Map[] map;
 	[SerializeField] private Ball ball;

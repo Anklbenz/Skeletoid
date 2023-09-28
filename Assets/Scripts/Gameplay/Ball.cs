@@ -3,33 +3,24 @@ using UnityEngine;
 
 public class Ball : Motor, IReflect {
 	[SerializeField] private int damage;
+	[Header("Reflect settings")]
 	[SerializeField] private float permissibleAngle, correctionStep;
+
 	public Action<Vector3> OnCollisionEvent;
+	public Vector3 direction { get; set; }
 
-	private Vector3 direction { get; set; }
-	//public float magnitude;
-
-	public void SetDirection(Vector3 dir) {
-		direction = dir;
-	}
 	private void FixedUpdate() {
-		Debug.Log($"Direction{direction} Magnitude {direction.magnitude}");
 		Move(direction);
 	}
 
 	private void OnCollisionEnter(Collision collision) {
 		OnCollisionEvent?.Invoke(collision.contacts[0].point);
 
-		var paddle = collision.transform.GetComponent<Paddle>();
-		if (paddle != null) return;
+		if (collision.transform.TryGetComponent<IPaddle>(out _))
+			return;
+
 		Reflect(collision.contacts[0].normal);
-
 		TryCauseDamage(collision.gameObject);
-	}
-
-	private void TryCauseDamage(GameObject collision) {
-		var damageable = collision.gameObject.GetComponentInParent<IDamageable>();
-		damageable?.Hit(damage);
 	}
 
 	public void Reflect(Vector3 hitNormal) {
@@ -39,11 +30,16 @@ public class Ball : Motor, IReflect {
 		var collisionAngle = Vector3.SignedAngle(-hitNormal, direction, Vector3.up);
 
 		if (Mathf.Abs(collisionAngle) < permissibleAngle) {
-			Debug.Log($"Correct {collisionAngle} ");
+			Debug.Log($"CollisionAngle {collisionAngle} Correct {collisionAngle} ");
 			direction = (Quaternion.AngleAxis(collisionAngle <= 0 ? -correctionStep : correctionStep, Vector3.up) * direction);
 		}
 
 		var direction2 = Vector2.Reflect(new Vector2(direction.x, direction.z), new Vector2(hitNormal.x, hitNormal.z));
 		direction = new Vector3(direction2.x, 0, direction2.y);
+	}
+
+	private void TryCauseDamage(GameObject collision) {
+		var damageable = collision.GetComponentInParent<IDamageable>();
+		damageable?.Hit(damage);
 	}
 }

@@ -1,4 +1,3 @@
-public interface IDamageable
-{
-    public void Hit(int damage);
+public interface IDamageable {
+	public void Hit(int damage);
 }

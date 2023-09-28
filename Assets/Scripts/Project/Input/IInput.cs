@@ -1,6 +1,7 @@
 using System;
 
 public interface IInput {
-	event Action Left, Right, Shot;
+	event Action<float> HorizontalAxisChangedEvent;
+	event Action  ShotEvent;
 	bool Enabled { get; set; }
 }

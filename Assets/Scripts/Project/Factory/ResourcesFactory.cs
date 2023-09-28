@@ -11,6 +11,6 @@ public class ResourcesFactory : IResourcesFactory{
 
 	public T Get<T>(string path) where T : MonoBehaviour {
 		var prefab = _loader.Load<T>(path);
-		return _factory.Get(prefab);
+		return _factory.Create(prefab);
 	}
 }
