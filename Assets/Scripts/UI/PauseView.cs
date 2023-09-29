@@ -1,11 +1,12 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PauseView : AnimatedView {
 	[SerializeField] private Button resumeButton, restartButton, quitButton;
-
-	public event Action RestartEvent, QuitEvent, ResumeEvent;
+	[SerializeField] private TMP_Text current;
+	public event Action ResumeEvent, RestartEvent, QuitEvent;
 
 	private void Awake() {
 		resumeButton.onClick.AddListener(OnResumeClick);

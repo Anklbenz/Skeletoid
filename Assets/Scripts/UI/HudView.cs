@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class HUDView : AnimatedView {
+public class HudView : AnimatedView {
 	[SerializeField] private TMP_Text skullsCountText;
 	[SerializeField] private TMP_Text coinsCountText;
 	[SerializeField] private Button pauseButton, muteButton;

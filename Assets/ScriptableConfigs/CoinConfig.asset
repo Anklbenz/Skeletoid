@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CoinConfig
   m_EditorClassIdentifier: 
   sphereRadius: 0.5
-  sphereOffset: {x: 0, y: 0.3, z: 0}
+  sphereOffset: {x: 0, y: 0.2, z: 0}
   coinPrefab: {fileID: 4279818372193215552, guid: 70fce0ffc4e9e2741a7d6286644b867b, type: 3}

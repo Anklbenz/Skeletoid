@@ -1,35 +1,40 @@
 using System.Linq;
 
 public class InitialState : State {
-	private readonly GameplaySystem _gameplaySystem;
+	private readonly UiFactory _uiFactory;
 	private readonly ParticlesService _particlesService;
-	private readonly CoinService _coinService;
+	private readonly FlyingCoinService _flyingCoinService;
 	private readonly LoseSystem _loseSystem;
 	private readonly WinSystem _winSystem;
-	
-	public InitialState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, LoseSystem loseSystem, WinSystem winSystem, ParticlesService particlesService, CoinService coinService) : base(stateSwitcher) {
-		_gameplaySystem = gameplaySystem;
+	private readonly HudSystem _hudSystem;
+
+	public InitialState(StateSwitcher stateSwitcher, UiFactory uiFactory,  LoseSystem loseSystem, WinSystem winSystem, HudSystem hudSystem, ParticlesService particlesService, FlyingCoinService flyingCoinService) : base(stateSwitcher) {
+		_uiFactory = uiFactory;
 		_particlesService = particlesService;
-		_coinService = coinService;
+		_flyingCoinService = flyingCoinService;
 		_loseSystem = loseSystem;
 		_winSystem = winSystem;
+		_hudSystem = hudSystem;
 	}
 
 	public override void Enter() {
 		Initialize();
-		SwitchToGameplay();
+		GotoLevelInitialize();
 	}
 	private void Initialize() {
+		_uiFactory.Initialize();
+		var loseView = _uiFactory.CreateLoseView();
+		_loseSystem.Initialize(loseView);
+		var winView = _uiFactory.CreateWinView();
+		_winSystem.Initialize(winView);
+		var hudView = _uiFactory.CreateHudView();
+		_hudSystem.Initialize(hudView);
 		
-		// Create canvas - distribute to others here
-		_gameplaySystem.Initialize();
 		_particlesService.Initialize();
-		_coinService.Initialize();
-		_loseSystem.Initialize();
-		_winSystem.Initialize();
+		_flyingCoinService.Initialize();
+      
 	}
-
-	private void SwitchToGameplay() {
-		switcher.SetState<GameState>();
+	private void GotoLevelInitialize() {
+		switcher.SetState<InitializeLevelState>();
 	}
 }

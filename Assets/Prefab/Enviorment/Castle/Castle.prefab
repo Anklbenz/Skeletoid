@@ -148,17 +148,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameFieldSize: {x: 10, y: 22}
   isGridVisible: 1
-  gridColor: {r: 1, g: 1, b: 1, a: 1}
+  gridColor: {r: 0.04543948, g: 1, b: 0, a: 1}
   isWallsVisible: 1
-  wallsColor: {r: 1, g: 1, b: 1, a: 1}
+  wallsColor: {r: 0, g: 0.9314892, b: 1, a: 0.05882353}
+  isFloorVisible: 1
+  floorColor: {r: 0.5550907, g: 0.990566, b: 0.9774936, a: 0.0627451}
   isPaddleZoneVisible: 1
   lineNumber: 3
   paddleZoneColor: {r: 1, g: 0.16391526, b: 0, a: 1}
   isDeadZoneVisible: 1
   deadZoneLineNumber: 5
-  deadZoneColor: {r: 1, g: 1, b: 1, a: 1}
+  deadZoneColor: {r: 0.6886792, g: 0.20400496, b: 0.4877578, a: 0.4392157}
   isHorizontalCenterLineVisible: 1
-  horizontalCenterLineColor: {r: 0.9716981, g: 0.44815856, b: 0.10450332, a: 1}
+  horizontalCenterLineColor: {r: 0.9716981, g: 0.44815856, b: 0.10450332, a: 0.3254902}
   isVerticalCenterLineVisible: 1
   verticalCenterLineColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &4663298730070374795
@@ -465,7 +467,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8826672461899516359}
-  - component: {fileID: 8826672461899516362}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -489,19 +490,6 @@ Transform:
   m_Father: {fileID: 8826672461503233845}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8826672461899516362
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8826672461899516363}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5.05, y: 0.1, z: 10.986077}
-  m_Center: {x: 0, y: 0, z: -0.6934533}
 --- !u!1 &8826672462095676820
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +535,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.9581652, b: 0.7882353, a: 1}
-  m_Intensity: 0.4
+  m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -626,7 +614,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8826672462098047003}
-  - component: {fileID: 8826672462098047006}
   m_Layer: 0
   m_Name: Forward
   m_TagString: Untagged
@@ -651,19 +638,6 @@ Transform:
   m_Father: {fileID: 8748494829313630090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!65 &8826672462098047006
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8826672462098047007}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.5, z: 5.004351}
-  m_Center: {x: -7.845918e-16, y: 0, z: -0.18021071}
 --- !u!1 &8826672462622175633
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +647,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8826672462622175632}
-  - component: {fileID: 8826672462622175635}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -699,19 +672,6 @@ Transform:
   m_Father: {fileID: 8748494829313630090}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8826672462622175635
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8826672462622175633}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.5, z: 10.512661}
-  m_Center: {x: 0, y: 0, z: 0.033319235}
 --- !u!1 &8826672462835735269
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,7 +748,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8826672463170459742}
-  - component: {fileID: 8826672463170459741}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -814,19 +773,6 @@ Transform:
   m_Father: {fileID: 8748494829313630090}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8826672463170459741
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8826672463170459714}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.5, z: 10.49932}
-  m_Center: {x: 0, y: 0, z: -0.14632463}
 --- !u!1 &8826672463233206537
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,7 @@
 using UnityEngine;
 
 [ExecuteAlways]
-public class GizmosDrawer : MonoBehaviour
-{
+public class GizmosDrawer : MonoBehaviour {
 	private const float STEP = 0.5f;
 
 	[SerializeField] private Vector2Int gameFieldSize = new Vector2Int(10, 22);
@@ -12,6 +11,9 @@ public class GizmosDrawer : MonoBehaviour
 
 	[Header("Walls")] [SerializeField] private bool isWallsVisible = true;
 	[SerializeField] private Color wallsColor = Color.white;
+
+	[Header("Floor")] [SerializeField] private bool isFloorVisible = true;
+	[SerializeField] private Color floorColor = Color.white;
 
 	[Header("PaddleZone")] [SerializeField]
 	private bool isPaddleZoneVisible = true;
@@ -31,14 +33,24 @@ public class GizmosDrawer : MonoBehaviour
 
 	[SerializeField] private Color verticalCenterLineColor = Color.white;
 
-	public Vector3 paddleCenter => new Vector3(0, 0, (float)-lineNumber/2 - STEP / 2);
-	public Vector3 deadZoneCenter => new Vector3(0, STEP/2, (float)-deadZoneLineNumber/2 - STEP / 2);
-	public Vector3 deadZoneSize => new Vector3(realSize.x, STEP, STEP);
+	public Vector3 paddleCenter => new(0, 0, (float)-lineNumber / 2 - STEP / 2);
+	public Vector3 deadZoneCenter => new(0, STEP / 2, (float)-deadZoneLineNumber / 2 - STEP / 2);
+	public Vector3 leftWallCenter => new(-realSize.x / 2 - STEP / 2, STEP / 2, 0);
+	public Vector3 rightWallCenter => new(realSize.x / 2 + STEP / 2, STEP / 2, 0);
+	public Vector3 frontWallCenter => new(0, STEP / 2, realSize.z / 2 + STEP / 2);
+	public Vector3 floorCenter => new(0, -STEP / 2, 0);
+	public Vector3 wallSizeFront => new(realSize.x, STEP, STEP);
+	public Vector3 wallSizeSides => new(STEP, STEP, realSize.z);
+	public Vector3 floorSize => new(realSize.x, STEP, realSize.z);
+
 
 	private Vector3 realSize => new Vector3(gameFieldSize.x, 0, gameFieldSize.y) * STEP;
 	private Vector3 sizeExtends => new Vector3(gameFieldSize.x, 0, gameFieldSize.y) / 2;
-	
+
 	private void OnDrawGizmos() {
+		if (isFloorVisible)
+			DrawFloor();
+
 		if (isGridVisible)
 			DrawGrid();
 
@@ -81,14 +93,19 @@ public class GizmosDrawer : MonoBehaviour
 
 	private void DrawDeadZone() {
 		Gizmos.color = deadZoneColor;
-		Gizmos.DrawCube(deadZoneCenter, deadZoneSize);
+		Gizmos.DrawCube(deadZoneCenter, wallSizeFront);
 	}
 
 	private void DrawWalls() {
 		Gizmos.color = wallsColor;
-		Gizmos.DrawCube(new Vector3(-realSize.x / 2 - STEP / 2, STEP / 2, 0), new Vector3(STEP, STEP, realSize.z));
-		Gizmos.DrawCube(new Vector3(+realSize.x / 2 + STEP / 2, STEP / 2, 0), new Vector3(STEP, STEP, realSize.z));
-		Gizmos.DrawCube(new Vector3(0, STEP / 2, realSize.z / 2 + STEP / 2), new Vector3(realSize.x, STEP, STEP));
+		Gizmos.DrawCube(leftWallCenter, wallSizeSides);
+		Gizmos.DrawCube(rightWallCenter, wallSizeSides);
+		Gizmos.DrawCube(frontWallCenter, wallSizeFront);
+	}
+
+	private void DrawFloor() {
+		Gizmos.color = floorColor;
+		Gizmos.DrawCube(floorCenter, floorSize);
 	}
 
 	private void DrawGrid() {

@@ -12,7 +12,6 @@ public class Ball : Motor, IReflect {
 	private void FixedUpdate() =>
 		Move(direction);
 	
-
 	private void OnCollisionEnter(Collision collision) {
 		OnCollisionEvent?.Invoke(collision.contacts[0].point);
 

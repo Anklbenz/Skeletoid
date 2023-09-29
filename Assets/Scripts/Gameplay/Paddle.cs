@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -45,6 +46,10 @@ public class Paddle : Motor, IPaddle{
 		var angle = Mathf.Lerp(-MAX_REFLECT_ANGLE, MAX_REFLECT_ANGLE, lerpX);
 
 		return (Quaternion.AngleAxis(angle, Vector3.up) * transform.forward);
+	}
+
+	public void OnDestroy() {
+		_input.HorizontalAxisChangedEvent -= Move;
 	}
 }
 

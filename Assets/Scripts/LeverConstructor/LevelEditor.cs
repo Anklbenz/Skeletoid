@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,12 +11,12 @@ public class LevelEditor : MonoBehaviour
 
 	public void CreatePrefab() {
 		var localPath = AssetDatabase.GenerateUniqueAssetPath($"{path}{fileName}{fileExtension}");
-		var prefab = BuildGameObject();
+		var prefab = BuildMapObject();
 		PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, localPath, InteractionMode.UserAction);
 		DestroyImmediate(prefab);
 	}
 
-	private GameObject BuildGameObject() {
+	private GameObject BuildMapObject() {
 		var container = new GameObject(fileName);
 		var level = container.AddComponent<Level>();
 
@@ -29,20 +28,30 @@ public class LevelEditor : MonoBehaviour
 
 		level.paddleOrigin = AddPaddleOriginToContainer(container.transform);
 		level.deadZone = CreateDeadZone(container.transform);
+		CreateWallsAndFloorColliders(container.transform);
 		return container;
 	}
 
 	private DeadZone CreateDeadZone(Transform transformParent) {
-		var deadZone = new GameObject("DeadZone");
-		
-		var boxCollider = deadZone.AddComponent<BoxCollider>();
-		boxCollider.isTrigger = true;
-		
-		deadZone.transform.position = gizmosDrawer.deadZoneCenter;
-		deadZone.transform.localScale = gizmosDrawer.deadZoneSize;
-		deadZone.transform.SetParent(transformParent);
-
+		var deadZone = CreateBoxColliderObject(gizmosDrawer.deadZoneCenter, gizmosDrawer.wallSizeFront, transformParent, true, "DeadZone");
 		return deadZone.AddComponent<DeadZone>();
+	}
+
+	private void CreateWallsAndFloorColliders(Transform transformParent) {
+		CreateBoxColliderObject(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
+		CreateBoxColliderObject(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
+		CreateBoxColliderObject(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
+		CreateBoxColliderObject(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
+	}
+
+	private GameObject CreateBoxColliderObject(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object" ) {
+		var box = new GameObject(objName);
+		var boxCollider = box.AddComponent<BoxCollider>();
+		boxCollider.isTrigger = isTrigger;
+		box.transform.position = position;
+		box.transform.localScale = size;
+		box.transform.SetParent(parentTransform);
+		return box;
 	}
 
 	private Transform AddPaddleOriginToContainer(Transform container) {

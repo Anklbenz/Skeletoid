@@ -2,14 +2,14 @@ using Zenject;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class CoinService : IFixedTickable {
+public class FlyingCoinService : IFixedTickable {
 	private const string COINS_PARENT = "CoinsParent";
 	private readonly CoinServiceConfig _coinServiceConfig;
 	private readonly List<GameObject> _coins = new();
 	private PoolObjects<Coin> _coinsPool;
 	private GameObject _coinsParent;
 
-	public CoinService(CoinServiceConfig gameObjectsConfig) {
+	public FlyingCoinService(CoinServiceConfig gameObjectsConfig) {
 		_coinServiceConfig = gameObjectsConfig;
 	}
 	public void Initialize() {
