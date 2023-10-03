@@ -16,7 +16,10 @@ public class LevelFactory {
 		var map = _factory.Create<Level>(mapPrefab.levelPrefab);
 		map.environment = _factory.Create<Environment>(mapPrefab.environmentPrefab, map.transform);
 		map.paddle = _factory.Create<Paddle>(_config.paddlePrefab, map.transform, map.paddleOrigin.position);
+		map.paddle.speed = _config.paddleSpeed;
 		map.ball = _factory.Create<Ball>(_config.ballPrefab, map.transform);
+		map.ball.speed = _config.ballSpeed;
+		map.ball.damage = _config.skullDamage;
 		return map;
 	}
 }

@@ -1,17 +1,22 @@
 using System;
 using UnityEngine;
 
-public class Ball : Motor, IReflect {
-	[SerializeField] private int damage;
-	[Header("Reflect settings")]
-	[SerializeField] private float permissibleAngle, correctionStep;
+public class Ball : Motor, IReflect
+{
 
-	public Action<Vector3> OnCollisionEvent;
+	[Header("Reflect settings")] [SerializeField]
+	private float permissibleAngle, correctionStep;
+	public event Action<Vector3> OnCollisionEvent;
+	public bool isActive { get; set; } = true;
+	public int damage { get; set; }
+
 	public Vector3 direction { get; set; }
 
-	private void FixedUpdate() =>
+	private void FixedUpdate() {
+		if (!isActive) return;
 		Move(direction);
-	
+	}
+
 	private void OnCollisionEnter(Collision collision) {
 		OnCollisionEvent?.Invoke(collision.contacts[0].point);
 

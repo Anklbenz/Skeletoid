@@ -16,9 +16,9 @@ public class InitializeLevelState : State {
 
 	private void SetNewLevel() {
 		var worldIndex = _progressData.worldNumber;
-		var levelIndex = _progressData.levelsHolder.current;
+		var levelIndex = _progressData.levelsHolder.currentIndex;
 		var level = _levelFactory.CreateLevel(worldIndex, levelIndex);
-		_gameplaySystem.InitializeNewLevel(level);
+		_gameplaySystem.SetNewLevel(level);
 	}
 
 	private void GotoGameplayState() {

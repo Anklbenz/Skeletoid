@@ -18,6 +18,7 @@ public class WinSystem {
 	}
 
 	public void OnWin() {
+		_view.SetCurrentLevelNumber(_progressData.levelsHolder.current, _progressData.levelsHolder.levelsCount);
 		_view.SetCoinsCount(_progressData.currentCoins.count);
 		_view.Open();
 	}

@@ -12,18 +12,20 @@ public class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallDiFactory();
 		InstallUiFactory();
 		InstallLevelFactory();
+		Container.Bind<PauseUiSystem>().AsSingle();
+		Container.Bind<PauseHandler>().AsSingle();
 		InstallGameplaySystem();
 		InstallLoseSystem();
 		InstallWinSystem();
 		InstallHudSystem();
 		InstallParticlesService();
-		InstallCoinService();
+		InstallFlyingCoinService();
 		InstallGameScenario();
 		InstallInitializeForThis();
 		
 	}
 	private void InstallHudSystem() =>
-			Container.Bind<HudSystem>().AsSingle();
+			Container.BindInterfacesAndSelfTo<HudSystem>().AsSingle();
 
 	private void InstallLevelFactory() {
 		Container.Bind<GameplayConfig>().FromInstance(gameplayConfig).AsSingle();
@@ -43,9 +45,9 @@ public class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	private void InstallWinSystem() =>
 			Container.Bind<WinSystem>().AsSingle();
 
-	private void InstallCoinService() {
+	private void InstallFlyingCoinService() {
 		Container.Bind<CoinServiceConfig>().FromInstance(coinsConfig).AsSingle();
-		Container.Bind<FlyingCoinService>().AsSingle();
+		Container.BindInterfacesAndSelfTo<FlyingCoinService>().AsSingle();
 	}
 
 	private void InstallGameplaySystem() =>
@@ -63,6 +65,7 @@ public class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<StateSwitcher>().AsSingle();
 		Container.Bind<InitialState>().AsSingle();
 		Container.Bind<InitializeLevelState>().AsSingle();
+		Container.Bind<PauseState>().AsSingle();
 		Container.Bind<GameState>().AsSingle();
 		Container.Bind<LoseState>().AsSingle();
 		Container.Bind<WinState>().AsSingle();

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b3f740bb95d644fa8b2dc5a567f8a3, type: 3}
   m_Name: CoinConfig
   m_EditorClassIdentifier: 
-  sphereRadius: 0.5
-  sphereOffset: {x: 0, y: 0.2, z: 0}
+  sphereRadius: 0.2
+  sphereOffset: {x: 0, y: 0.3, z: 0}
+  delayBeforeStartMovingMinMax: {x: 0, y: 1200}
   coinPrefab: {fileID: 4279818372193215552, guid: 70fce0ffc4e9e2741a7d6286644b867b, type: 3}
+  speed: 0.1

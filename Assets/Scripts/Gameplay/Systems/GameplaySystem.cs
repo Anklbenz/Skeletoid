@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
 
-public class GameplaySystem {
+public class GameplaySystem : IPauseSensitive
+{
 	public event Action<Vector3> BallCollisionEvent;
 	public event Action<Brick> BrickDestroyedEvent;
 	public event Action AllBricksDestroyedEvent, DeadZoneReachedEvent;
 
+	public bool isPlaying { get; private set; }
 	private readonly IInput _input;
 	private Level _level;
 
@@ -13,12 +15,12 @@ public class GameplaySystem {
 		_input = input;
 	}
 
-	public void InitializeNewLevel(Level level) {
+	public void SetNewLevel(Level level) {
 		if (_level != null)
 			RemovePreviousLevel();
-	
+
 		_level = level;
-		GetReady();
+		Restart();
 		SubscribeLevelEvents();
 		SubscribeInput();
 	}
@@ -27,26 +29,33 @@ public class GameplaySystem {
 		UnSubscribeLevelEvents();
 		UnityEngine.Object.Destroy(_level.gameObject);
 	}
-	
-	public void Start() {
+
+	public void Throw() {
+		if (isPlaying) return;
+		isPlaying = true;
+
 		_level.ball.isActive = true;
 		_level.ball.direction = new Vector3(0, 0, 1f);
 	}
 
-	public void Stop() {
+	public void Restart() {
+		isPlaying = false;
 		_level.ball.isActive = false;
-	}
-
-	public void GetReady() {
-		Stop();
 		_level.SetBallToDefaultPosition();
 	}
 
-	private void OnDeadZoneReached() =>
-			DeadZoneReachedEvent?.Invoke();
+	public void SetPause(bool isPaused) {
+		_level.paddle.SetPause(isPaused);
+		_level.ball.SetPause(isPaused);
+	}
+
+	private void OnDeadZoneReached() {
+		DeadZoneReachedEvent?.Invoke();
+		isPlaying = false;
+	}
 
 	private void OnBallHit(Vector3 hitPosition) =>
-			BallCollisionEvent?.Invoke(hitPosition);
+		BallCollisionEvent?.Invoke(hitPosition);
 
 	private void OnBrickNoLivesLeft(Brick sender) {
 		BrickDestroyedEvent?.Invoke(sender);
@@ -63,7 +72,7 @@ public class GameplaySystem {
 	}
 
 	private void SubscribeInput() =>
-			_input.ShotEvent += Start;
+		_input.ShotEvent += Throw;
 
 	private void SubscribeLevelEvents() {
 		foreach (var brick in _level.bricks)
@@ -72,7 +81,7 @@ public class GameplaySystem {
 		_level.deadZone.DeadZoneReachedEvent += OnDeadZoneReached;
 		_level.ball.OnCollisionEvent += OnBallHit;
 	}
-	
+
 	private void UnSubscribeLevelEvents() {
 		foreach (var brick in _level.bricks)
 			brick.NoLivesLeft -= OnBrickNoLivesLeft;

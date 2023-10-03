@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worlds:
   - levels:
-    - levelPrefab: {fileID: 7939480641152802701, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
+    - levelPrefab: {fileID: 8062712725105195253, guid: 5112efc9f0d610243a75a4c6af471468, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
-    - levelPrefab: {fileID: 9002794295437404053, guid: 5112efc9f0d610243a75a4c6af471468, type: 3}
+    - levelPrefab: {fileID: 4940714798097036837, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: FirstJourney
   - levels:
-    - levelPrefab: {fileID: 7939480641152802701, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
+    - levelPrefab: {fileID: 4940714798097036837, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     - levelPrefab: {fileID: 9002794295437404053, guid: 5112efc9f0d610243a75a4c6af471468, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: SecondJourney
   ball: {fileID: 6919904815795975566, guid: 8abbce41e8e4e944b8c2f9adc34ea5ad, type: 3}
+  damage: 1
+  skullStartSpeed: 3
   paddle: {fileID: 4379953654239011457, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}
+  paddleStartSpeed: 4

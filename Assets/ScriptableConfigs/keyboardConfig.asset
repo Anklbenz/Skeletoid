@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec769b4d795702440a154b6ab6cfd5d7, type: 3}
-  m_Name: KeyboardConfig
+  m_Name: keyboardConfig
   m_EditorClassIdentifier: 
   left: 276
   leftExtra: 97

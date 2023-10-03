@@ -5,6 +5,8 @@ using Zenject;
 public class Paddle : Motor, IPaddle{
 	private const float MAX_REFLECT_ANGLE = 70;
 
+	public event Action<float> OnMoveEvent;
+	
 	[SerializeField] private Transform ballParent;
 	[SerializeField] private BoxCollider boxCollider;
 	public Transform ballTransform => ballParent;
@@ -16,8 +18,10 @@ public class Paddle : Motor, IPaddle{
 		_input.HorizontalAxisChangedEvent += Move;
 	}
 
-	private void Move(float xValue) =>
-			Move(new Vector3(xValue,0,0));
+	private void Move(float xValue) {
+		Move(new Vector3(xValue, 0, 0));
+		OnMoveEvent?.Invoke(xValue);
+	}
 
 	private void OnCollisionEnter(Collision collision) {
 		var reflectInstance = collision.transform.GetComponent<IReflect>();
@@ -52,5 +56,3 @@ public class Paddle : Motor, IPaddle{
 		_input.HorizontalAxisChangedEvent -= Move;
 	}
 }
-
-//Debug.Log($"Angle {angle}, minX {colliderMinX} maxX {colliderMaxX} hitX {hitPointLocal.x}");
