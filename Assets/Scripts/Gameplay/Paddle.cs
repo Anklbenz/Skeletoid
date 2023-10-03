@@ -1,8 +1,9 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
-public class Paddle : Motor, IPaddle{
+public sealed class Paddle : Motor, IPaddle{
 	private const float MAX_REFLECT_ANGLE = 70;
 
 	public event Action<float> OnMoveEvent;
@@ -24,8 +25,7 @@ public class Paddle : Motor, IPaddle{
 	}
 
 	private void OnCollisionEnter(Collision collision) {
-		var reflectInstance = collision.transform.GetComponent<IReflect>();
-		if (reflectInstance is null) return;
+		if (!collision.transform.TryGetComponent<IReflect>(out var reflectInstance)) return;
 
 		var hitPoint = collision.contacts[0].point;
 		var normal = collision.contacts[0].normal;
@@ -38,7 +38,7 @@ public class Paddle : Motor, IPaddle{
 		}
 
 		var dir = GetDirectionDependsOnLocalPaddleHitPoint(hitPoint);
-		reflectInstance.direction= dir;
+		reflectInstance.direction = dir;
 	}
 
 	private Vector3 GetDirectionDependsOnLocalPaddleHitPoint(Vector3 collisionPoint) {

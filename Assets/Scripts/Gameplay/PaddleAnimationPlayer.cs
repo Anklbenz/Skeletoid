@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PaddleAnimationPlayer : MonoBehaviour
+public sealed class PaddleAnimationPlayer : MonoBehaviour
 {
     private const string ANIMATOR_KEY = "Direction";
     private static readonly int ANIMATION_HASH = Animator.StringToHash(ANIMATOR_KEY);

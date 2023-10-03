@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class GameState : State
+public sealed class GameState : State
 {
 	private const int DELAY_WIN_SYSTEM_ENABLE = 300;
 

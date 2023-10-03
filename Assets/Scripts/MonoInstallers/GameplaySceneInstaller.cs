@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class GameplaySceneInstaller : MonoInstaller, IInitializable {
+public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameplayConfig gameplayConfig;
 	[SerializeField] private UiFactoryConfig uiFactoryConfig;
 	[SerializeField] private ParticlesConfig particlesConfig;

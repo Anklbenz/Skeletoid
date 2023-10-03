@@ -1,5 +1,5 @@
 using System;
-public class LevelFactory {
+public sealed class LevelFactory {
 	private readonly IFactory _factory;
 	private readonly GameplayConfig _config;
 

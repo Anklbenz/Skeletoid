@@ -35,7 +35,7 @@ public class GameplaySystem : IPauseSensitive
 		isPlaying = true;
 
 		_level.ball.isActive = true;
-		_level.ball.direction = new Vector3(0, 0, 1f);
+		_level.ball.direction = new Vector3(-0.3f, 0, -0.7f);
 	}
 
 	public void Restart() {

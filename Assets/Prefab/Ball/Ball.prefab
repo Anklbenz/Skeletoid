@@ -77,8 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342636a6bbeb84e40b36fb4b4012799b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  damage: 1
   permissibleAngle: 20
   correctionStep: 2
 --- !u!1001 &6919904816019215539
