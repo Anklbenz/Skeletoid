@@ -1,4 +1,6 @@
 using System;
+using UnityEngine;
+
 public sealed class LevelFactory {
 	private readonly IFactory _factory;
 	private readonly GameplayConfig _config;
@@ -15,8 +17,11 @@ public sealed class LevelFactory {
 		var mapPrefab = _config.GetLevelPrefab(wordIndex, levelIndex);
 		var map = _factory.Create<Level>(mapPrefab.levelPrefab);
 		map.environment = _factory.Create<Environment>(mapPrefab.environmentPrefab, map.transform);
+	
 		map.player = _factory.Create<Player>(_config.playerPrefab, map.transform, map.paddleOrigin.position);
-		map.player.speed = _config.paddleSpeed;
+		map.player.maxSpeed = _config.paddleSpeed;
+		map.player.accelerationStep = _config.paddleAcceleration;
+		
 		map.ball = _factory.Create<Ball>(_config.ballPrefab, map.transform);
 		map.ball.speed = _config.ballSpeed;
 		map.ball.damage = _config.skullDamage;

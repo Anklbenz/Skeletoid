@@ -7,14 +7,13 @@ public sealed class Player : MonoBehaviour, IPauseSensitive
 	[SerializeField] private Rigidbody paddleRigidbody;
 	[SerializeField] private PaddleAnimationPlayer paddleAnimationPlayer;
 	public Transform ballTransform => ballParent;
-	public float speed { get; set; }
+	public float maxSpeed { get; set; }
+	public float accelerationStep { get; set; }
+
 	private IInput _input;
-	private Vector3 _moveVector;
 	private bool _isActive = true;
-	private float _speed;
-	private float step = 0.5f;
-	private Vector3 vel = new Vector3();
-	private float inp;
+	private float _currentSpeed;
+	private Vector3 _moveVector, _velocityVector;
 
 	[Inject]
 	public void Constructor(IInput input) {
@@ -22,10 +21,8 @@ public sealed class Player : MonoBehaviour, IPauseSensitive
 		_input.HorizontalAxisChangedEvent += SetHorizontalAxisValue;
 	}
 
-	private void SetHorizontalAxisValue(float xValue) {
+	private void SetHorizontalAxisValue(float xValue) =>
 		_moveVector = new Vector3(xValue, 0, 0);
-		inp = xValue;
-	}
 
 	public void SetPause(bool isPaused) =>
 		_isActive = isPaused;
@@ -33,24 +30,27 @@ public sealed class Player : MonoBehaviour, IPauseSensitive
 	public void FixedUpdate() {
 		if (!_isActive) return;
 
-		if (inp > 0)
-			vel.x = Mathf.Abs(vel.x) < speed ? vel.x + step : vel.x;
-		else if (inp < 0)
-			vel.x = Mathf.Abs(vel.x) < speed ? vel.x - step : vel.x;
-		else if (inp == 0) {
-			if (vel.x < 0)
-				vel.x += step;
-			else if (vel.x > 0)
-				vel.x -= step;
-			else if (vel.x-step<0.2f) {
-				vel.x = 0;
-			}
-		}
-
-		var velocity = vel;
-		paddleRigidbody.velocity = velocity;
-		paddleAnimationPlayer.MoveDirection(velocity.x);
+		InertialMove();
+		AnimateCharacter();
 	}
+
+	private void InertialMove() {
+		// if move vector changed, but !=0 remember _velocityVector
+		if (_velocityVector != _moveVector && _moveVector != Vector3.zero)
+			_velocityVector = _moveVector;
+
+		//if _moveVector == 0 braking slowly until speed >0 , else accelerate slowly until _speed< maxPaddleSpeed => change slowly _speed variable
+		if (_moveVector.x == 0)
+			_currentSpeed = _currentSpeed > 0 ? _currentSpeed - accelerationStep : 0;
+		else
+			_currentSpeed = _currentSpeed < maxSpeed ? _currentSpeed + accelerationStep : maxSpeed;
+
+		//_velocityVector always != 0, but _speed can be == 0
+		paddleRigidbody.velocity = _velocityVector * _currentSpeed;
+	}
+
+	private void AnimateCharacter() =>
+		paddleAnimationPlayer.MoveDirection(paddleRigidbody.velocity.x);
 
 	public void OnDestroy() =>
 		_input.HorizontalAxisChangedEvent -= SetHorizontalAxisValue;

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worlds:
   - levels:
-    - levelPrefab: {fileID: 7143912005538653439, guid: d296798f5612ca54e9b1daeccb4760c3, type: 3}
+    - levelPrefab: {fileID: 4592159007106067349, guid: 5112efc9f0d610243a75a4c6af471468, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
-    - levelPrefab: {fileID: 4940714798097036837, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
+    - levelPrefab: {fileID: 3266273978458800278, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: FirstJourney
   - levels:
@@ -29,4 +29,6 @@ MonoBehaviour:
   damage: 1
   skullStartSpeed: 3
   player: {fileID: 4379953654239011457, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}
-  paddleStartSpeed: 4
+  paddleMaxSpeed: 4
+  paddleAccelerationStep: 0.4
+  ballLauncher: {fileID: 7447899090013000168, guid: d93c7b5d7a529c0478e3bffb17b5fe15, type: 3}

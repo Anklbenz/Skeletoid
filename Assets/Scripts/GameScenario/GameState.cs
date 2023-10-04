@@ -49,7 +49,6 @@ public sealed class GameState : State
 	
 		_hudSystem.SetActive(true);
 		RefreshHudValues();
-		
 	}
 
 	public override void Exit() {

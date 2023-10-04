@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Brick : MonoBehaviour, IDamageable, ICost
+public sealed class Brick : MonoBehaviour, IDamageable, ICost
 {
-	[SerializeField] protected int hitPoints;
-	[SerializeField] protected Vector2Int scoreInterval;
+	[SerializeField] private int hitPoints;
+	[SerializeField] private Vector2Int scoreInterval;
 	public event Action<Brick> NoLivesLeft;
 	public event Action<Vector3> HitEvent;
 	public int costs => Random.Range(scoreInterval.x, scoreInterval.y + 1);

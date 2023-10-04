@@ -1,1 +1,1 @@
-public interface IPaddle {	}
+using UnityEngine;public interface IPaddle{	public bool CouldSpecialReflectionBePerformed(Vector3 hitPoint, Vector3 hitNormal);	public Vector3 GetDirectionDependsOnLocalPaddleHitPoint(Vector3 collisionPoint);}

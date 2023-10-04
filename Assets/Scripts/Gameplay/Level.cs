@@ -2,10 +2,11 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class Level : MonoBehaviour {
-	public int chestsCount => bricks.Count;
+	public int brickCount => bricks.Count;
 
 	public Ball ball;
 	public Player player;
+	public BallLauncher ballLauncher;
 	public List<Brick> bricks = new();
 	public DeadZone deadZone;
 

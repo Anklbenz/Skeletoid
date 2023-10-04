@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GameplaySystem : IPauseSensitive
+public sealed class GameplaySystem : IPauseSensitive
 {
 	public event Action<Vector3> BallCollisionEvent;
 	public event Action<Brick> BrickDestroyedEvent;
@@ -34,8 +34,10 @@ public class GameplaySystem : IPauseSensitive
 		if (isPlaying) return;
 		isPlaying = true;
 
-		_level.ball.isActive = true;
-		_level.ball.direction = new Vector3(0, 0, 1f);
+	//	_level.ball.isActive = true;
+	var d = _level.player.gameObject.GetComponent<Paddle>();
+	var dir = d.GetDirectionDependsOnLocalPaddleHitPoint(_level.ball.transform.position);
+		_level.ball.Throw(dir);
 	}
 
 	public void Restart() {
@@ -61,7 +63,7 @@ public class GameplaySystem : IPauseSensitive
 		BrickDestroyedEvent?.Invoke(sender);
 		DestroyAndUnsubscribeBrick(sender);
 
-		if (_level.bricks.Count <= 0)
+		if (_level.brickCount <= 0)
 			AllBricksDestroyedEvent?.Invoke();
 	}
 

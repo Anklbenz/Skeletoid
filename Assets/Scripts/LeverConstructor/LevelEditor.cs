@@ -40,13 +40,18 @@ public class LevelEditor : MonoBehaviour
 
 	private void CreateWallsAndFloorColliders(Transform transformParent) {
 		var leftWall =CreateBoxColliderObject(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
-		leftWall.AddComponent<Wall>();
+		leftWall.isStatic = true;
+		var rigidBody = leftWall.AddComponent<Rigidbody>();
+		rigidBody.useGravity = false;
+		rigidBody.isKinematic = true;
+		
 		var rightWall =CreateBoxColliderObject(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
-		rightWall.AddComponent<Wall>();
+        rigidBody = rightWall.AddComponent<Rigidbody>();
+        rigidBody.useGravity = false;
+        rigidBody.isKinematic = true;
+        
 		var frontWall = CreateBoxColliderObject(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
-		//frontWall.AddComponent<Reflector>();
 		var floor = CreateBoxColliderObject(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
-	//	floor.AddComponent<Floor>();
 	}
 
 	private GameObject CreateBoxColliderObject(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object" ) {
