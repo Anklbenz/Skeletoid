@@ -5,7 +5,7 @@ public class Level : MonoBehaviour {
 	public int chestsCount => bricks.Count;
 
 	public Ball ball;
-	public Paddle paddle;
+	public Player player;
 	public List<Brick> bricks = new();
 	public DeadZone deadZone;
 
@@ -13,7 +13,7 @@ public class Level : MonoBehaviour {
 	public Transform paddleOrigin;
 
 	public void SetBallToDefaultPosition() {
-		ball.transform.position = paddle.ballTransform.position;
+		ball.transform.position = player.ballTransform.position;
 	}
 	
 	public void Destroy(Brick brick) {

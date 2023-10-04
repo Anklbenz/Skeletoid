@@ -35,7 +35,7 @@ public class GameplaySystem : IPauseSensitive
 		isPlaying = true;
 
 		_level.ball.isActive = true;
-		_level.ball.direction = new Vector3(-0.3f, 0, -0.7f);
+		_level.ball.direction = new Vector3(0, 0, 1f);
 	}
 
 	public void Restart() {
@@ -45,7 +45,7 @@ public class GameplaySystem : IPauseSensitive
 	}
 
 	public void SetPause(bool isPaused) {
-		_level.paddle.SetPause(isPaused);
+		_level.player.SetPause(isPaused);
 		_level.ball.SetPause(isPaused);
 	}
 

@@ -1,6 +1,7 @@
+
 using UnityEngine;
 
-[ExecuteAlways]
+
 public class GizmosDrawer : MonoBehaviour {
 	private const float STEP = 0.5f;
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worlds:
   - levels:
-    - levelPrefab: {fileID: 4940714798097036837, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
+    - levelPrefab: {fileID: 7143912005538653439, guid: d296798f5612ca54e9b1daeccb4760c3, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     - levelPrefab: {fileID: 4940714798097036837, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
@@ -28,5 +28,5 @@ MonoBehaviour:
   ball: {fileID: 6919904815795975566, guid: 8abbce41e8e4e944b8c2f9adc34ea5ad, type: 3}
   damage: 1
   skullStartSpeed: 3
-  paddle: {fileID: 4379953654239011457, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}
+  player: {fileID: 4379953654239011457, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}
   paddleStartSpeed: 4

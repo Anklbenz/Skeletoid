@@ -1,3 +1,4 @@
+
 using UnityEditor;
 using UnityEngine;
 
@@ -38,10 +39,14 @@ public class LevelEditor : MonoBehaviour
 	}
 
 	private void CreateWallsAndFloorColliders(Transform transformParent) {
-		CreateBoxColliderObject(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
-		CreateBoxColliderObject(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
-		CreateBoxColliderObject(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
-		CreateBoxColliderObject(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
+		var leftWall =CreateBoxColliderObject(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
+		leftWall.AddComponent<Wall>();
+		var rightWall =CreateBoxColliderObject(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
+		rightWall.AddComponent<Wall>();
+		var frontWall = CreateBoxColliderObject(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
+		//frontWall.AddComponent<Reflector>();
+		var floor = CreateBoxColliderObject(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
+	//	floor.AddComponent<Floor>();
 	}
 
 	private GameObject CreateBoxColliderObject(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object" ) {

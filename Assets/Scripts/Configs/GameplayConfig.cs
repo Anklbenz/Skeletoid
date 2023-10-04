@@ -11,14 +11,14 @@ public class GameplayConfig : ScriptableObject {
 	[SerializeField] private float skullStartSpeed = 5;
 	[Header("Paddle")]
 	
-	[SerializeField] private Paddle paddle;
+	[SerializeField] private Player player;
 	[SerializeField] private float paddleStartSpeed = 5;
 
 	public int skullDamage => damage;
 	public float paddleSpeed => paddleStartSpeed;
 	public float ballSpeed => skullStartSpeed;
 	public Ball ballPrefab => ball;
-	public Paddle paddlePrefab => paddle;
+	public Player playerPrefab => player;
 
 	public bool LevelPrefabExists(int wordIndex, int levelIndex) {
 		if (wordIndex < worlds.Length)

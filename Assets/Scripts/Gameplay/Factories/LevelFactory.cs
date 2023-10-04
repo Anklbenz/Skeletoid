@@ -15,8 +15,8 @@ public sealed class LevelFactory {
 		var mapPrefab = _config.GetLevelPrefab(wordIndex, levelIndex);
 		var map = _factory.Create<Level>(mapPrefab.levelPrefab);
 		map.environment = _factory.Create<Environment>(mapPrefab.environmentPrefab, map.transform);
-		map.paddle = _factory.Create<Paddle>(_config.paddlePrefab, map.transform, map.paddleOrigin.position);
-		map.paddle.speed = _config.paddleSpeed;
+		map.player = _factory.Create<Player>(_config.playerPrefab, map.transform, map.paddleOrigin.position);
+		map.player.speed = _config.paddleSpeed;
 		map.ball = _factory.Create<Ball>(_config.ballPrefab, map.transform);
 		map.ball.speed = _config.ballSpeed;
 		map.ball.damage = _config.skullDamage;

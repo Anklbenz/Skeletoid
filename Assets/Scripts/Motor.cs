@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Motor : MonoBehaviour, IPauseSensitive
 {
-
 	public float speed { get; set; }
 
 	private Rigidbody _rigidBody;
@@ -15,7 +13,6 @@ public class Motor : MonoBehaviour, IPauseSensitive
 
 	protected void Move(Vector3 direction) {
 		_rigidBody.velocity = _isActive ? direction * speed : Vector3.zero;
-		
 	}
 
 	public void SetPause(bool isPaused) =>

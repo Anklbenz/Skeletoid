@@ -12,8 +12,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallDiFactory();
 		InstallUiFactory();
 		InstallLevelFactory();
-		Container.Bind<PauseUiSystem>().AsSingle();
-		Container.Bind<PauseHandler>().AsSingle();
+		InstallPause();
 		InstallGameplaySystem();
 		InstallLoseSystem();
 		InstallWinSystem();
@@ -22,8 +21,13 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallFlyingCoinService();
 		InstallGameScenario();
 		InstallInitializeForThis();
-		
 	}
+
+	private void InstallPause() {
+		Container.Bind<PauseUiSystem>().AsSingle();
+		Container.Bind<PauseHandler>().AsSingle();
+	}
+
 	private void InstallHudSystem() =>
 			Container.BindInterfacesAndSelfTo<HudSystem>().AsSingle();
 
