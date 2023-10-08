@@ -4,12 +4,12 @@ using Random = UnityEngine.Random;
 
 public sealed class GameplaySystem : IPauseSensitive {
 	private const float X_BALL_POSITION_RANDOMIZE_LIMIT = 0.1f;
-	
+
 	public event Action<Vector3> BallCollisionEvent;
 	public event Action<Brick> BrickDestroyedEvent;
 	public event Action AllBricksDestroyedEvent, DeadZoneReachedEvent;
 
-	public bool isPlaying { get; private set; }
+	public GameplayState state { get; private set; }
 
 	private readonly BallLaunchSystem _ballLaunchSystem;
 	private readonly IInput _input;
@@ -17,8 +17,8 @@ public sealed class GameplaySystem : IPauseSensitive {
 	private Ball ball => _level.ball;
 	private Player player => _level.player;
 	private DeadZone deadZone => _level.deadZone;
-	
-	
+
+
 
 	public GameplaySystem(BallLaunchSystem ballLaunchSystem, IInput input) {
 		_ballLaunchSystem = ballLaunchSystem;
@@ -42,20 +42,23 @@ public sealed class GameplaySystem : IPauseSensitive {
 	}
 
 	private void Throw() {
-		if (isPlaying) return;
-		isPlaying = true;
+		if (state == GameplayState.InPlay) return;
+		state = GameplayState.InPlay;
 
 		_ballLaunchSystem.Throw();
 	}
 
 	public void Restart() {
-		isPlaying = false;
+		state = GameplayState.ReadyToPlay;
+
 		_ballLaunchSystem.Reload();
-		
+
 		ball.isActive = false;
+		SetPaddleToDefaultPosition();
 		SetBallToDefaultPosition();
 		player.aimTarget = ball.transform;
 	}
+
 
 	public void SetPause(bool isPaused) {
 		player.SetPause(isPaused);
@@ -64,7 +67,7 @@ public sealed class GameplaySystem : IPauseSensitive {
 
 	private void OnDeadZoneReached() {
 		DeadZoneReachedEvent?.Invoke();
-		isPlaying = false;
+		state = GameplayState.PlayEnded;
 	}
 
 	private void OnBallHit(Vector3 hitPosition) =>
@@ -102,11 +105,15 @@ public sealed class GameplaySystem : IPauseSensitive {
 		deadZone.DeadZoneReachedEvent -= OnDeadZoneReached;
 		ball.OnCollisionEvent -= OnBallHit;
 	}
-	
-	private void SetBallToDefaultPosition() {
-		 var ballPosition = player.ballTransform.position;
-		  ballPosition.x = Random.Range(ballPosition.x - X_BALL_POSITION_RANDOMIZE_LIMIT, ballPosition.x + X_BALL_POSITION_RANDOMIZE_LIMIT);
 
-		  ball.transform.position = ballPosition;
+	private void SetBallToDefaultPosition() {
+		var ballPosition = player.ballTransform.position;
+		ballPosition.x = Random.Range(ballPosition.x - X_BALL_POSITION_RANDOMIZE_LIMIT, ballPosition.x + X_BALL_POSITION_RANDOMIZE_LIMIT);
+
+		ball.transform.position = ballPosition;
+	}
+
+	private void SetPaddleToDefaultPosition() {
+		player.transform.position = _level.paddleOrigin.position;
 	}
 }

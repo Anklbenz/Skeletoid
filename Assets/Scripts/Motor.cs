@@ -15,8 +15,12 @@ public class Motor : MonoBehaviour, IPauseSensitive
 		rigidBody.velocity = _isActive ? direction * speed : Vector3.zero;
 	}
 
-	public void SetPause(bool isPaused) =>
+	public void SetPause(bool isPaused) {
 		_isActive = !isPaused;
+		rigidBody.isKinematic = isPaused;
+		if (isPaused)
+			rigidBody.velocity = Vector3.zero;
+	}
 
 	private void OnDrawGizmos() {
 		if (rigidBody == null) return;

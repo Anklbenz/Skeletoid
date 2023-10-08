@@ -372,7 +372,7 @@ MonoBehaviour:
   lineNumber: 2
   paddleZoneColor: {r: 0.91745067, g: 1, b: 0, a: 1}
   isDeadZoneVisible: 1
-  deadZoneLineNumber: 5
+  deadZoneLineNumber: 9
   deadZoneColor: {r: 1, g: 0.09811318, b: 0.09811318, a: 0.68235296}
   isHorizontalCenterLineVisible: 1
   horizontalCenterLineColor: {r: 1, g: 0.5021508, b: 0, a: 0.98039216}

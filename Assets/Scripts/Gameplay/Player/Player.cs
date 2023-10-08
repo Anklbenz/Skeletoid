@@ -20,7 +20,7 @@ public sealed class Player : MonoBehaviour, IPauseSensitive, ISpecialReflect, IL
 	private IInput _input;
 	private bool _isActive = true;
 	private float _currentSpeed;
-	private Vector3 _moveVector, _velocityVector;
+	private Vector3 _moveVector, _velocityVector, _rigidbodyVelocityBeforePaused;
 
 	[Inject]
 	public void Constructor(IInput input) {
@@ -31,14 +31,19 @@ public sealed class Player : MonoBehaviour, IPauseSensitive, ISpecialReflect, IL
 	private void OnInput(float xValue) =>
 			_moveVector = new Vector3(xValue, 0, 0);
 
-	public void SetPause(bool isPaused) =>
-			_isActive = !isPaused;
+	public void SetPause(bool isPaused) {
+		_isActive = !isPaused;
+		paddleRigidbody.isKinematic = isPaused;
+	
+		if (isPaused)
+			AnimateCharacter(0);
+	}
 
 	public void FixedUpdate() {
 		if (!_isActive) return;
 
 		InertialMove();
-		AnimateCharacter();
+		AnimateCharacter(paddleRigidbody.velocity.x);
 	}
 
 	// Hit in opposite direction
@@ -72,8 +77,8 @@ public sealed class Player : MonoBehaviour, IPauseSensitive, ISpecialReflect, IL
 		paddleRigidbody.velocity = _velocityVector * _currentSpeed;
 	}
 
-	private void AnimateCharacter() =>
-			animationPlayer.MoveDirection(paddleRigidbody.velocity.x);
+	private void AnimateCharacter(float rigidbodyVelocityX) =>
+			animationPlayer.MoveDirection(rigidbodyVelocityX);
 
 	public void OnDestroy() =>
 			_input.HorizontalAxisChangedEvent -= OnInput;

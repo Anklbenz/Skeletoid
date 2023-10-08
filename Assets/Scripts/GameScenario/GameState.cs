@@ -18,7 +18,6 @@ public sealed class GameState : State
 		StateSwitcher stateSwitcher,
 		GameplaySystem gameplaySystem,
 		PauseHandler pauseHandler,
-		PauseUiSystem pauseUiSystem,
 		HudSystem hudSystem,
 		ParticlesService particlesService,
 		FlyingCoinService flyingCoinService,
@@ -45,15 +44,11 @@ public sealed class GameState : State
 
 	public override void Enter() {
 		//for pause state
-		if (!_gameplaySystem.isPlaying)
+		if (_gameplaySystem.state == GameplayState.PlayEnded)
 			_gameplaySystem.Restart();
 	
 		_hudSystem.SetActive(true);
 		RefreshHudValues();
-	}
-
-	public override void Exit() {
-		
 	}
 
 	private void RefreshHudValues() =>

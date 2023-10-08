@@ -1,0 +1,1 @@
+public enum GameplayState {	ReadyToPlay = 0,	InPlay = 1,	PlayEnded = 2}
