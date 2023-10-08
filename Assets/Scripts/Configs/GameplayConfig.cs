@@ -16,7 +16,7 @@ public class GameplayConfig : ScriptableObject {
 	[SerializeField] private float paddleAccelerationStep = 0.4f;
 
 	[Header("BallLauncher")] 
-	[SerializeField] private BallLauncher ballLauncher; 
+	[SerializeField] private BallLaunchSystem _ballLaunchSystem; 
 
 	public int skullDamage => damage;
 	public float paddleSpeed => paddleMaxSpeed;
@@ -25,7 +25,7 @@ public class GameplayConfig : ScriptableObject {
 	public float ballSpeed => skullStartSpeed;
 	public Ball ballPrefab => ball;
 	public Player playerPrefab => player;
-	public BallLauncher ballLauncherPrefab => ballLauncher;
+	public BallLaunchSystem ballLaunchSystemPrefab => _ballLaunchSystem;
 
 	public bool LevelPrefabExists(int wordIndex, int levelIndex) {
 		if (wordIndex < worlds.Length)

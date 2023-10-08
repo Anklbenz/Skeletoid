@@ -2,8 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class LevelEditor : MonoBehaviour
-{
+public class LevelEditor : MonoBehaviour {
 	[SerializeField] private Transform parent;
 	[SerializeField] private GizmosDrawer gizmosDrawer;
 	[SerializeField] private string path = "Assets/Levels/";
@@ -15,6 +14,7 @@ public class LevelEditor : MonoBehaviour
 		var prefab = BuildMapObject();
 		PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, localPath, InteractionMode.UserAction);
 		DestroyImmediate(prefab);
+		Debug.Log($"Level on path {localPath} created" );
 	}
 
 	private GameObject BuildMapObject() {
@@ -39,22 +39,23 @@ public class LevelEditor : MonoBehaviour
 	}
 
 	private void CreateWallsAndFloorColliders(Transform transformParent) {
-		var leftWall =CreateBoxColliderObject(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
+		var leftWall = CreateBoxColliderObject(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
 		leftWall.isStatic = true;
 		var rigidBody = leftWall.AddComponent<Rigidbody>();
 		rigidBody.useGravity = false;
 		rigidBody.isKinematic = true;
-		
-		var rightWall =CreateBoxColliderObject(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
-        rigidBody = rightWall.AddComponent<Rigidbody>();
-        rigidBody.useGravity = false;
-        rigidBody.isKinematic = true;
-        
+
+		var rightWall = CreateBoxColliderObject(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
+		rigidBody = rightWall.AddComponent<Rigidbody>();
+		rigidBody.useGravity = false;
+		rigidBody.isKinematic = true;
+
 		var frontWall = CreateBoxColliderObject(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
 		var floor = CreateBoxColliderObject(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
+		floor.AddComponent<Floor>();
 	}
 
-	private GameObject CreateBoxColliderObject(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object" ) {
+	private GameObject CreateBoxColliderObject(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object") {
 		var box = new GameObject(objName);
 		var boxCollider = box.AddComponent<BoxCollider>();
 		boxCollider.isTrigger = isTrigger;

@@ -28,6 +28,7 @@ public class UiFactory {
 
 	private T CreateStretched<T>(T prefab) where T : Component {
 		var view = _factory.Create<T>(prefab, _parent);
+		view.transform.localScale = Vector3.one;
 		var rectTransform = (RectTransform)view.transform;
 		rectTransform.offsetMax = Vector2.zero;
 		rectTransform.offsetMin = Vector2.zero;

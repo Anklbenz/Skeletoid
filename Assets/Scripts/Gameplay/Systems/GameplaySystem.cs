@@ -1,17 +1,27 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public sealed class GameplaySystem : IPauseSensitive
-{
+public sealed class GameplaySystem : IPauseSensitive {
+	private const float X_BALL_POSITION_RANDOMIZE_LIMIT = 0.1f;
+	
 	public event Action<Vector3> BallCollisionEvent;
 	public event Action<Brick> BrickDestroyedEvent;
 	public event Action AllBricksDestroyedEvent, DeadZoneReachedEvent;
 
 	public bool isPlaying { get; private set; }
+
+	private readonly BallLaunchSystem _ballLaunchSystem;
 	private readonly IInput _input;
 	private Level _level;
+	private Ball ball => _level.ball;
+	private Player player => _level.player;
+	private DeadZone deadZone => _level.deadZone;
+	
+	
 
-	public GameplaySystem(IInput input) {
+	public GameplaySystem(BallLaunchSystem ballLaunchSystem, IInput input) {
+		_ballLaunchSystem = ballLaunchSystem;
 		_input = input;
 	}
 
@@ -20,6 +30,7 @@ public sealed class GameplaySystem : IPauseSensitive
 			RemovePreviousLevel();
 
 		_level = level;
+		_ballLaunchSystem.Initialize(ball, player);
 		Restart();
 		SubscribeLevelEvents();
 		SubscribeInput();
@@ -30,25 +41,25 @@ public sealed class GameplaySystem : IPauseSensitive
 		UnityEngine.Object.Destroy(_level.gameObject);
 	}
 
-	public void Throw() {
+	private void Throw() {
 		if (isPlaying) return;
 		isPlaying = true;
 
-	//	_level.ball.isActive = true;
-	var d = _level.player.gameObject.GetComponent<Paddle>();
-	var dir = d.GetDirectionDependsOnLocalPaddleHitPoint(_level.ball.transform.position);
-		_level.ball.Throw(dir);
+		_ballLaunchSystem.Throw();
 	}
 
 	public void Restart() {
 		isPlaying = false;
-		_level.ball.isActive = false;
-		_level.SetBallToDefaultPosition();
+		_ballLaunchSystem.Reload();
+		
+		ball.isActive = false;
+		SetBallToDefaultPosition();
+		player.aimTarget = ball.transform;
 	}
 
 	public void SetPause(bool isPaused) {
-		_level.player.SetPause(isPaused);
-		_level.ball.SetPause(isPaused);
+		player.SetPause(isPaused);
+		ball.SetPause(isPaused);
 	}
 
 	private void OnDeadZoneReached() {
@@ -57,7 +68,7 @@ public sealed class GameplaySystem : IPauseSensitive
 	}
 
 	private void OnBallHit(Vector3 hitPosition) =>
-		BallCollisionEvent?.Invoke(hitPosition);
+			BallCollisionEvent?.Invoke(hitPosition);
 
 	private void OnBrickNoLivesLeft(Brick sender) {
 		BrickDestroyedEvent?.Invoke(sender);
@@ -74,21 +85,28 @@ public sealed class GameplaySystem : IPauseSensitive
 	}
 
 	private void SubscribeInput() =>
-		_input.ShotEvent += Throw;
+			_input.ShotEvent += Throw;
 
 	private void SubscribeLevelEvents() {
 		foreach (var brick in _level.bricks)
 			brick.NoLivesLeft += OnBrickNoLivesLeft;
 
-		_level.deadZone.DeadZoneReachedEvent += OnDeadZoneReached;
-		_level.ball.OnCollisionEvent += OnBallHit;
+		deadZone.DeadZoneReachedEvent += OnDeadZoneReached;
+		ball.OnCollisionEvent += OnBallHit;
 	}
 
 	private void UnSubscribeLevelEvents() {
 		foreach (var brick in _level.bricks)
 			brick.NoLivesLeft -= OnBrickNoLivesLeft;
 
-		_level.deadZone.DeadZoneReachedEvent -= OnDeadZoneReached;
-		_level.ball.OnCollisionEvent -= OnBallHit;
+		deadZone.DeadZoneReachedEvent -= OnDeadZoneReached;
+		ball.OnCollisionEvent -= OnBallHit;
+	}
+	
+	private void SetBallToDefaultPosition() {
+		 var ballPosition = player.ballTransform.position;
+		  ballPosition.x = Random.Range(ballPosition.x - X_BALL_POSITION_RANDOMIZE_LIMIT, ballPosition.x + X_BALL_POSITION_RANDOMIZE_LIMIT);
+
+		  ball.transform.position = ballPosition;
 	}
 }

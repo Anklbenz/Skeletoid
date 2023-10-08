@@ -44,6 +44,7 @@ public sealed class GameState : State
 	}
 
 	public override void Enter() {
+		//for pause state
 		if (!_gameplaySystem.isPlaying)
 			_gameplaySystem.Restart();
 	

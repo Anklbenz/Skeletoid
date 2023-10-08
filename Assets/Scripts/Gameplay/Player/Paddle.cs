@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public sealed class Paddle : MonoBehaviour, IPaddle
+public sealed class Paddle : MonoBehaviour//, IPaddle
 {
-    [SerializeField] private BoxCollider boxCollider;
+    /*[SerializeField] private BoxCollider boxCollider;
     private const float MAX_REFLECT_ANGLE = 70;
     
     // Hit in opposite direction
@@ -19,5 +19,5 @@ public sealed class Paddle : MonoBehaviour, IPaddle
         var angle = Mathf.Lerp(-MAX_REFLECT_ANGLE, MAX_REFLECT_ANGLE, lerpX);
 
         return (Quaternion.AngleAxis(angle, Vector3.up) * transform.forward);
-    }
+    }*/
 }
