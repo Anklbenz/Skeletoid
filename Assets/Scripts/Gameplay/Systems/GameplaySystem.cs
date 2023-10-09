@@ -18,8 +18,6 @@ public sealed class GameplaySystem : IPauseSensitive {
 	private Player player => _level.player;
 	private DeadZone deadZone => _level.deadZone;
 
-
-
 	public GameplaySystem(BallLaunchSystem ballLaunchSystem, IInput input) {
 		_ballLaunchSystem = ballLaunchSystem;
 		_input = input;
@@ -52,10 +50,11 @@ public sealed class GameplaySystem : IPauseSensitive {
 		state = GameplayState.ReadyToPlay;
 
 		_ballLaunchSystem.Reload();
-
 		ball.isActive = false;
+		//important set paddle position previsosley than ball position
 		SetPaddleToDefaultPosition();
 		SetBallToDefaultPosition();
+		//
 		player.aimTarget = ball.transform;
 	}
 
