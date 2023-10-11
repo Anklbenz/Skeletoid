@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worlds:
   - levels:
-    - levelPrefab: {fileID: 5803200103665712100, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
+    - levelPrefab: {fileID: 8398593379754965465, guid: 140d3062c92f9d043991419d4a1d0b48, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     - levelPrefab: {fileID: 2745760201672483700, guid: a1e0ff4f7892010429064a8c719ddfd0, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
