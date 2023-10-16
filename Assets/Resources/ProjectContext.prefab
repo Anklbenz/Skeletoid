@@ -76,3 +76,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenesIndexes: {fileID: 11400000, guid: e4cd18b60c7b4144897a3b630b83711c, type: 2}
   keyboardConfig: {fileID: 11400000, guid: d8ab38f33be2654449eca745ee50a6e0, type: 2}
+  worldsConfig: {fileID: 11400000, guid: b7ac23be6bcbf864b935291db5743282, type: 2}

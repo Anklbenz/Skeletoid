@@ -9,7 +9,17 @@ public class InitialState : State {
 	private readonly HudSystem _hudSystem;
 	private readonly PauseUiSystem _pauseUiSystem;
 
-	public InitialState(StateSwitcher stateSwitcher, UiFactory uiFactory, LoseSystem loseSystem, WinSystem winSystem, PauseUiSystem pauseUiSystem,HudSystem hudSystem, ParticlesService particlesService, FlyingCoinService flyingCoinService) : base(stateSwitcher) {
+	public InitialState(
+		StateSwitcher stateSwitcher,
+		UiFactory uiFactory,
+		LoseSystem loseSystem,
+		WinSystem winSystem,
+		PauseUiSystem pauseUiSystem,
+		HudSystem hudSystem,
+		ParticlesService particlesService,
+		FlyingCoinService flyingCoinService
+		) : base(stateSwitcher) {
+		
 		_uiFactory = uiFactory;
 		_particlesService = particlesService;
 		_flyingCoinService = flyingCoinService;

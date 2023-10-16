@@ -5,6 +5,7 @@ public class ProjectInstaller : MonoInstaller
 {
 	[SerializeField] private SceneIndexes scenesIndexes;
 	[SerializeField] private KeyboardConfig keyboardConfig;
+	[SerializeField] private WorldsConfig worldsConfig;
 
 	public override void InstallBindings() {
 		InstallSceneLoader();
@@ -18,6 +19,7 @@ public class ProjectInstaller : MonoInstaller
 	}
 
 	private void InstallProjectStorage() {
+		Container.Bind<WorldsConfig>().FromInstance(worldsConfig).AsSingle();
 		Container.Bind<ProgressData>().AsSingle();
 	}
 

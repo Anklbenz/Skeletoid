@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayConfig: {fileID: 11400000, guid: 8dfd77b928beb74479254886e2df9188, type: 2}
+  worldsConfig: {fileID: 11400000, guid: b7ac23be6bcbf864b935291db5743282, type: 2}
   uiFactoryConfig: {fileID: 11400000, guid: 4954dd9741fbd2b40a345a0311d6af31, type: 2}
   particlesConfig: {fileID: 11400000, guid: 7fe44d8c2ce7390439bfe79d9a508f30, type: 2}
   coinsConfig: {fileID: 11400000, guid: 08260542e970d3b41bb07433fa8e7099, type: 2}

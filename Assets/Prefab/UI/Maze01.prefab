@@ -495,7 +495,7 @@ MonoBehaviour:
   isUnlocked: 1
   isCompleted: 0
   starsCount: 0
-  levelNumber: 2
+  worldIndex: 0
   firstStarImage: {fileID: 6649381725713025361}
   secondStarImage: {fileID: 7908437106653002183}
   thirdStarImage: {fileID: 6418544077332379981}
@@ -503,6 +503,8 @@ MonoBehaviour:
   levelNumberText: {fileID: 7989047044244073460}
   rankText: {fileID: 8461686041923782340}
   content: {fileID: 7246742024989966259}
+  startButton: {fileID: 805744478911589527}
+  levelsCount: 0
 --- !u!1 &3795859147680136515
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 02
+  m_text: 01
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3366aa32f32eec049989f516f712257f, type: 2}
   m_sharedMaterial: {fileID: 8150315708399895843, guid: 3366aa32f32eec049989f516f712257f, type: 2}

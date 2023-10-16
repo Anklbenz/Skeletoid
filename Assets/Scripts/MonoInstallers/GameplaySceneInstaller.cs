@@ -3,12 +3,13 @@ using Zenject;
 
 public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameplayConfig gameplayConfig;
+	//[SerializeField] private WorldsConfig worldsConfig;
 	[SerializeField] private UiFactoryConfig uiFactoryConfig;
 	[SerializeField] private ParticlesConfig particlesConfig;
 	[SerializeField] private CoinServiceConfig coinsConfig;
 
 	public override void InstallBindings() {
-		InstallProgressData();
+		//InstallProgressData();
 		InstallDiFactory();
 		InstallUiFactory();
 		InstallLevelFactory();
@@ -32,6 +33,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 			Container.BindInterfacesAndSelfTo<HudSystem>().AsSingle();
 
 	private void InstallLevelFactory() {
+	//	Container.Bind<WorldsConfig>().FromInstance(worldsConfig).AsSingle();
 		Container.Bind<GameplayConfig>().FromInstance(gameplayConfig).AsSingle();
 		Container.Bind<LevelFactory>().AsSingle();
 	}
