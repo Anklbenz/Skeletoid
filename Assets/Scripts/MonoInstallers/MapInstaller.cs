@@ -8,17 +8,22 @@ public class MapInstaller : MonoInstaller, IInitializable
    public override void InstallBindings() {
       InstallMapSystem();
       InstallInitializeForThis();
+ 
    }
 
    private void InstallInitializeForThis() {
       Container.Bind<IInitializable>().FromInstance(this).AsSingle();
    }
 
+
+   
    private void InstallMapSystem() {
       Container.Bind<WordMapSystem>().AsSingle();
    }
 
    public void Initialize() {
+
+      
       var mapSystem = Container.Resolve<WordMapSystem>();
       mapSystem.Initialize(items);
    }

@@ -6,32 +6,24 @@ public class ProgressData
 	public Wallet totalCoins = new(0);
 	public Wallet currentCoins = new(0);
 
+	public WorldInfo[] worldsInfo { get; set; }
+	public LevelsHolder levelsHolder { get; private set; }
+	public int current => _currentWorldIndex;
 
-	public WorldInfo[] worldsInfo;
-	public int current => currentWorldIndex;
-	private int currentWorldIndex = 0;
-	public LevelsHolder levelsHolder;
+	private int _currentWorldIndex = 0;
 
 	public void SetWorld(int index) {
-		currentWorldIndex = index;
+		_currentWorldIndex = index;
 		levelsHolder = new LevelsHolder(worldsInfo[index].levelsCount);
 	}
 
 	public void SetCurrentCompleted() {
-		worldsInfo[currentWorldIndex].isCompleted = true;
+		worldsInfo[_currentWorldIndex].isCompleted = true;
+		SetUnlockedNextAfterCompleted();
 	}
-	
-	// отдельная система с методом Set Word Info
-	public ProgressData(WorldsConfig config) {
-		SetWordsLevelCount(config);
-	}
-// отдельная система с методом Set Word Info
-	private void SetWordsLevelCount(WorldsConfig config) {
-		var wordsCount = config.wordsCount;
-		worldsInfo = new WorldInfo[wordsCount];
-		for (var i = 0; i < wordsCount; i++)
-			worldsInfo[i] = new WorldInfo() { levelsCount = config.GetLevelCountByWordIndex(i) };
-	
-		worldsInfo[0].isUnlocked = true;
+
+	private void SetUnlockedNextAfterCompleted() {
+		if (worldsInfo.Length <= _currentWorldIndex + 1)
+			worldsInfo[_currentWorldIndex + 1].isUnlocked = true;
 	}
 }

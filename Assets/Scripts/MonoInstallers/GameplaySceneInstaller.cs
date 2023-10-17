@@ -9,7 +9,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private CoinServiceConfig coinsConfig;
 
 	public override void InstallBindings() {
-		//InstallProgressData();
+		//InstallProgressDataSystem();
 		InstallDiFactory();
 		InstallUiFactory();
 		InstallLevelFactory();
@@ -42,8 +42,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<UiFactory>().AsSingle();
 	}
 
-	private void InstallProgressData() =>
-			Container.Bind<ProgressData>().AsSingle();
+
 
 	private void InstallLoseSystem() =>
 			Container.Bind<LoseSystem>().AsSingle();

@@ -19,12 +19,7 @@ public class WordMapSystem
             var info = _progressData.worldsInfo[i];
             var mapItem = items[i];
 
-            if (info.isCompleted) {
-                mapItem.isLevelCompleted = true;
-                if (items[i + 1] != null)
-                    items[i + 1].isLevelUnlocked = true;
-            }
-
+            mapItem.isLevelCompleted = info.isCompleted;
             mapItem.isLevelUnlocked = info.isUnlocked;
             mapItem.levelStarsCount = info.starsCount;
             mapItem.levelsCount = info.levelsCount;
