@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class ProjectInstaller : MonoInstaller, IInitializable
+public class ProjectInstaller : MonoInstaller
 {
 	[SerializeField] private SceneIndexes scenesIndexes;
 	[SerializeField] private KeyboardConfig keyboardConfig;
@@ -11,12 +11,7 @@ public class ProjectInstaller : MonoInstaller, IInitializable
 		InstallSceneLoader();
 		InstallProjectStorage();
 		InstallControls();
-		InstallInitializeForThis();
 		InstallProgressDataSystem();
-	}
-
-	private void InstallInitializeForThis() {
-		Container.Bind<IInitializable>().FromInstance(this).AsSingle();
 	}
 
 	private void InstallControls() {
@@ -35,10 +30,6 @@ public class ProjectInstaller : MonoInstaller, IInitializable
 	}
 
 	private void InstallProgressDataSystem() =>
-		Container.Bind<ProgressDataInitializeSystem>().AsSingle();
+		Container.Bind<ProgressSystem>().AsSingle().NonLazy();
 
-	public void Initialize() {
-		var progressDataInitializeSystem = Container.Resolve<ProgressDataInitializeSystem>();
-		progressDataInitializeSystem.Initialize();
-	}
 }

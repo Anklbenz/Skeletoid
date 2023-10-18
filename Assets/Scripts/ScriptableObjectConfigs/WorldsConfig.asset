@@ -21,3 +21,7 @@ MonoBehaviour:
     - levelPrefab: {fileID: 5803200103665712100, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: SecondJourney
+  - levels:
+    - levelPrefab: {fileID: 5803200103665712100, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
+      environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
+    worldName: SecondJourney

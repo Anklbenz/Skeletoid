@@ -5,10 +5,10 @@ public class HudSystem : ICoinsTarget
 {
 	public event Action PauseValueChangedEvent;
 	public Transform transform => _view.coinsTransform;
-	private readonly ProgressData _progress;
+	private readonly ProgressSystem _progress;
 	private HudView _view;
 
-	public HudSystem(ProgressData progress) {
+	public HudSystem(ProgressSystem progress) {
 		_progress = progress;
 	}
 
@@ -29,7 +29,7 @@ public class HudSystem : ICoinsTarget
 		PauseValueChangedEvent?.Invoke();
 
 	public void Refresh() {
-		_view.coinsCount = _progress.currentCoins.count.ToString("D2");
-		_view.skullsCount = _progress.lives.count.ToString("D2");
+		_view.coinsCount = _progress.currentCoinsCount.ToString("D2");
+		_view.skullsCount = _progress.livesCount.ToString("D2");
 	}
 }

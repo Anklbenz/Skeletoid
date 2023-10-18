@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63530660ba08b0d4d825c9c6ca7554a8, type: 3}
   m_Name: MapConfig
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 0}
+  levelUnlockedParticles: {fileID: 198210073868382146, guid: 0db7e88cc654dc74e804d2b1286e4c84, type: 3}

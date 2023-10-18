@@ -5,7 +5,7 @@ using UnityEngine;
 public class KeyboardInput : IInput, ITickable {
 	public event Action<float> HorizontalAxisChangedEvent;
 	public event Action ShotEvent;
-	public bool Enabled { get; set; } = true;
+	public bool enabled { get; set; } = true;
 	private readonly KeyboardConfig _config;
 
 	private bool shotPressed => Input.GetKeyDown(_config.keyShot) || Input.GetKeyDown(_config.keyShotExtra);
@@ -18,7 +18,7 @@ public class KeyboardInput : IInput, ITickable {
 	}
 
 	public void Tick() {
-		if (!Enabled) return;
+		if (!enabled) return;
 
 		if (leftPressed)
 			HorizontalAxisChangedEvent?.Invoke(-1);

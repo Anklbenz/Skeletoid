@@ -7,11 +7,11 @@ using UnityEngine;
 public class PauseUiSystem
 {
     public event Action ContinueEvent, RestartEvent, QuitEvent;
-    private readonly ProgressData _progressData;
+    private readonly ProgressSystem _progressSystem;
     private PauseView _view;
 
-    public PauseUiSystem(ProgressData progressData) {
-        _progressData = progressData;
+    public PauseUiSystem(ProgressSystem progressSystem) {
+        _progressSystem = progressSystem;
     }
 
     public void Initialize(PauseView view) {
@@ -22,7 +22,7 @@ public class PauseUiSystem
     }
 
     public void Open() {
-        _view.SetCurrentLevelNumber(_progressData.levelsHolder.current, _progressData.levelsHolder.levelsCount);
+        _view.SetCurrentLevelNumber(_progressSystem.currentLevelIndex, _progressSystem.currentWorldLevelsCount);
         _view.Open();
     }
 

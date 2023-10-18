@@ -15,6 +15,8 @@ public class MapItem : MonoBehaviour
 
     public event Action<int> StartEvent;
 
+    public Transform dustParticlesTransform => lockImage.transform;
+
     public int levelsCount;
 
     private void Awake() {

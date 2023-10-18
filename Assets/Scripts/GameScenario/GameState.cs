@@ -9,7 +9,7 @@ public sealed class GameState : State
 	private readonly FlyingCoinService _flyingCoinService;
 
 	private readonly HudSystem _hudSystem;
-	private readonly ProgressData _progressData;
+	private readonly ProgressSystem _progressData;
 	private readonly StateSwitcher _stateSwitcher;
 	private readonly GameplaySystem _gameplaySystem;
 	private readonly PauseHandler _pauseHandler;
@@ -21,7 +21,7 @@ public sealed class GameState : State
 		HudSystem hudSystem,
 		ParticlesService particlesService,
 		FlyingCoinService flyingCoinService,
-		ProgressData progress) : base(stateSwitcher) {
+		ProgressSystem progress) : base(stateSwitcher) {
 
 		_progressData = progress;
 		_flyingCoinService = flyingCoinService;
@@ -56,7 +56,7 @@ public sealed class GameState : State
 
 	private void OnBrickDestroy(Brick brick) {
 		var destroyedBrickPosition = brick.transform.position;
-		_progressData.currentCoins.Increase(brick.costs);
+		_progressData.IncreaseCurrentCoins(brick.costs);
 
 		_particlesService.PlayDestroy(destroyedBrickPosition);
 		_flyingCoinService.SpawnCoins(destroyedBrickPosition, brick.costs);

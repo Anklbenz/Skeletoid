@@ -3,14 +3,14 @@ public class WinState : State
 	private readonly StateSwitcher _stateSwitcher;
 	private readonly WinSystem _winSystem;
 	private readonly PauseHandler _pauseHandler;
-	private readonly ProgressData _progressData;
+	private readonly ProgressSystem _progressSystem;
 	private readonly SceneLoaderService _sceneLoaderService;
 
-	public WinState(StateSwitcher stateSwitcher, WinSystem winSystem, PauseHandler pauseHandler, ProgressData progressData, SceneLoaderService sceneLoaderService) :
+	public WinState(StateSwitcher stateSwitcher, WinSystem winSystem, PauseHandler pauseHandler, ProgressSystem progressSystem, SceneLoaderService sceneLoaderService) :
 		base(stateSwitcher) {
 		_winSystem = winSystem;
 		_pauseHandler = pauseHandler;
-		_progressData = progressData;
+		_progressSystem = progressSystem;
 		_stateSwitcher = stateSwitcher;
 		_sceneLoaderService = sceneLoaderService;
 		_winSystem.ContinueEvent += OnContinueSelected;
@@ -26,10 +26,15 @@ public class WinState : State
 	}
 
 	private void OnContinueSelected() {
-		if (_progressData.levelsHolder.TryMoveNext())
+		if (_progressSystem.TrySetNextLevel())
 			_stateSwitcher.SetState<InitializeLevelState>();
 
-		_progressData.SetCurrentCompleted();
+		SaveProgress();
 		_sceneLoaderService.GoToMainMenuScene();
+	}
+
+	private void SaveProgress() {
+		_progressSystem.SetCurrentLevelCompleted();
+
 	}
 }

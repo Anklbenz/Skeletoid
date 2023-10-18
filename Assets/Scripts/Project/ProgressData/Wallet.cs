@@ -16,4 +16,7 @@ public class Wallet : IWallet
         _count = balance;
         return true;
     }
+
+    public void Reset() =>
+        _count = 0;
 }

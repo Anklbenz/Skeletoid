@@ -5,11 +5,11 @@ public class LoseSystem {
 	public event Action RestartEvent, QuitEvent;
 
 	private readonly UiFactoryConfig _config;
-	private readonly ProgressData _progressData;
+	private readonly ProgressSystem _progressSystem;
 	private LoseView _view;
 
-	public LoseSystem(ProgressData progressData) {
-		_progressData = progressData;
+	public LoseSystem(ProgressSystem progressSystem) {
+		_progressSystem = progressSystem;
 	}
 
 	public void Initialize(LoseView view) {
@@ -22,17 +22,17 @@ public class LoseSystem {
 	}
 
 	public void OnLose() {
-		var hasLives = _progressData.lives.count > 0;
+		var hasLives = _progressSystem.hasLives;
 		_view.restartInteractable = hasLives;
 		_view.showAdsButtonVisible = !hasLives;
-		_view.SetSkullsCount(_progressData.lives.count);
-		_progressData.lives.Decrease();
+		_view.SetSkullsCount(_progressSystem.livesCount);
+		_progressSystem.SpendLife();
 		_view.Open();
 	}
 
 	private void ShowAds() {
 		Debug.Log("Show Ads");
-		_progressData.lives.Increase();
+		_progressSystem.AddLife();
 		OnLose();
 	}
 

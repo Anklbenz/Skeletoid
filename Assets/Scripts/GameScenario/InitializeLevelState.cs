@@ -1,9 +1,9 @@
 public class InitializeLevelState : State {
 	private readonly GameplaySystem _gameplaySystem;
-	private readonly ProgressData _progressData;
+	private readonly ProgressSystem _progressData;
 	private readonly LevelFactory _levelFactory;
 
-	public InitializeLevelState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, ProgressData progressData, LevelFactory levelFactory) : base(stateSwitcher) {
+	public InitializeLevelState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, ProgressSystem progressData, LevelFactory levelFactory) : base(stateSwitcher) {
 		_gameplaySystem = gameplaySystem;
 		_progressData = progressData;
 		_levelFactory = levelFactory;
@@ -15,8 +15,8 @@ public class InitializeLevelState : State {
 	}
 
 	private void SetNewLevel() {
-		var worldIndex = _progressData.current;
-		var levelIndex = _progressData.levelsHolder.currentIndex;
+		var worldIndex = _progressData.currentWorldIndex;
+		var levelIndex = _progressData.currentLevelIndex;
 		var level = _levelFactory.CreateLevel(worldIndex, levelIndex);
 		_gameplaySystem.SetNewLevel(level);
 	}
