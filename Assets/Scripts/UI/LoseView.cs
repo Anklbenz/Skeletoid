@@ -12,6 +12,10 @@ public class LoseView : AnimatedView
 	public bool showAdsButtonVisible {
 		set => showAdsButton.gameObject.SetActive(value);
 	}
+	
+	public bool showAdsButtonInteractable{
+		set => showAdsButton.interactable =(value);
+	}
 
 	public bool restartInteractable {
 		set => restartButton.interactable = value;

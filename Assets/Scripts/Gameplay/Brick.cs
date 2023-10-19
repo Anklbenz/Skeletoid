@@ -8,7 +8,7 @@ public sealed class Brick : MonoBehaviour, IDamageable, ICost
 	[SerializeField] private Vector2Int scoreInterval;
 	public event Action<Brick> NoLivesLeft;
 	public event Action<Vector3> HitEvent;
-	public int costs => Random.Range(scoreInterval.x, scoreInterval.y + 1);
+	public int randomizedCost => Random.Range(scoreInterval.x, scoreInterval.y + 1);
 
 	public void Hit(int power) {
 		hitPoints -= power;

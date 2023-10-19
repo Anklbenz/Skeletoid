@@ -9,8 +9,7 @@ public class ProgressSystem
 	public bool hasLives => _data.lives.count > 0;
 	public int livesCount => _data.lives.count;
 	public int starsCount => _data.statsWallet.count;
-	
-	
+
 	private WorldData currentWorld => _data.worldsInfo[_currentWorldIndexWorldIndex];
 	private WorldData nextWorld => _data.worldsInfo[_currentWorldIndexWorldIndex + 1];
 	private bool hasNextWorld => _data.worldsInfo.Length > _currentWorldIndexWorldIndex + 1;
@@ -19,7 +18,8 @@ public class ProgressSystem
 	private readonly WorldsConfig _worldsConfig;
 	private readonly ProgressData _data;
 
-	public ProgressSystem(WorldsConfig worldsConfig, ProgressData data) {
+	public ProgressSystem(WorldsConfig worldsConfig,  ProgressData data) {
+		
 		_worldsConfig = worldsConfig;
 		_data = data;
 		InitializeWordsFromConfig();
@@ -48,8 +48,8 @@ public class ProgressSystem
 	public bool TrySetNextLevel() =>
 		_data.levelsHolder.TryMoveNext();
 
-	public void AddLife() =>
-		_data.lives.Increase();
+	public void AddLife(int count = 1) =>
+		_data.lives.Increase(count);
 
 	public void SpendLife() =>
 		_data.lives.Decrease();
@@ -65,20 +65,21 @@ public class ProgressSystem
 
 	public void DecreaseStarsCount(int count) =>
 		_data.statsWallet.Decrease(count);
-	
+
 	public void SetCurrentLevelCompleted() {
 		currentWorld.isCompleted = true;
 		if (hasNextWorld) {
 			nextWorld.isUnlocked = true;
 			nextWorld.freshUnlockedTrigger = true;
 		}
-
-		ApplyCurrentCoins();
 	}
-	
-	private void ApplyCurrentCoins() {
+
+	public void ApplyCurrentCoins() {
 		var currentScore = _data.currentCoinsWallet.count;
 		_data.totalCoinsWallet.Increase(currentScore);
 		_data.currentCoinsWallet.Reset();
 	}
+
+	public void ResetCurrentCoins() =>
+		_data.currentCoinsWallet.Reset();
 }

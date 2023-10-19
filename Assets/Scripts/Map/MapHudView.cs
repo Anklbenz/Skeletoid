@@ -1,9 +1,10 @@
 using TMPro;
 using UnityEngine;
 
-public class MainStatsView : MonoBehaviour
+public class MapHudView : MonoBehaviour,ICoinsTarget
 {
    [SerializeField] private TMP_Text coinsText, livesText, startsText, timerText;
+   public Transform coinsTargetTransform => coinsText.transform;
    public bool isTimerActive {
       set => timerText.enabled = value;
    }
@@ -23,4 +24,5 @@ public class MainStatsView : MonoBehaviour
    public string timesLeft {
       set => timerText.text = value;
    }
+
 }

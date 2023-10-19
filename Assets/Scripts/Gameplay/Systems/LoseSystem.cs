@@ -1,14 +1,18 @@
 using System;
 using UnityEngine;
 
-public class LoseSystem {
+public class LoseSystem
+{
 	public event Action RestartEvent, QuitEvent;
 
 	private readonly UiFactoryConfig _config;
+	private readonly GameplayConfig _gameplayConfig;
 	private readonly ProgressSystem _progressSystem;
 	private LoseView _view;
+	private int _numbersAdsLeft;
 
-	public LoseSystem(ProgressSystem progressSystem) {
+	public LoseSystem(GameplayConfig gameplayConfig,ProgressSystem progressSystem) {
+		_gameplayConfig = gameplayConfig;
 		_progressSystem = progressSystem;
 	}
 
@@ -19,19 +23,22 @@ public class LoseSystem {
 		_view.RestartEvent += OnRestart;
 		_view.QuitEvent += OnQuit;
 		_view.ShowAdsEvent += ShowAds;
+		_numbersAdsLeft = _gameplayConfig.showingAdsNumber;
 	}
 
 	public void OnLose() {
 		var hasLives = _progressSystem.hasLives;
+		_progressSystem.SpendLife();
+		_view.showAdsButtonInteractable = _numbersAdsLeft > 0;
 		_view.restartInteractable = hasLives;
 		_view.showAdsButtonVisible = !hasLives;
 		_view.SetSkullsCount(_progressSystem.livesCount);
-		_progressSystem.SpendLife();
 		_view.Open();
 	}
 
 	private void ShowAds() {
 		Debug.Log("Show Ads");
+		_numbersAdsLeft--;
 		_progressSystem.AddLife();
 		OnLose();
 	}
@@ -43,6 +50,7 @@ public class LoseSystem {
 
 	private void OnQuit() {
 		_view.Close();
+		_progressSystem.ResetCurrentCoins();
 		QuitEvent?.Invoke();
 	}
 }

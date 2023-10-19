@@ -50,13 +50,12 @@ public class MapItem : MonoBehaviour
     }
 
     public bool isLevelCompleted {
+        get => isCompleted;
         set
         {
             var rank = value ? "30" : "?";
             rankText.text = $"Rank \n{rank}";
-            
+            isCompleted = value;
         }
     }
-
-
 }

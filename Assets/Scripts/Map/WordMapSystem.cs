@@ -4,21 +4,28 @@ using UnityEngine;
 public class WordMapSystem
 {
     private const int PARTICLES_PLAY_DELAY = 500;
+    private readonly MapHud _mapHud;
     private readonly ProgressSystem _progressSystem;
     private readonly SceneLoaderService _sceneLoaderService;
-    private readonly MainStats _mainStats;
     private readonly MapParticlesPlayer _mapParticlesPlayer;
 
-    public WordMapSystem(ProgressSystem progressSystem, SceneLoaderService sceneLoaderService, MainStats mainStats, MapParticlesPlayer mapParticlesPlayer) {
+
+    public WordMapSystem(
+        MapHud mapHud,
+        ProgressSystem progressSystem,
+        SceneLoaderService sceneLoaderService,
+        MapParticlesPlayer mapParticlesPlayer) {
+
+        _mapHud = mapHud;
         _progressSystem = progressSystem;
+
         _sceneLoaderService = sceneLoaderService;
-        _mainStats = mainStats;
         _mapParticlesPlayer = mapParticlesPlayer;
     }
 
     public void Initialize(MapItem[] items) {
         UpdateMap(items);
-        _mainStats.Refresh();
+        _mapHud.Refresh();
     }
 
     private async void UpdateMap(MapItem[] items) {
@@ -31,9 +38,9 @@ public class WordMapSystem
             mapItem.levelsCount = info.levelsCount;
             mapItem.StartEvent += OnLevelSelect;
 
-            if (info.freshUnlockedTrigger) 
+            if (info.freshUnlockedTrigger)
                 await UnlockedWorldParticlesPlay(mapItem.dustParticlesTransform.position);
-            
+
             mapItem.isLevelUnlocked = info.isUnlocked;
         }
     }

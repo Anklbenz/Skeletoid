@@ -1,3 +1,3 @@
 public interface ICost {
-	public int costs { get; }
+	public int randomizedCost { get; }
 }

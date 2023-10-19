@@ -57,8 +57,7 @@ public sealed class GameplaySystem : IPauseSensitive {
 		//
 		player.aimTarget = ball.transform;
 	}
-
-
+	
 	public void SetPause(bool isPaused) {
 		player.SetPause(isPaused);
 		ball.SetPause(isPaused);

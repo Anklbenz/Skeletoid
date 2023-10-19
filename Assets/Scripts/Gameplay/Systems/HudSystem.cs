@@ -4,9 +4,10 @@ using UnityEngine;
 public class HudSystem : ICoinsTarget
 {
 	public event Action PauseValueChangedEvent;
-	public Transform transform => _view.coinsTransform;
+	public Transform coinsTargetTransform => _view.coinsTransform;
 	private readonly ProgressSystem _progress;
 	private HudView _view;
+	private int _hudCoinsCount;
 
 	public HudSystem(ProgressSystem progress) {
 		_progress = progress;
@@ -27,6 +28,11 @@ public class HudSystem : ICoinsTarget
 
 	private void OnPauseValueChanged() =>
 		PauseValueChangedEvent?.Invoke();
+
+	public void IncreaseCoinsCount(int count = 1) {
+		_hudCoinsCount += count;
+		_view.coinsCount = _hudCoinsCount.ToString("D2");
+	}
 
 	public void Refresh() {
 		_view.coinsCount = _progress.currentCoinsCount.ToString("D2");

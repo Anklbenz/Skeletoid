@@ -35,6 +35,6 @@ public class WinState : State
 
 	private void SaveProgress() {
 		_progressSystem.SetCurrentLevelCompleted();
-
+		_progressSystem.ApplyCurrentCoins();
 	}
 }

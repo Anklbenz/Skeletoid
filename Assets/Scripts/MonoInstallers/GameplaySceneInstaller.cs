@@ -1,12 +1,15 @@
+using Cinemachine;
 using UnityEngine;
 using Zenject;
 
 public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameplayConfig gameplayConfig;
+
+	[SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
 	//[SerializeField] private WorldsConfig worldsConfig;
 	[SerializeField] private UiFactoryConfig uiFactoryConfig;
 	[SerializeField] private ParticlesConfig particlesConfig;
-	[SerializeField] private CoinServiceConfig coinsConfig;
+	[SerializeField] private FlyingCoinsConfig coinsConfig;
 
 	public override void InstallBindings() {
 		//InstallProgressDataSystem();
@@ -22,6 +25,12 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallFlyingCoinService();
 		InstallGameScenario();
 		InstallInitializeForThis();
+		InstallGameCameraSystem();
+	}
+
+	private void InstallGameCameraSystem() {
+		Container.Bind<CinemachineVirtualCamera>().FromInstance(cinemachineVirtualCamera);
+		Container.Bind<GameCameraSystem>().AsSingle();
 	}
 
 	private void InstallPause() {
@@ -42,8 +51,6 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<UiFactory>().AsSingle();
 	}
 
-
-
 	private void InstallLoseSystem() =>
 			Container.Bind<LoseSystem>().AsSingle();
 
@@ -51,7 +58,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 			Container.Bind<WinSystem>().AsSingle();
 
 	private void InstallFlyingCoinService() {
-		Container.Bind<CoinServiceConfig>().FromInstance(coinsConfig).AsSingle();
+		Container.Bind<FlyingCoinsConfig>().FromInstance(coinsConfig).AsSingle();
 		Container.BindInterfacesAndSelfTo<FlyingCoinService>().AsSingle();
 	}
 

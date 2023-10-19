@@ -5,10 +5,11 @@ using Zenject;
 public class MapInstaller : MonoInstaller, IInitializable
 {
    [SerializeField] private MapItem[] items;
-   [SerializeField] private MainStatsView mainStatsView;
+   [SerializeField] private MapHudView mapHudView;
    [SerializeField] private Transform particlesTransform;
    [SerializeField] private MapConfig mapConfig;
    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+   [SerializeField] private FlyingCoinsConfig flyingCoinsConfig;
 
    public override void InstallBindings() {
       InstallMapSystem();
@@ -16,6 +17,13 @@ public class MapInstaller : MonoInstaller, IInitializable
       InstallMainStat();
       InstallParticlesPlayer();
       InstallMapMove();
+      InstallFlyingCoins();
+   }
+
+   private void InstallFlyingCoins() {
+      Container.Bind<ICoinsTarget>().FromInstance(mapHudView);
+      Container.Bind<FlyingCoinsConfig>().FromInstance(flyingCoinsConfig);
+      Container.BindInterfacesAndSelfTo<FlyingCoinService>().AsSingle();
    }
 
    private void InstallMapMove() {
@@ -31,8 +39,8 @@ public class MapInstaller : MonoInstaller, IInitializable
    }
 
    private void InstallMainStat() {
-      Container.Bind<MainStatsView>().FromInstance(mainStatsView);
-      Container.Bind<MainStats>().AsSingle();
+      Container.Bind<MapHudView>().FromInstance(mapHudView);
+      Container.Bind<MapHud>().AsSingle();
    }
 
    private void InstallInitializeForThis() {
