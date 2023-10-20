@@ -9,7 +9,7 @@ public class MapInstaller : MonoInstaller, IInitializable
    [SerializeField] private Transform particlesTransform;
    [SerializeField] private MapConfig mapConfig;
    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
-   [SerializeField] private FlyingCoinsConfig flyingCoinsConfig;
+   [SerializeField] private CameraConfig cameraConfig;
 
    public override void InstallBindings() {
       InstallMapSystem();
@@ -17,18 +17,16 @@ public class MapInstaller : MonoInstaller, IInitializable
       InstallMainStat();
       InstallParticlesPlayer();
       InstallMapMove();
-      InstallFlyingCoins();
+      InstallGameCameraSystem();
    }
-
-   private void InstallFlyingCoins() {
-      Container.Bind<ICoinsTarget>().FromInstance(mapHudView);
-      Container.Bind<FlyingCoinsConfig>().FromInstance(flyingCoinsConfig);
-      Container.BindInterfacesAndSelfTo<FlyingCoinService>().AsSingle();
+   private void InstallGameCameraSystem() {
+      Container.Bind<CameraConfig>().FromInstance(cameraConfig);
+      Container.Bind<CinemachineVirtualCamera>().FromInstance(cinemachineVirtualCamera);
+      Container.Bind<CameraSystem>().AsSingle();
    }
 
    private void InstallMapMove() {
       Container.BindInterfacesAndSelfTo<MapKeyboardInput>().AsSingle();
-      Container.Bind<CinemachineVirtualCamera>().FromInstance(cinemachineVirtualCamera);
       Container.Bind<MapCameraSystem>().AsSingle().NonLazy();
    }
 

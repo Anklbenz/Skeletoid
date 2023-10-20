@@ -19,6 +19,4 @@ MonoBehaviour:
   paddleMaxSpeed: 3.8
   paddleAccelerationStep: 0.4
   showingAdsCount: 1
-  cameraShakeIntensityValue: 0.2
-  shakeDurationMillisecondsValue: 300
   delayBeforeWinSystemActivateValue: 300

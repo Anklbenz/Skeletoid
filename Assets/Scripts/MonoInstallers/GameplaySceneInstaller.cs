@@ -6,7 +6,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameplayConfig gameplayConfig;
 
 	[SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
-	//[SerializeField] private WorldsConfig worldsConfig;
+	[SerializeField] private CameraConfig cameraConfig;
 	[SerializeField] private UiFactoryConfig uiFactoryConfig;
 	[SerializeField] private ParticlesConfig particlesConfig;
 	[SerializeField] private FlyingCoinsConfig coinsConfig;
@@ -29,8 +29,9 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	}
 
 	private void InstallGameCameraSystem() {
+		Container.Bind<CameraConfig>().FromInstance(cameraConfig);
 		Container.Bind<CinemachineVirtualCamera>().FromInstance(cinemachineVirtualCamera);
-		Container.Bind<GameCameraSystem>().AsSingle();
+		Container.Bind<CameraSystem>().AsSingle();
 	}
 
 	private void InstallPause() {

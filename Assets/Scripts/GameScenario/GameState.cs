@@ -3,11 +3,9 @@ using UnityEngine;
 
 public sealed class GameState : State
 {
-	
-
 	private readonly ParticlesService _particlesService;
 	private readonly FlyingCoinService _flyingCoinService;
-	private readonly GameCameraSystem _gameCameraSystem;
+	private readonly CameraSystem _cameraSystem;
 
 	private readonly HudSystem _hudSystem;
 	private readonly ProgressSystem _progressData;
@@ -23,11 +21,11 @@ public sealed class GameState : State
 		HudSystem hudSystem,
 		ParticlesService particlesService,
 		FlyingCoinService flyingCoinService,
-		GameCameraSystem gameCameraSystem,
+		CameraSystem cameraSystem,
 		ProgressSystem progress) : base(stateSwitcher) {
 		_progressData = progress;
 		_flyingCoinService = flyingCoinService;
-		_gameCameraSystem = gameCameraSystem;
+		_cameraSystem = cameraSystem;
 		_stateSwitcher = stateSwitcher;
 		_config = config;
 		_gameplaySystem = gameplaySystem;
@@ -66,7 +64,7 @@ public sealed class GameState : State
 		_progressData.IncreaseCurrentCoins(brickCost);
 		_particlesService.PlayDestroy(destroyedBrickPosition);
 		_flyingCoinService.SpawnCoins(destroyedBrickPosition, brickCost);
-		_gameCameraSystem.Shake(_config.cameraShakeIntensity, _config.cameraShakeDurationMilliseconds);
+		_cameraSystem.Shake();
 	}
 
 	private void OnBallCollision(Vector3 obj) =>

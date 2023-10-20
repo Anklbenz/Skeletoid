@@ -216,7 +216,7 @@ MonoBehaviour:
   particlesTransform: {fileID: 157309717}
   mapConfig: {fileID: 11400000, guid: e3844b10b77a41c48996213f9d3706b5, type: 2}
   cinemachineVirtualCamera: {fileID: 1156539318}
-  flyingCoinsConfig: {fileID: 11400000, guid: 64da428b238f13042a93d5c4e3f71c18, type: 2}
+  cameraConfig: {fileID: 11400000, guid: 4ee6c268b9c6b5f4881011a047762a9c, type: 2}
 --- !u!1001 &89070959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4768,8 +4768,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 1
+  far clip plane: 998.79
   field of view: 60
   orthographic: 1
   orthographic size: 9
@@ -4796,7 +4796,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511532632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6305065, y: 4.4688373, z: -10}
+  m_LocalPosition: {x: -1.7138677, y: 4.469146, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6249,7 +6249,7 @@ GameObject:
   - component: {fileID: 1156539318}
   - component: {fileID: 1156539320}
   m_Layer: 0
-  m_Name: CM vcam1
+  m_Name: CinemachineVirtualCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6278,8 +6278,8 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 9
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
+    NearClipPlane: 1
+    FarClipPlane: 998.79
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -6301,7 +6301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156539316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -3.31, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8464,6 +8464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1756633493}
   - component: {fileID: 1756633494}
+  - component: {fileID: 1756633495}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -8498,6 +8499,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1756633495
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756633492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 5
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!4 &1809011580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4282752972121798, guid: 50889093595a76844a7e86b43e3d9037, type: 3}

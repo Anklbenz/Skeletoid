@@ -15,13 +15,8 @@ public class GameplayConfig : ScriptableObject
 	[Header("LoseSystem")] [SerializeField]
 	private int showingAdsCount;
 
-	[Header("Camera")] 
-	[SerializeField] private float cameraShakeIntensityValue;
-	[SerializeField] private int shakeDurationMillisecondsValue;
 	[SerializeField] private int delayBeforeWinSystemActivateValue = 300;
-
-	public int cameraShakeDurationMilliseconds => shakeDurationMillisecondsValue; 
-	public float cameraShakeIntensity => cameraShakeIntensityValue;
+	
 	public int delayBeforeWinSystemActivate => delayBeforeWinSystemActivateValue;
 	public int showingAdsNumber=>showingAdsCount;
 	public int skullDamage => damage;

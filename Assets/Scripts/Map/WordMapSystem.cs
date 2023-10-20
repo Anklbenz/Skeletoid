@@ -8,19 +8,21 @@ public class WordMapSystem
     private readonly ProgressSystem _progressSystem;
     private readonly SceneLoaderService _sceneLoaderService;
     private readonly MapParticlesPlayer _mapParticlesPlayer;
-
+    private readonly CameraSystem _cameraSystem;
 
     public WordMapSystem(
         MapHud mapHud,
         ProgressSystem progressSystem,
         SceneLoaderService sceneLoaderService,
-        MapParticlesPlayer mapParticlesPlayer) {
+        MapParticlesPlayer mapParticlesPlayer,
+        CameraSystem cameraSystem) {
 
         _mapHud = mapHud;
         _progressSystem = progressSystem;
 
         _sceneLoaderService = sceneLoaderService;
         _mapParticlesPlayer = mapParticlesPlayer;
+        _cameraSystem = cameraSystem;
     }
 
     public void Initialize(MapItem[] items) {
@@ -39,15 +41,16 @@ public class WordMapSystem
             mapItem.StartEvent += OnLevelSelect;
 
             if (info.freshUnlockedTrigger)
-                await UnlockedWorldParticlesPlay(mapItem.dustParticlesTransform.position);
+                await UnlockWorld(mapItem.dustParticlesTransform.position);
 
             mapItem.isLevelUnlocked = info.isUnlocked;
         }
     }
 
-    private async UniTask UnlockedWorldParticlesPlay(Vector3 mapItemPosition) {
+    private async UniTask UnlockWorld(Vector3 mapItemPosition) {
         await UniTask.Delay(PARTICLES_PLAY_DELAY);
         _mapParticlesPlayer.PlayAtPoint(mapItemPosition);
+        _cameraSystem.Shake();
     }
 
     private void OnLevelSelect(int worldIndex) {

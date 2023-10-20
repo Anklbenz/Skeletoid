@@ -202,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayConfig: {fileID: 11400000, guid: 8dfd77b928beb74479254886e2df9188, type: 2}
   cinemachineVirtualCamera: {fileID: 200079860}
+  cameraConfig: {fileID: 11400000, guid: 5cdef3711d75dbc4787473ab8d5d5dcc, type: 2}
   uiFactoryConfig: {fileID: 11400000, guid: 4954dd9741fbd2b40a345a0311d6af31, type: 2}
   particlesConfig: {fileID: 11400000, guid: 7fe44d8c2ce7390439bfe79d9a508f30, type: 2}
   coinsConfig: {fileID: 11400000, guid: 08260542e970d3b41bb07433fa8e7099, type: 2}
@@ -267,15 +268,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200079859}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: 0, y: 4.1, z: -2.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 677180727}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!1 &467861798
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,8 +662,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: 0, y: 4.1, z: -2.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
