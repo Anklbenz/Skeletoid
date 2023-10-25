@@ -1,12 +1,16 @@
-public class InitializeLevelState : State {
+public class InitializeLevelState : State
+{
 	private readonly GameplaySystem _gameplaySystem;
-	private readonly ProgressSystem _progressData;
+	private readonly ProgressSystem _progressSystem;
 	private readonly LevelFactory _levelFactory;
+	private readonly CameraSystem _cameraSystem;
 
-	public InitializeLevelState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, ProgressSystem progressData, LevelFactory levelFactory) : base(stateSwitcher) {
+	public InitializeLevelState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, ProgressSystem progressSystem, LevelFactory levelFactory,
+		CameraSystem cameraSystem) : base(stateSwitcher) {
 		_gameplaySystem = gameplaySystem;
-		_progressData = progressData;
+		_progressSystem = progressSystem;
 		_levelFactory = levelFactory;
+		_cameraSystem = cameraSystem;
 	}
 
 	public override void Enter() {
@@ -15,10 +19,12 @@ public class InitializeLevelState : State {
 	}
 
 	private void SetNewLevel() {
-		var worldIndex = _progressData.currentWorldIndex;
-		var levelIndex = _progressData.currentLevelIndex;
+		var worldIndex = _progressSystem.currentWorldIndex;
+		var levelIndex = _progressSystem.currentLevelIndex;
 		var level = _levelFactory.CreateLevel(worldIndex, levelIndex);
 		_gameplaySystem.SetNewLevel(level);
+		_cameraSystem.zoomedLookAt = level.player.skeletonHeadTransform;
+		_progressSystem.currentLevel = level;
 	}
 
 	private void GotoGameplayState() {

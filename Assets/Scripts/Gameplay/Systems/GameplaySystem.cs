@@ -2,7 +2,8 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public sealed class GameplaySystem : IPauseSensitive {
+public sealed class GameplaySystem : IPauseSensitive, IDisposable
+{
 	private const float X_BALL_POSITION_RANDOMIZE_LIMIT = 0.1f;
 
 	public event Action<Vector3> BallCollisionEvent;
@@ -57,7 +58,7 @@ public sealed class GameplaySystem : IPauseSensitive {
 		//
 		player.aimTarget = ball.transform;
 	}
-	
+
 	public void SetPause(bool isPaused) {
 		player.SetPause(isPaused);
 		ball.SetPause(isPaused);
@@ -69,7 +70,7 @@ public sealed class GameplaySystem : IPauseSensitive {
 	}
 
 	private void OnBallHit(Vector3 hitPosition) =>
-			BallCollisionEvent?.Invoke(hitPosition);
+		BallCollisionEvent?.Invoke(hitPosition);
 
 	private void OnBrickNoLivesLeft(Brick sender) {
 		BrickDestroyedEvent?.Invoke(sender);
@@ -86,7 +87,7 @@ public sealed class GameplaySystem : IPauseSensitive {
 	}
 
 	private void SubscribeInput() =>
-			_input.ShotEvent += Throw;
+		_input.ShotEvent += Throw;
 
 	private void SubscribeLevelEvents() {
 		foreach (var brick in _level.bricks)
@@ -114,4 +115,10 @@ public sealed class GameplaySystem : IPauseSensitive {
 	private void SetPaddleToDefaultPosition() {
 		player.transform.position = _level.paddleOrigin.position;
 	}
+
+	public void Dispose() {
+		UnSubscribeInput();
+	}
+	private void UnSubscribeInput() =>
+		_input.ShotEvent -= Throw;
 }

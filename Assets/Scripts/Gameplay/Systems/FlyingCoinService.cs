@@ -42,7 +42,6 @@ public class FlyingCoinService : IFixedTickable
 			coin.transform.position = randomPointInSphere;
 			AddToFlyingList(coin.transform);
 		}
-		Debug.Log($"Coins spawned {i}");
 	}
 
 	private async void AddToFlyingList(Transform coinTransform) {

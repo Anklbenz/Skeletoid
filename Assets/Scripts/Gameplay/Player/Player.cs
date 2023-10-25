@@ -7,7 +7,9 @@ public sealed class Player : MonoBehaviour, IPauseSensitive, ISpecialReflect, IL
 	[SerializeField] private Rigidbody paddleRigidbody;
 	[SerializeField] private AnimationPlayer animationPlayer;
 	[SerializeField] private GameObject ballHolder;
+	[SerializeField] private Transform skeletonHead;
 
+	public Transform skeletonHeadTransform => skeletonHead;
 	public Transform aimTarget { set => animationPlayer.SetAimTarget(value); }
 	public bool isBallHolderActive {
 		get => ballHolder.activeInHierarchy;
@@ -73,7 +75,7 @@ public sealed class Player : MonoBehaviour, IPauseSensitive, ISpecialReflect, IL
 		else
 			_currentSpeed = _currentSpeed < maxSpeed ? _currentSpeed + accelerationStep : maxSpeed;
 
-		//_velocityVector always != 0, but _speed can be == 0
+		//_velocityVector always != zero, but _speed can be == 0
 		paddleRigidbody.velocity = _velocityVector * _currentSpeed;
 	}
 

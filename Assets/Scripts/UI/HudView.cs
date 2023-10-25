@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class HudView : AnimatedView
 {
+	[Header("HudView")]
+	[SerializeField] private Animator coinsAnimator;
+	[SerializeField] private string playTrigger = "Play";
 	[SerializeField] private TMP_Text skullsCountText;
 	[SerializeField] private TMP_Text coinsCountText;
 	[SerializeField] private Button  pauseButton,muteButton;
@@ -13,17 +16,24 @@ public class HudView : AnimatedView
 
 	public string skullsCount {
 		get => skullsCountText.text;
-		set => skullsCountText.text = value;
+		set => skullsCountText.text =  $"x {value}";
 	}
 
 	public string coinsCount {
 		get => coinsCountText.text;
-		set => coinsCountText.text = value;
+		set => coinsCountText.text = $"x {value}";
 	}
 
-	private void Awake() =>
+	private void Awake() {
 		pauseButton.onClick.AddListener(PauseClickNotify);
+		
+	}
 
 	private void PauseClickNotify() =>
 		PauseClickedEvent?.Invoke();
+
+	public void CoinsAnimationPlay() {
+		var closeHash = Animator.StringToHash(playTrigger);
+		coinsAnimator.SetTrigger(closeHash);
+	}
 }

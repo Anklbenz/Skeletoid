@@ -20,3 +20,4 @@ MonoBehaviour:
   paddleAccelerationStep: 0.4
   showingAdsCount: 1
   delayBeforeWinSystemActivateValue: 300
+  lookAtSkeletonDelay: 700

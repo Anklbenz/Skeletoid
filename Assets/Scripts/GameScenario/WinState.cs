@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class WinState : State
 {
 	private readonly StateSwitcher _stateSwitcher;
@@ -5,20 +7,23 @@ public class WinState : State
 	private readonly PauseHandler _pauseHandler;
 	private readonly ProgressSystem _progressSystem;
 	private readonly SceneLoaderService _sceneLoaderService;
+	private readonly Timer _timer;
 
-	public WinState(StateSwitcher stateSwitcher, WinSystem winSystem, PauseHandler pauseHandler, ProgressSystem progressSystem, SceneLoaderService sceneLoaderService) :
+	public WinState(StateSwitcher stateSwitcher, WinSystem winSystem, PauseHandler pauseHandler, ProgressSystem progressSystem, SceneLoaderService sceneLoaderService, Timer timer) :
 		base(stateSwitcher) {
 		_winSystem = winSystem;
 		_pauseHandler = pauseHandler;
 		_progressSystem = progressSystem;
 		_stateSwitcher = stateSwitcher;
 		_sceneLoaderService = sceneLoaderService;
+		_timer = timer;
 		_winSystem.ContinueEvent += OnContinueSelected;
 	}
 
 	public override void Enter() {
 		_pauseHandler.SetPause(true);
 		_winSystem.OnWin();
+		
 	}
 
 	public override void Exit() {

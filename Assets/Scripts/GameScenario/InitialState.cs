@@ -1,7 +1,9 @@
 using System.Linq;
 
-public class InitialState : State {
+public class InitialState : State
+{
 	private readonly UiFactory _uiFactory;
+	private readonly CameraSystem _cameraSystem;
 	private readonly ParticlesService _particlesService;
 	private readonly FlyingCoinService _flyingCoinService;
 	private readonly LoseSystem _loseSystem;
@@ -12,15 +14,17 @@ public class InitialState : State {
 	public InitialState(
 		StateSwitcher stateSwitcher,
 		UiFactory uiFactory,
+		CameraSystem cameraSystem,
 		LoseSystem loseSystem,
 		WinSystem winSystem,
 		PauseUiSystem pauseUiSystem,
 		HudSystem hudSystem,
 		ParticlesService particlesService,
 		FlyingCoinService flyingCoinService
-		) : base(stateSwitcher) {
-		
+	) : base(stateSwitcher) {
+
 		_uiFactory = uiFactory;
+		_cameraSystem = cameraSystem;
 		_particlesService = particlesService;
 		_flyingCoinService = flyingCoinService;
 		_loseSystem = loseSystem;
@@ -33,6 +37,7 @@ public class InitialState : State {
 		Initialize();
 		GotoLevelInitialize();
 	}
+
 	private void Initialize() {
 		_uiFactory.Initialize();
 		var hudView = _uiFactory.CreateHudView();
@@ -42,14 +47,16 @@ public class InitialState : State {
 		var winView = _uiFactory.CreateWinView();
 		_winSystem.Initialize(winView);
 
+
 		var pauseView = _uiFactory.CreatePauseView();
 		pauseView.ForceClose();
 		_pauseUiSystem.Initialize(pauseView);
-		
+
 		_particlesService.Initialize();
 		_flyingCoinService.Initialize();
-      
+		_cameraSystem.Initialize();
 	}
+
 	private void GotoLevelInitialize() {
 		switcher.SetState<InitializeLevelState>();
 	}

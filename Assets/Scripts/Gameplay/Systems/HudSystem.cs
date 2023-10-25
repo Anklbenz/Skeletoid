@@ -32,6 +32,7 @@ public class HudSystem : ICoinsTarget
 	public void IncreaseCoinsCount(int count = 1) {
 		_hudCoinsCount += count;
 		_view.coinsCount = _hudCoinsCount.ToString("D2");
+		_view.CoinsAnimationPlay();
 	}
 
 	public void Refresh() {

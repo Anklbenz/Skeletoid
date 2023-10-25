@@ -9,7 +9,7 @@ public class ProgressSystem
 	public bool hasLives => _data.lives.count > 0;
 	public int livesCount => _data.lives.count;
 	public int starsCount => _data.statsWallet.count;
-
+    public Level currentLevel { get; set; }
 	private WorldData currentWorld => _data.worldsInfo[_currentWorldIndexWorldIndex];
 	private WorldData nextWorld => _data.worldsInfo[_currentWorldIndexWorldIndex + 1];
 	private bool hasNextWorld => _data.worldsInfo.Length > _currentWorldIndexWorldIndex + 1;

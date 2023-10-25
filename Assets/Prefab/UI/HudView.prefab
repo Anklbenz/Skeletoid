@@ -1,5 +1,43 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3713475016639259540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3764795717221355335}
+  m_Layer: 0
+  m_Name: Content
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3764795717221355335
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713475016639259540}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4730905245494345279}
+  - {fileID: 4730905245336525461}
+  m_Father: {fileID: 4730905245167721561}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4730905244057829092
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,6 +380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4730905245167721561}
+  - component: {fileID: 8936088061210899427}
   m_Layer: 0
   m_Name: CoinsCounter
   m_TagString: Untagged
@@ -361,8 +400,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4730905245494345279}
-  - {fileID: 4730905245336525461}
+  - {fileID: 3764795717221355335}
   m_Father: {fileID: 4730905244788683763}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -371,6 +409,26 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -166}
   m_SizeDelta: {x: 279.916, y: 100}
   m_Pivot: {x: 0, y: 1}
+--- !u!95 &8936088061210899427
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4730905245167721558}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50b2255a4455d474bbecd8a8fe014bfb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4730905245179592097
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,12 +618,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4730905245167721561}
+  m_Father: {fileID: 3764795717221355335}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -86.553055, y: 0}
+  m_AnchoredPosition: {x: -86.54805, y: 0}
   m_SizeDelta: {x: 173.0961, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4730905245336525463
@@ -695,14 +753,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4730905245167721561}
+  m_Father: {fileID: 3764795717221355335}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 67.37047, y: 181.86592}
+  m_AnchoredPosition: {x: 40, y: 0}
   m_SizeDelta: {x: 80, y: 80}
-  m_Pivot: {x: 0.7925937, y: 2.639599}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4730905245494345217
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -963,6 +1021,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4730905245754144674}
   closeTrigger: disappear
+  coinsAnimator: {fileID: 8936088061210899427}
+  playTrigger: Play
   skullsCountText: {fileID: 4730905245511085992}
   coinsCountText: {fileID: 4730905245336525460}
   pauseButton: {fileID: 3927865837161378261}

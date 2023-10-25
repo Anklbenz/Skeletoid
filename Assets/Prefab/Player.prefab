@@ -851,6 +851,7 @@ MonoBehaviour:
   paddleRigidbody: {fileID: 2355270342637404909}
   animationPlayer: {fileID: 9131331434632669748}
   ballHolder: {fileID: 8113389298673779252}
+  skeletonHead: {fileID: 2439769554590234198}
 --- !u!114 &9131331434632669748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1369,7 +1370,7 @@ MonoBehaviour:
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
     m_MinLimit: -90
-    m_MaxLimit: 90
+    m_MaxLimit: 104
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 1

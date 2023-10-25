@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public sealed class GameState : State
 	private readonly ParticlesService _particlesService;
 	private readonly FlyingCoinService _flyingCoinService;
 	private readonly CameraSystem _cameraSystem;
+	private readonly Timer _timer;
 
 	private readonly HudSystem _hudSystem;
 	private readonly ProgressSystem _progressData;
@@ -22,10 +24,13 @@ public sealed class GameState : State
 		ParticlesService particlesService,
 		FlyingCoinService flyingCoinService,
 		CameraSystem cameraSystem,
+		Timer timer,
 		ProgressSystem progress) : base(stateSwitcher) {
+		
 		_progressData = progress;
 		_flyingCoinService = flyingCoinService;
 		_cameraSystem = cameraSystem;
+		_timer = timer;
 		_stateSwitcher = stateSwitcher;
 		_config = config;
 		_gameplaySystem = gameplaySystem;
@@ -41,15 +46,29 @@ public sealed class GameState : State
 
 		_flyingCoinService.CollectedEvent += IncreaseHudCoinsCount;
 		pauseHandler.Register(_gameplaySystem);
+		_timer.TickEvent += DDD;
+	}
+
+	private void DDD(float obj) {
+		
+		Debug.Log($"{_timer.current.Minutes:00}:{_timer.current.Seconds:00}:{_timer.current.Milliseconds:000}");
+    
+		
 	}
 
 	public override void Enter() {
 		//for pause state
 		if (_gameplaySystem.state == GameplayState.PlayEnded)
 			_gameplaySystem.Restart();
-	
+	    
+		_timer.Start();
 		_hudSystem.SetActive(true);
 		RefreshHudValues();
+		DDD(1);
+	}
+
+	public override void Exit() {
+		_timer.Stop();
 	}
 
 	private void IncreaseHudCoinsCount()=>

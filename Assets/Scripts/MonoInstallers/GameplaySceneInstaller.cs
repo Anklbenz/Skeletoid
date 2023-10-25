@@ -4,8 +4,6 @@ using Zenject;
 
 public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameplayConfig gameplayConfig;
-
-	[SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
 	[SerializeField] private CameraConfig cameraConfig;
 	[SerializeField] private UiFactoryConfig uiFactoryConfig;
 	[SerializeField] private ParticlesConfig particlesConfig;
@@ -26,11 +24,15 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallGameScenario();
 		InstallInitializeForThis();
 		InstallGameCameraSystem();
+		InstallTimer();
+	}
+
+	private void InstallTimer() {
+		Container.BindInterfacesAndSelfTo<Timer>().AsSingle();
 	}
 
 	private void InstallGameCameraSystem() {
 		Container.Bind<CameraConfig>().FromInstance(cameraConfig);
-		Container.Bind<CinemachineVirtualCamera>().FromInstance(cinemachineVirtualCamera);
 		Container.Bind<CameraSystem>().AsSingle();
 	}
 
@@ -65,7 +67,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallGameplaySystem() {
 		Container.Bind<BallLaunchSystem>().AsSingle();
-		Container.Bind<GameplaySystem>().AsSingle();
+		Container.BindInterfacesAndSelfTo<GameplaySystem>().AsSingle();
 	}
 
 	private void InstallParticlesService() {

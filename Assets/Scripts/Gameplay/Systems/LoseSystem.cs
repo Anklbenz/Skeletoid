@@ -1,19 +1,22 @@
 using System;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class LoseSystem
 {
 	public event Action RestartEvent, QuitEvent;
 
-	private readonly UiFactoryConfig _config;
 	private readonly GameplayConfig _gameplayConfig;
 	private readonly ProgressSystem _progressSystem;
+	private readonly CameraSystem _cameraSystem;
 	private LoseView _view;
 	private int _numbersAdsLeft;
 
-	public LoseSystem(GameplayConfig gameplayConfig,ProgressSystem progressSystem) {
+	public LoseSystem(GameplayConfig gameplayConfig, ProgressSystem progressSystem) {
 		_gameplayConfig = gameplayConfig;
 		_progressSystem = progressSystem;
+	
 	}
 
 	public void Initialize(LoseView view) {
@@ -26,7 +29,8 @@ public class LoseSystem
 		_numbersAdsLeft = _gameplayConfig.showingAdsNumber;
 	}
 
-	public void OnLose() {
+	public  void OnLose() {
+		
 		var hasLives = _progressSystem.hasLives;
 		_progressSystem.SpendLife();
 		_view.showAdsButtonInteractable = _numbersAdsLeft > 0;
@@ -35,6 +39,8 @@ public class LoseSystem
 		_view.SetSkullsCount(_progressSystem.livesCount);
 		_view.Open();
 	}
+
+
 
 	private void ShowAds() {
 		Debug.Log("Show Ads");

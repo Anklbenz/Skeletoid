@@ -50,6 +50,8 @@ public class MapInstaller : MonoInstaller, IInitializable
    }
 
    public void Initialize() {
+      var cameraSystem = Container.Resolve<CameraSystem>();
+      cameraSystem.Initialize(cinemachineVirtualCamera);
       
       var mapSystem = Container.Resolve<WordMapSystem>();
       mapSystem.Initialize(items);
