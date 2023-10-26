@@ -29,6 +29,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallTimer() {
 		Container.BindInterfacesAndSelfTo<Timer>().AsSingle();
+		Container.Bind<RewardSystem>().AsSingle();
 	}
 
 	private void InstallGameCameraSystem() {

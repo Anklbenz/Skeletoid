@@ -4,6 +4,8 @@ public class WorldData
     public bool isCompleted;
     public int starsCount;
     public int levelsCount;
+    public float bestCompletedTime;
+    
     private bool _freshUnlocked;
 
     public bool freshUnlockedTrigger {

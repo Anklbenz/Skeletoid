@@ -2,12 +2,11 @@ using System;
 using UnityEngine;
 
 public sealed class Ball : Motor, IReflectObject, IThrowable {
-	[Header("Reflect settings")] [SerializeField]
-	private float permissibleAngle, correctionStep;
-
 	public event Action<Vector3> OnCollisionEvent;
 	public event Action FallOnFloorEvent;
-	public bool isActive { get; set; } = true;
+	public float permissibleAngle { get; set; }
+	public float correctionStep { get; set; }
+   public bool isActive { get; set; } = true;
 	public int damage { get; set; }
 	public Vector3 direction { get; set; }
 

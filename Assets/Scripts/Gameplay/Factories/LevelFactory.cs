@@ -31,6 +31,8 @@ public sealed class LevelFactory {
 		map.ball = _factory.Create(_config.ballPrefab, map.transform);
 		map.ball.speed = _config.ballSpeed;
 		map.ball.damage = _config.skullDamage;
+		map.ball.permissibleAngle = _config.permissibleAngle;
+		map.ball.correctionStep = _config.correctionStep;
 	}
 	private void CreatePlayer(Level map) {
 		map.player = _factory.Create(_config.playerPrefab, map.transform, map.paddleOrigin.position);

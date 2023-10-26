@@ -7,8 +7,8 @@ public class WorldsConfig : ScriptableObject
 
     public int wordsCount => worlds.Length;
 
-    public int GetLevelCountByWordIndex(int index) =>
-        worlds[index].levelsCount;
+    public World GetWorldByIndex(int index) =>
+        worlds[index];
     
     public bool LevelPrefabExists(int wordIndex, int levelIndex) {
         if (wordIndex < worlds.Length)

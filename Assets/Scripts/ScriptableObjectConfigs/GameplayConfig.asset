@@ -15,6 +15,8 @@ MonoBehaviour:
   ball: {fileID: 6919904815795975566, guid: 8abbce41e8e4e944b8c2f9adc34ea5ad, type: 3}
   damage: 1
   skullStartSpeed: 3
+  permissibleAngleValue: 20
+  correctionStepValue: 4
   player: {fileID: 4379953654239011457, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}
   paddleMaxSpeed: 3.8
   paddleAccelerationStep: 0.4

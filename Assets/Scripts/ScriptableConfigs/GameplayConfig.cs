@@ -8,7 +8,12 @@ public class GameplayConfig : ScriptableObject
 	[SerializeField] private int damage;
 	[SerializeField] private float skullStartSpeed = 5;
 
-	[Header("Paddle")] [SerializeField] private Player player;
+	[Header("Reflect settings")] 
+	[SerializeField] private float permissibleAngleValue = 20;
+	[SerializeField] private float correctionStepValue = 2;
+
+	[Header("Paddle")]
+	[SerializeField] private Player player;
 	[SerializeField] private float paddleMaxSpeed = 4;
 	[SerializeField] private float paddleAccelerationStep = 0.4f;
 
@@ -16,14 +21,17 @@ public class GameplayConfig : ScriptableObject
 	private int showingAdsCount;
 
 	[SerializeField] private int delayBeforeWinSystemActivateValue = 300;
-	[Header("LoseState")] [SerializeField] private int lookAtSkeletonDelay =2000;
+	[Header("LoseState")] [SerializeField] private int lookAtSkeletonDelay = 2000;
 
 	public int delayBeforeLookAtSkeleton => lookAtSkeletonDelay;
 	public int delayBeforeWinSystemActivate => delayBeforeWinSystemActivateValue;
-	public int showingAdsNumber=>showingAdsCount;
+	public int showingAdsNumber => showingAdsCount;
 	public int skullDamage => damage;
 	public float paddleSpeed => paddleMaxSpeed;
 	public float paddleAcceleration => paddleAccelerationStep;
+
+	public float permissibleAngle => permissibleAngleValue;
+	public float correctionStep => correctionStepValue;
 
 	public float ballSpeed => skullStartSpeed;
 	public Ball ballPrefab => ball;

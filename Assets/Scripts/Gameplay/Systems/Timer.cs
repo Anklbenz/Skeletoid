@@ -4,10 +4,11 @@ using Zenject;
 
 public class Timer : ITickable
 {
-   public event Action<float> TickEvent;
-   public TimeSpan current => TimeSpan.FromSeconds(_totalMilliseconds);
+   public event Action TickEvent;
+   public TimeSpan current => TimeSpan.FromSeconds(_totalSeconds);
+   public float currentSeconds => _totalSeconds;
 
-   private float _totalMilliseconds;
+   private float _totalSeconds;
    private bool _isRunning;
 
    public void Start() =>
@@ -17,13 +18,13 @@ public class Timer : ITickable
       _isRunning = false;
 
    public void Reset() =>
-      _totalMilliseconds = 0;
+      _totalSeconds = 0;
    
    public void Tick() {
       if (!_isRunning) return;
-      _totalMilliseconds += Time.deltaTime;
+      _totalSeconds += Time.deltaTime;
       TickNotify();
    }
    private void TickNotify() =>
-      TickEvent?.Invoke(_totalMilliseconds);
+      TickEvent?.Invoke();
 }
