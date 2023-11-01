@@ -6,6 +6,7 @@ public class InitialState : State
 	private readonly CameraSystem _cameraSystem;
 	private readonly ParticlesService _particlesService;
 	private readonly FlyingCoinService _flyingCoinService;
+	private readonly RewardSystem _rewardSystem;
 	private readonly LoseSystem _loseSystem;
 	private readonly WinSystem _winSystem;
 	private readonly HudSystem _hudSystem;
@@ -20,13 +21,15 @@ public class InitialState : State
 		PauseUiSystem pauseUiSystem,
 		HudSystem hudSystem,
 		ParticlesService particlesService,
-		FlyingCoinService flyingCoinService
+		FlyingCoinService flyingCoinService,
+			RewardSystem rewardSystem
 	) : base(stateSwitcher) {
 
 		_uiFactory = uiFactory;
 		_cameraSystem = cameraSystem;
 		_particlesService = particlesService;
 		_flyingCoinService = flyingCoinService;
+		_rewardSystem = rewardSystem;
 		_loseSystem = loseSystem;
 		_winSystem = winSystem;
 		_pauseUiSystem = pauseUiSystem;
@@ -47,7 +50,6 @@ public class InitialState : State
 		var winView = _uiFactory.CreateWinView();
 		_winSystem.Initialize(winView);
 
-
 		var pauseView = _uiFactory.CreatePauseView();
 		pauseView.ForceClose();
 		_pauseUiSystem.Initialize(pauseView);
@@ -55,6 +57,7 @@ public class InitialState : State
 		_particlesService.Initialize();
 		_flyingCoinService.Initialize();
 		_cameraSystem.Initialize();
+		
 	}
 
 	private void GotoLevelInitialize() {

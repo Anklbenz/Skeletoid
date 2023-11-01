@@ -12,8 +12,13 @@ public class MapItem : MonoBehaviour
     [SerializeField] private TMP_Text levelNumberText, rankText;
     [SerializeField] private Transform content;
     [SerializeField] private Button startButton;
-
+    [SerializeField] private Image startButtonImage;
+    [SerializeField] private Material highLightMaterial;
     public event Action<int> StartEvent;
+
+    public bool isHighlight {
+        set => startButtonImage.material = value ? highLightMaterial : null;
+    } 
 
     public Transform dustParticlesTransform => lockImage.transform;
 

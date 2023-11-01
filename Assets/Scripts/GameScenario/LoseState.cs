@@ -5,12 +5,16 @@ public class LoseState : State
 	private readonly StateSwitcher _stateSwitcher;
 	private readonly GameplayConfig _gameplayConfig;
 	private readonly LoseSystem _loseSystem;
+	private readonly KeysRecoverySystem _keysRecoverySystem;
+	private readonly ProgressSystem _progressSystem;
 	private readonly PauseHandler _pauseHandler;
 	private readonly SceneLoaderService _sceneLoaderService;
 	private readonly CameraSystem _cameraSystem;
 
-	public LoseState(StateSwitcher stateSwitcher, GameplayConfig gameplayConfig, LoseSystem loseSystem, PauseHandler pauseHandler, SceneLoaderService sceneLoaderService,  CameraSystem cameraSystem) : base(stateSwitcher) {
+	public LoseState(StateSwitcher stateSwitcher, GameplayConfig gameplayConfig, LoseSystem loseSystem, KeysRecoverySystem keysRecoverySystem,ProgressSystem progressSystem, PauseHandler pauseHandler, SceneLoaderService sceneLoaderService,  CameraSystem cameraSystem) : base(stateSwitcher) {
 		_loseSystem = loseSystem;
+		_keysRecoverySystem = keysRecoverySystem;
+		_progressSystem = progressSystem;
 		_pauseHandler = pauseHandler;
 		_stateSwitcher = stateSwitcher;
 		_gameplayConfig = gameplayConfig;
@@ -23,6 +27,8 @@ public class LoseState : State
 	public override async void Enter() {
 		_pauseHandler.SetPause(true);
 		await LookAtSkeleton();
+		
+		_progressSystem.SpendLife();
 		_loseSystem.OnLose();
 	}
 
@@ -32,7 +38,7 @@ public class LoseState : State
 	}
 
 	private void OnQuitSelected() {
-
+		_keysRecoverySystem.KeyDecrease();
 		_sceneLoaderService.GoToMainMenuScene();
 	}
 	

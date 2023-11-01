@@ -16,7 +16,6 @@ public class LoseSystem
 	public LoseSystem(GameplayConfig gameplayConfig, ProgressSystem progressSystem) {
 		_gameplayConfig = gameplayConfig;
 		_progressSystem = progressSystem;
-	
 	}
 
 	public void Initialize(LoseView view) {
@@ -30,9 +29,8 @@ public class LoseSystem
 	}
 
 	public  void OnLose() {
-		
 		var hasLives = _progressSystem.hasLives;
-		_progressSystem.SpendLife();
+		
 		_view.showAdsButtonInteractable = _numbersAdsLeft > 0;
 		_view.restartInteractable = hasLives;
 		_view.showAdsButtonVisible = !hasLives;

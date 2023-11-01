@@ -6,12 +6,14 @@ public class ProjectInstaller : MonoInstaller
 	[SerializeField] private SceneIndexes scenesIndexes;
 	[SerializeField] private KeyboardConfig keyboardConfig;
 	[SerializeField] private WorldsConfig worldsConfig;
+	[SerializeField] private GameConfig gameConfig;
 
 	public override void InstallBindings() {
 		InstallSceneLoader();
 		InstallProjectStorage();
 		InstallControls();
 		InstallProgressDataSystem();
+		InstallLivesRecoveryTimer();
 	}
 
 	private void InstallControls() {
@@ -32,4 +34,8 @@ public class ProjectInstaller : MonoInstaller
 	private void InstallProgressDataSystem() =>
 		Container.Bind<ProgressSystem>().AsSingle().NonLazy();
 
+	private void InstallLivesRecoveryTimer() {
+		Container.Bind<GameConfig>().FromInstance(gameConfig);
+		Container.BindInterfacesAndSelfTo<KeysRecoverySystem>().AsSingle();
+	}
 }

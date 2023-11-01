@@ -5,16 +5,6 @@ public class WorldData
     public int starsCount;
     public int levelsCount;
     public float bestCompletedTime;
+    public bool freshUnlocked;
     
-    private bool _freshUnlocked;
-
-    public bool freshUnlockedTrigger {
-        get
-        {
-            var value = _freshUnlocked;
-            _freshUnlocked = false;
-            return value;
-        }
-        set => _freshUnlocked = value;
-    }
 }

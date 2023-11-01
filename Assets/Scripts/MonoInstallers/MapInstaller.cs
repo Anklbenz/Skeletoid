@@ -18,6 +18,7 @@ public class MapInstaller : MonoInstaller, IInitializable
       InstallParticlesPlayer();
       InstallMapMove();
       InstallGameCameraSystem();
+      InstallKeyRecovery();
    }
    private void InstallGameCameraSystem() {
       Container.Bind<CameraConfig>().FromInstance(cameraConfig);
@@ -49,12 +50,17 @@ public class MapInstaller : MonoInstaller, IInitializable
       Container.Bind<WordMapSystem>().AsSingle();
    }
 
+   private void InstallKeyRecovery() {
+      Container.BindInterfacesAndSelfTo<KeysRecoverySystem>().AsSingle();
+   }
+
    public void Initialize() {
       var cameraSystem = Container.Resolve<CameraSystem>();
       cameraSystem.Initialize(cinemachineVirtualCamera);
       
       var mapSystem = Container.Resolve<WordMapSystem>();
       mapSystem.Initialize(items);
-      
+
+     
    }
 }

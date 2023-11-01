@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RewardSystem
@@ -13,38 +11,38 @@ public class RewardSystem
 	private float _firstStarTime, _secondStarTime, _thirdStarTime;
 	private int _starsCount =MAX_STARS_COUNT;
 	
-	public RewardSystem(HudSystem hudSystem, Timer timer) {
+	public RewardSystem(Timer timer) {
 		_timer = timer;
 		_timer.TickEvent += OnTimerRefresh;
 	}
 
-	public void Initialize(float first, float second, float third) {
-		_firstStarTime = first;
-		_secondStarTime = second;
-		_thirdStarTime = third;
+	public void Initialize(Vector3 timeLimits) {
+		_firstStarTime = timeLimits.x;
+		_secondStarTime = timeLimits.y;
+		_thirdStarTime = timeLimits.z;
 
 		_isFistStarLost = _isSecondStarLost = _isThirdStarLost = false;
 		_timer.Reset();
 	}
 
-	public void Start() {
+	public void Start() =>
 		_timer.Start();
-	}
+	
 
-	public void Stop() {
+	public void Stop() =>
 		_timer.Stop();
-	}
+	
 
 	private void OnTimerRefresh() {
-		if (!_isFistStarLost && _firstStarTime > _timer.currentSeconds) {
+		if (!_isFistStarLost && _firstStarTime < _timer.currentSeconds) {
 			_isFistStarLost = true;
 			StarsCountDecrease();
 		}
-		if(!_isSecondStarLost && _secondStarTime > _timer.currentSeconds) {
+		if(!_isSecondStarLost && _secondStarTime < _timer.currentSeconds) {
 			_isSecondStarLost = true;
 			StarsCountDecrease();
 		}
-		if(!_isThirdStarLost && _thirdStarTime > _timer.currentSeconds) {
+		if(!_isThirdStarLost && _thirdStarTime < _timer.currentSeconds) {
 			_isThirdStarLost = true;
 			StarsCountDecrease();
 		}

@@ -5354,8 +5354,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: -0.13, y: 0}
-        m_Offset: {x: -1.86, y: 0.06}
+        m_Scale: {x: 0, y: 0}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Ambient: 0.5
@@ -5388,7 +5388,7 @@ Material:
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
     - _ScaleRatioB: 0.35209742
-    - _ScaleRatioC: 0.4513889
+    - _ScaleRatioC: 0.39828432
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -5403,7 +5403,7 @@ Material:
     - _TextureWidth: 512
     - _UnderlayDilate: 1
     - _UnderlayOffsetX: -0
-    - _UnderlayOffsetY: -0.5
+    - _UnderlayOffsetY: -0.7
     - _UnderlaySoftness: 0
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0

@@ -8,6 +8,7 @@ public class WordMapSystem
     private readonly ProgressSystem _progressSystem;
     private readonly SceneLoaderService _sceneLoaderService;
     private readonly MapParticlesPlayer _mapParticlesPlayer;
+    private readonly KeysRecoverySystem _keysRecoverySystem;
     private readonly CameraSystem _cameraSystem;
 
     public WordMapSystem(
@@ -15,17 +16,19 @@ public class WordMapSystem
         ProgressSystem progressSystem,
         SceneLoaderService sceneLoaderService,
         MapParticlesPlayer mapParticlesPlayer,
+        KeysRecoverySystem keysRecoverySystem,
         CameraSystem cameraSystem) {
 
         _mapHud = mapHud;
         _progressSystem = progressSystem;
-
         _sceneLoaderService = sceneLoaderService;
         _mapParticlesPlayer = mapParticlesPlayer;
+        _keysRecoverySystem = keysRecoverySystem;
         _cameraSystem = cameraSystem;
     }
 
     public void Initialize(MapItem[] items) {
+        _keysRecoverySystem.Initialize();
         UpdateMap(items);
         _mapHud.Refresh();
     }
@@ -40,11 +43,16 @@ public class WordMapSystem
             mapItem.levelsCount = info.levelsCount;
             mapItem.StartEvent += OnLevelSelect;
 
-            if (info.freshUnlockedTrigger)
+            if (info.freshUnlocked) {
+                info.freshUnlocked = false;
                 await UnlockWorld(mapItem.dustParticlesTransform.position);
+            }
 
             mapItem.isLevelUnlocked = info.isUnlocked;
         }
+
+        var lastUnlockedLevelIndex = _progressSystem.lastUnlockedWorldIndex;
+        items[lastUnlockedLevelIndex].isHighlight = true;
     }
 
     private async UniTask UnlockWorld(Vector3 mapItemPosition) {
@@ -54,6 +62,11 @@ public class WordMapSystem
     }
 
     private void OnLevelSelect(int worldIndex) {
+        if (_progressSystem.keysCount == 0) {
+            Debug.Log("No Keys Left");
+            return;
+        }
+        
         _progressSystem.SetWorld(worldIndex);
         _sceneLoaderService.GoToGameplayScene();
     }
