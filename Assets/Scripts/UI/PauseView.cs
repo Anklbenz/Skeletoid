@@ -15,8 +15,8 @@ public class PauseView : AnimatedView {
 	}
 	
 	public void SetCurrentLevelNumber(int current, int total) {
-		currentLevelText.text = current.ToString();
-		totalLevelsText.text = total.ToString();
+		//	currentLevelText.text = current.ToString();
+		//totalLevelsText.text = total.ToString();
 	}
 	
 	private void OnResumeClick() =>

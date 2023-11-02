@@ -40,7 +40,7 @@ public class WordMapSystem
 
             mapItem.isLevelCompleted = info.isCompleted;
             mapItem.levelStarsCount = info.starsCount;
-            mapItem.levelsCount = info.levelsCount;
+          //  mapItem.levelsCount = info.levelsCount;
             mapItem.StartEvent += OnLevelSelect;
 
             if (info.freshUnlocked) {

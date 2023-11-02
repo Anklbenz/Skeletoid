@@ -5788,7 +5788,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -177.18, y: 24}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &742681266
 MonoBehaviour:
@@ -5803,14 +5803,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+  m_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 32ed4119f4dfb4341ae9e54ee07f995b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7a0055a66c9f51c4f9ecf67583929f67, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5841,7 +5841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 8, y: -8}
+  m_EffectDistance: {x: 6, y: -6}
   m_UseGraphicAlpha: 1
 --- !u!1 &833449881
 GameObject:
@@ -6203,6 +6203,7 @@ GameObject:
   - component: {fileID: 1025245343}
   - component: {fileID: 1025245345}
   - component: {fileID: 1025245344}
+  - component: {fileID: 1025245346}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -6268,6 +6269,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025245342}
   m_CullTransparentMesh: 1
+--- !u!114 &1025245346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025245342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 6, y: -6}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1045275772
 GameObject:
   m_ObjectHideFlags: 0
@@ -7517,7 +7533,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1405864844}
   - component: {fileID: 1405864846}
-  - component: {fileID: 1405864847}
   - component: {fileID: 1405864848}
   m_Layer: 5
   m_Name: Keys
@@ -7556,21 +7571,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405864843}
   m_CullTransparentMesh: 1
---- !u!114 &1405864847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405864843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 6, y: -6}
-  m_UseGraphicAlpha: 1
 --- !u!95 &1405864848
 Animator:
   serializedVersion: 4
@@ -11150,29 +11150,9 @@ PrefabInstance:
       propertyPath: isUnlocked
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3886570312421894806, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: starsCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3886570312421894806, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: isCompleted
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3886570312421894806, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: levelNumber
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4077260916072299081, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
       propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4506668706666205083, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 7044dd71652c3ef4893397b2a4aa5371, type: 3}
-    - target: {fileID: 4506668706666205083, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: m_Material
-      value: 
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4987651005389306768, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
       propertyPath: m_IsActive
@@ -11262,21 +11242,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6649381725713025361, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989047044244073460, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: m_text
-      value: 01
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989047044244073460, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 7169458085574771765, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8461686041923782340, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
-      propertyPath: m_text
-      value: "Rank \n30"
+    - target: {fileID: 7908437106653002183, guid: d78e04d1880f0044d884d542f67200f8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d78e04d1880f0044d884d542f67200f8, type: 3}

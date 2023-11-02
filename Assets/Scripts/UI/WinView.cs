@@ -13,8 +13,8 @@ public class WinView : AnimatedView
 		coinsEarnedText.text = coins.ToString("D2");
 
 	public void SetCurrentLevelNumber(int current, int total) {
-		currentLevelText.text = current.ToString();
-		totalLevelsText.text = total.ToString();
+		//	currentLevelText.text = current.ToString();
+	//	totalLevelsText.text = total.ToString();
 	}
 
 	private void Awake() =>
