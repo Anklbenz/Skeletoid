@@ -1,41 +1,52 @@
 using TMPro;
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoseView : AnimatedView
-{
-	[SerializeField] private Button showAdsButton, restartButton, quitButton;
-	[SerializeField] private TMP_Text skullsCountText;
-	public event Action ShowAdsEvent, RestartEvent, QuitEvent;
+public class LoseView : AnimatedView {
+	[SerializeField] private Button showAdsButton, continueButton, quitButton;
+	[SerializeField] private int lifeAppearDelay = 550;
+	[SerializeField] private int lifeDisappearDelay = 1000;
+	[SerializeField] private TMP_Text livesCountText, lifeChangeText ;
+	public event Action ShowAdsClickedEvent, ContinueClickedEvent, QuitClickedEvent;
 
-	public bool showAdsButtonVisible {
+	public bool continueWithAdsButtonVisible {
 		set => showAdsButton.gameObject.SetActive(value);
 	}
-	
-	public bool showAdsButtonInteractable{
-		set => showAdsButton.interactable =(value);
+
+	public bool continueVisible {
+		set => continueButton.gameObject.SetActive(value);
 	}
 
-	public bool restartInteractable {
-		set => restartButton.interactable = value;
+	public int livesCount {
+		set => livesCountText.text = value.ToString("D2");
 	}
 
 	private void Awake() {
 		showAdsButton.onClick.AddListener(ShowAdsNotify);
-		restartButton.onClick.AddListener(OnRestartClick);
+		continueButton.onClick.AddListener(OnRestartClick);
 		quitButton.onClick.AddListener(OnQuitClick);
 	}
 
-	public void SetSkullsCount(int skulls) =>
-		skullsCountText.text = skulls.ToString("D2");
+	public async void SetLivesWithAnimation(int countBefore, int countAfter, string changeText) {
+		livesCount = countBefore;
+		lifeChangeText.text = changeText;
+		await UniTask.Delay(lifeAppearDelay);
+		livesCount = countAfter;
+		
+		lifeChangeText.gameObject.SetActive(true);
+		await UniTask.Delay(lifeDisappearDelay);
+		lifeChangeText.gameObject.SetActive(false);
+	}
 
 	private void ShowAdsNotify() =>
-		ShowAdsEvent?.Invoke();
+			ShowAdsClickedEvent?.Invoke();
 
 	private void OnQuitClick() =>
-		QuitEvent?.Invoke();
+			QuitClickedEvent?.Invoke();
 
 	private void OnRestartClick() =>
-		RestartEvent?.Invoke();
+			ContinueClickedEvent?.Invoke();
+			
 }

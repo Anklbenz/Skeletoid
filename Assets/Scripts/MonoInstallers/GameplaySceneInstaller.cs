@@ -29,7 +29,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallTimer() {
 		Container.BindInterfacesAndSelfTo<Timer>().AsSingle();
-		Container.Bind<RewardSystem>().AsSingle();
+		Container.Bind<StarsSystem>().AsSingle();
 	}
 
 	private void InstallGameCameraSystem() {
@@ -56,10 +56,10 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	}
 
 	private void InstallLoseSystem() =>
-			Container.Bind<LoseSystem>().AsSingle();
+			Container.Bind<Lose>().AsSingle();
 
 	private void InstallWinSystem() =>
-			Container.Bind<WinSystem>().AsSingle();
+			Container.Bind<Win>().AsSingle();
 
 	private void InstallFlyingCoinService() {
 		Container.Bind<FlyingCoinsConfig>().FromInstance(coinsConfig).AsSingle();

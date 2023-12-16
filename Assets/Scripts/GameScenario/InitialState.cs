@@ -6,9 +6,9 @@ public class InitialState : State
 	private readonly CameraSystem _cameraSystem;
 	private readonly ParticlesService _particlesService;
 	private readonly FlyingCoinService _flyingCoinService;
-	private readonly RewardSystem _rewardSystem;
-	private readonly LoseSystem _loseSystem;
-	private readonly WinSystem _winSystem;
+	private readonly StarsSystem _starsSystem;
+	private readonly Lose _lose;
+	private readonly Win _win;
 	private readonly HudSystem _hudSystem;
 	private readonly PauseUiSystem _pauseUiSystem;
 
@@ -16,22 +16,22 @@ public class InitialState : State
 		StateSwitcher stateSwitcher,
 		UiFactory uiFactory,
 		CameraSystem cameraSystem,
-		LoseSystem loseSystem,
-		WinSystem winSystem,
+		Lose lose,
+		Win win,
 		PauseUiSystem pauseUiSystem,
 		HudSystem hudSystem,
 		ParticlesService particlesService,
 		FlyingCoinService flyingCoinService,
-			RewardSystem rewardSystem
+			StarsSystem starsSystem
 	) : base(stateSwitcher) {
 
 		_uiFactory = uiFactory;
 		_cameraSystem = cameraSystem;
 		_particlesService = particlesService;
 		_flyingCoinService = flyingCoinService;
-		_rewardSystem = rewardSystem;
-		_loseSystem = loseSystem;
-		_winSystem = winSystem;
+		_starsSystem = starsSystem;
+		_lose = lose;
+		_win = win;
 		_pauseUiSystem = pauseUiSystem;
 		_hudSystem = hudSystem;
 	}
@@ -46,9 +46,9 @@ public class InitialState : State
 		var hudView = _uiFactory.CreateHudView();
 		_hudSystem.Initialize(hudView);
 		var loseView = _uiFactory.CreateLoseView();
-		_loseSystem.Initialize(loseView);
+		_lose.Initialize(loseView);
 		var winView = _uiFactory.CreateWinView();
-		_winSystem.Initialize(winView);
+		_win.Initialize(winView);
 
 		var pauseView = _uiFactory.CreatePauseView();
 		pauseView.ForceClose();

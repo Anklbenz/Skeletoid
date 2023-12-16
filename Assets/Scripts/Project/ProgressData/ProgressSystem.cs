@@ -78,11 +78,15 @@ public class ProgressSystem
 	public bool TrySetNextLevel() =>
 		_progressData.levelsHolder.TryMoveNext();
 
-	public void AddLife(int count = 1) =>
+	public int AddLife(int count = 1) {
 		_progressData.lives.Increase(count);
+		return _progressData.lives.count;
+	}
 
-	public void SpendLife() =>
+	public int SpendLife() {
 		_progressData.lives.Decrease();
+		return _progressData.lives.count;
+	}
 
 	public void SpendKey() =>
 		_progressData.keysWallet.Decrease();

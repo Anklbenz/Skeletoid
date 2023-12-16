@@ -63,4 +63,8 @@ public class MapItem : MonoBehaviour
             isCompleted = value;
         }
     }
+
+    private void OnValidate() {
+	    levelStarsCount = starsCount;
+    }
 }

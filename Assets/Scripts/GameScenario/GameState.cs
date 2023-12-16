@@ -7,7 +7,7 @@ public sealed class GameState : State
 	private readonly ParticlesService _particlesService;
 	private readonly FlyingCoinService _flyingCoinService;
 	private readonly CameraSystem _cameraSystem;
-	private readonly RewardSystem _rewardSystem;
+	private readonly StarsSystem _starsSystem;
 	private readonly HudSystem _hudSystem;
 	private readonly ProgressSystem _progressData;
 	private readonly StateSwitcher _stateSwitcher;
@@ -23,13 +23,13 @@ public sealed class GameState : State
 		ParticlesService particlesService,
 		FlyingCoinService flyingCoinService,
 		CameraSystem cameraSystem,
-		RewardSystem rewardSystem,
+		StarsSystem starsSystem,
 		ProgressSystem progress) : base(stateSwitcher) {
 		
 		_progressData = progress;
 		_flyingCoinService = flyingCoinService;
 		_cameraSystem = cameraSystem;
-		_rewardSystem = rewardSystem;
+		_starsSystem = starsSystem;
 		_stateSwitcher = stateSwitcher;
 		_config = config;
 		_gameplaySystem = gameplaySystem;
@@ -52,13 +52,13 @@ public sealed class GameState : State
 		if (_gameplaySystem.state == GameplayState.PlayEnded)
 			_gameplaySystem.Restart();
 	    
-		_rewardSystem.Start();
+		_starsSystem.Start();
 		_hudSystem.SetActive(true);
 		RefreshHudValues();
 	}
 
 	public override void Exit() {
-		_rewardSystem.Stop();
+		_starsSystem.Stop();
 	}
 
 	private void IncreaseHudCoinsCount()=>

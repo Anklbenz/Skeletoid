@@ -1,14 +1,12 @@
 using System;
-using UnityEngine;
-
-public class WinSystem
+public class Win
 {
 	private readonly ProgressSystem _progressData;
 	private WinView _view;
 
 	public event Action ContinueEvent;
 
-	public WinSystem(ProgressSystem progressData) {
+	public Win(ProgressSystem progressData) {
 		_progressData = progressData;
 	}
 
@@ -18,9 +16,9 @@ public class WinSystem
 		_view.ContinueEvent += OnContinue;
 	}
 
-	public void OnWin() {
-		_view.SetCurrentLevelNumber(_progressData.currentLevelIndex, _progressData.currentWorldLevelsCount);
-		_view.SetCoinsCount(_progressData.currentCoinsCount);
+	public void OnWin(int starsCount, TimeSpan levelTime) {
+		_view.ShowStarsCount(starsCount);
+		_view.levelTime =  $"{levelTime.Minutes:00}:{levelTime.Seconds:00}.{levelTime.Milliseconds:000}";
 		_view.Open();
 	}
 

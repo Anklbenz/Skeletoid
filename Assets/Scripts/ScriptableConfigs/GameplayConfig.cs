@@ -21,7 +21,7 @@ public class GameplayConfig : ScriptableObject
 	private int showingAdsCount;
 
 	[SerializeField] private int delayBeforeWinSystemActivateValue = 300;
-	[Header("LoseState")] [SerializeField] private int lookAtSkeletonDelay = 2000;
+	[Header("LoseState")] [SerializeField] private int lookAtSkeletonDelay = 700;
 
 
 	public int delayBeforeLookAtSkeleton => lookAtSkeletonDelay;

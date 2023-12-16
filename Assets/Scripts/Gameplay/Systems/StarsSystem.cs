@@ -1,17 +1,19 @@
+using System;
 using UnityEngine;
 
-public class RewardSystem
+public class StarsSystem
 {
 	private const int MAX_STARS_COUNT = 3;
 	public int starsCount => _starsCount;
 	public float levelTime => _timer.currentSeconds;
+	public TimeSpan levelTimeSpan => _timer.current;
 	
 	private readonly Timer _timer;
 	private bool _isFistStarLost, _isSecondStarLost, _isThirdStarLost;
 	private float _firstStarTime, _secondStarTime, _thirdStarTime;
 	private int _starsCount =MAX_STARS_COUNT;
 	
-	public RewardSystem(Timer timer) {
+	public StarsSystem(Timer timer) {
 		_timer = timer;
 		_timer.TickEvent += OnTimerRefresh;
 	}
@@ -28,11 +30,9 @@ public class RewardSystem
 	public void Start() =>
 		_timer.Start();
 	
-
 	public void Stop() =>
 		_timer.Stop();
 	
-
 	private void OnTimerRefresh() {
 		if (!_isFistStarLost && _firstStarTime < _timer.currentSeconds) {
 			_isFistStarLost = true;
