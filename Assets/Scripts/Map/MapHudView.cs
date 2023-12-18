@@ -5,12 +5,12 @@ using UnityEngine;
 public class MapHudView : MonoBehaviour, ICoinsTarget
 {
    [SerializeField] private TMP_Text coinsText, livesText, startsText, timerText;
-   [SerializeField] private Animator keysAnimator;
+   [SerializeField] private Animator keysAnimator, coinAnimator;
    [SerializeField] private string trigger = "Play";
    [SerializeField] private float speed = 0.8f;
    public Transform coinsTargetTransform => coinsText.transform;
 
-   private bool _isKeyInitialize;
+   private bool _isKeyInitialized, _isCoinsInitialized;
 
    private void Awake() {
       keysAnimator.speed = speed;
@@ -25,16 +25,25 @@ public class MapHudView : MonoBehaviour, ICoinsTarget
    }
 
    public string coinsCount {
-      set => coinsText.text = value;
+	   set {
+		   if (_isCoinsInitialized)
+			   coinAnimator.SetTrigger(trigger);
+		   else
+			   _isCoinsInitialized = true;
+
+		   coinsText.text = value;
+	   }
    }
 
    public string keysCount {
-      set {
-         if(_isKeyInitialize)
-            keysAnimator.SetTrigger(trigger);
-         livesText.text = value;
-         _isKeyInitialize = true;
-      }
+	   set {
+		   if (_isKeyInitialized)
+			   keysAnimator.SetTrigger(trigger);
+		   else
+			   _isKeyInitialized = true;
+		   
+		   livesText.text = value;
+	   }
    }
 
    public string starsCount {

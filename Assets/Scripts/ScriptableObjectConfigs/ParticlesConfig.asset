@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0e88bb054049a41ae37dd92225ea5e, type: 3}
   m_Name: ParticlesConfig
   m_EditorClassIdentifier: 
-  hitParticles: {fileID: 198126016265271784, guid: 54489d01dae104841844c25e9d2ede27, type: 3}
-  destroyParticles: {fileID: 198080878838276266, guid: 53bb2f2f3a979a84eb9e1fe38d7d4763, type: 3}
+  sparkParticle: {fileID: 198126016265271784, guid: 54489d01dae104841844c25e9d2ede27, type: 3}
+  sparkPoolAmount: 2
+  dustDarkParticles: {fileID: 198080878838276266, guid: 53bb2f2f3a979a84eb9e1fe38d7d4763, type: 3}
+  dustDarkPoolAmount: 4
+  dustBrightParticles: {fileID: 198210073868382146, guid: bbdb503a645baca45b2e046bac3b2c54, type: 3}
+  dustBrightPoolAmount: 3
+  dustCircleParticles: {fileID: 198021450184148448, guid: 976a8ab50c8204b45999ba3649d860bb, type: 3}
+  dustCirclePoolAmount: 3
+  waterParticles: {fileID: 198482940365560188, guid: 822a842b8d9ffd745b3ccf7f58c396bb, type: 3}
+  waterPoolAmount: 3
+  grenadeParticles: {fileID: 198948030977561794, guid: 38595a10a66a4ec45b1e2b31d6f50601, type: 3}
+  grenadePoolAmount: 3
+  fireParticles: {fileID: 198409057676998786, guid: 623d947db24c0b84cb0f58a84bbe9273, type: 3}
+  firePoolAmount: 3

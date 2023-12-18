@@ -47,7 +47,7 @@ public class StarsSystem
 			StarsCountDecrease();
 		}
 		//upd hud
-		Debug.Log($"{_timer.current.Minutes:00}:{_timer.current.Seconds:00}:{_timer.current.Milliseconds:000}");
+	//	Debug.Log($"{_timer.current.Minutes:00}:{_timer.current.Seconds:00}:{_timer.current.Milliseconds:000}");
 	}
 
 	private void StarsCountDecrease() =>

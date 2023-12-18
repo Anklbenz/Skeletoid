@@ -16,6 +16,10 @@ public class GizmosDrawer : MonoBehaviour {
 	[Header("Floor")] [SerializeField] private bool isFloorVisible = true;
 	[SerializeField] private Color floorColor = Color.white;
 
+	[Header("Back Wall")] [SerializeField] private bool isBackWallVisible = true;
+	[SerializeField] private int backWallLineNumber = 5;
+	[SerializeField] private Color backWallColor = Color.white;
+
 	[Header("PaddleZone")] [SerializeField]
 	private bool isPaddleZoneVisible = true;
 
@@ -36,6 +40,7 @@ public class GizmosDrawer : MonoBehaviour {
 
 	public Vector3 paddleCenter => new(0, 0, (float)-lineNumber / 2 - STEP / 2);
 	public Vector3 deadZoneCenter => new(0, STEP / 2, (float)-deadZoneLineNumber / 2 - STEP / 2);
+	public Vector3 backWallCenter => new(0, STEP / 2, (float)-backWallLineNumber / 2 - STEP / 2);
 	public Vector3 leftWallCenter => new(-realSize.x / 2 - STEP / 2, STEP / 2, 0);
 	public Vector3 rightWallCenter => new(realSize.x / 2 + STEP / 2, STEP / 2, 0);
 	public Vector3 frontWallCenter => new(0, STEP / 2, realSize.z / 2 + STEP / 2);
@@ -43,7 +48,6 @@ public class GizmosDrawer : MonoBehaviour {
 	public Vector3 wallSizeFront => new(realSize.x, STEP, STEP);
 	public Vector3 wallSizeSides => new(STEP, STEP, realSize.z);
 	public Vector3 floorSize => new(realSize.x, STEP, realSize.z);
-
 
 	private Vector3 realSize => new Vector3(gameFieldSize.x, 0, gameFieldSize.y) * STEP;
 	private Vector3 sizeExtends => new Vector3(gameFieldSize.x, 0, gameFieldSize.y) / 2;
@@ -57,6 +61,9 @@ public class GizmosDrawer : MonoBehaviour {
 
 		if (isWallsVisible)
 			DrawWalls();
+		
+		if (isBackWallVisible)
+			DrawBackWall();
 
 		if (isPaddleZoneVisible)
 			DrawPaddleLine();
@@ -102,6 +109,12 @@ public class GizmosDrawer : MonoBehaviour {
 		Gizmos.DrawCube(leftWallCenter, wallSizeSides);
 		Gizmos.DrawCube(rightWallCenter, wallSizeSides);
 		Gizmos.DrawCube(frontWallCenter, wallSizeFront);
+		//	Gizmos.DrawCube(backWallCenter, wallSizeFront);
+	}
+
+	private void DrawBackWall() {
+		Gizmos.color = backWallColor;
+		Gizmos.DrawCube(backWallCenter, wallSizeFront);
 	}
 
 	private void DrawFloor() {

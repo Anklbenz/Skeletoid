@@ -5,6 +5,7 @@ public class HudSystem : ICoinsTarget
 {
 	public event Action PauseValueChangedEvent;
 	public Transform coinsTargetTransform => _view.coinsTransform;
+	
 	private readonly ProgressSystem _progress;
 	private HudView _view;
 	private int _hudCoinsCount;

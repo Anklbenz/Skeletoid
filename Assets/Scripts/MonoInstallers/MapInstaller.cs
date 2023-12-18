@@ -10,6 +10,8 @@ public class MapInstaller : MonoInstaller, IInitializable
    [SerializeField] private MapConfig mapConfig;
    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
    [SerializeField] private CameraConfig cameraConfig;
+   [SerializeField] private FlyingCoinsConfig flyingCoinsConfig;
+   [SerializeField] private RectTransform coinsParent;
 
    public override void InstallBindings() {
       InstallMapSystem();
@@ -19,7 +21,12 @@ public class MapInstaller : MonoInstaller, IInitializable
       InstallMapMove();
       InstallGameCameraSystem();
       InstallKeyRecovery();
+      InstallFlyingService();
    }
+   private void InstallFlyingService() {
+	   Container.BindInterfacesAndSelfTo<FlyingService>().AsSingle();
+	   Container.Bind<FlyingCoinsConfig>().FromInstance(flyingCoinsConfig);
+	  }
    private void InstallGameCameraSystem() {
       Container.Bind<CameraConfig>().FromInstance(cameraConfig);
       Container.Bind<CinemachineVirtualCamera>().FromInstance(cinemachineVirtualCamera);
@@ -47,7 +54,7 @@ public class MapInstaller : MonoInstaller, IInitializable
    }
 
    private void InstallMapSystem() {
-      Container.Bind<WordMapSystem>().AsSingle();
+      Container.Bind<WordMap>().AsSingle();
    }
 
    private void InstallKeyRecovery() {
@@ -57,8 +64,11 @@ public class MapInstaller : MonoInstaller, IInitializable
    public void Initialize() {
       var cameraSystem = Container.Resolve<CameraSystem>();
       cameraSystem.Initialize(cinemachineVirtualCamera);
+
+      var flyingService = Container.Resolve<FlyingService>();
+      flyingService.Initialize(coinsParent);
       
-      var mapSystem = Container.Resolve<WordMapSystem>();
+      var mapSystem = Container.Resolve<WordMap>();
       mapSystem.Initialize(items);
 
      

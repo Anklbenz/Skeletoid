@@ -58,7 +58,8 @@ MonoBehaviour:
   showAdsButton: {fileID: 2857638776536205341}
   continueButton: {fileID: 369163883808304213}
   quitButton: {fileID: 7308421460104081429}
-  lifeSpendDelay: 550
+  lifeAppearDelay: 550
+  lifeDisappearDelay: 1000
   livesCountText: {fileID: 4114615446004855165}
   lifeChangeText: {fileID: 5232369512486564797}
 --- !u!225 &145945688923120756
@@ -1237,6 +1238,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6186793399954336937}
     m_Modifications:
+    - target: {fileID: 5458323738006670244, guid: bc9b1b2d654da8c44a2e108ec745f748, type: 3}
+      propertyPath: m_text
+      value: "\u0418\u0433\u0440\u0430\u0442\u044C \u0435\u0449\u0435"
+      objectReference: {fileID: 0}
     - target: {fileID: 5458323738837770256, guid: bc9b1b2d654da8c44a2e108ec745f748, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

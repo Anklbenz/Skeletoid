@@ -39,9 +39,9 @@ public class WinState : State
 	}
 
 	private void SaveProgress() {
-		_progressSystem.SetStars(_starsSystem.starsCount);
-		_progressSystem.SetLevelTime(_starsSystem.levelTime);
+		_progressSystem.SetCurrentLevelStars(_starsSystem.starsCount);
+		_progressSystem.SetCurrentLevelTime(_starsSystem.levelTime);
 		_progressSystem.SetCurrentLevelCompleted();
-		_progressSystem.ApplyCurrentCoins();
+	//	_progressSystem.ApplyCurrentCoins();
 	}
 }

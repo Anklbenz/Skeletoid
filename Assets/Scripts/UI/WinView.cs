@@ -27,6 +27,8 @@ public class WinView : AnimatedView {
 
 	private async UniTask ShowStar(GameObject starGameObject) {
 		await UniTask.Delay(starsAppearDelay);
+		if(starGameObject == null) return;
+		
 		starGameObject.SetActive(true);
 	}
 

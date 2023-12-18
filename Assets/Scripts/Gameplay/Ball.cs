@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-public sealed class Ball : Motor, IReflectObject, IThrowable {
-	public event Action<Vector3> OnCollisionEvent;
+public sealed class Ball : Motor, IBall, IThrowable {
+	//public event Action<Vector3> OnCollisionEvent;
 	public event Action FallOnFloorEvent;
 	public float permissibleAngle { get; set; }
 	public float correctionStep { get; set; }
-   public bool isActive { get; set; } = true;
+	public bool isActive { get; set; } = true;
 	public int damage { get; set; }
 	public Vector3 direction { get; set; }
 
@@ -15,15 +15,15 @@ public sealed class Ball : Motor, IReflectObject, IThrowable {
 		Move(direction);
 	}
 	public void Throw(Vector3 throwDirection) =>
-		rigidBody.AddForce(throwDirection, ForceMode.Impulse);
+			rigidBody.AddForce(throwDirection, ForceMode.Impulse);
 
 	private void OnCollisionEnter(Collision collision) {
-		OnCollisionEvent?.Invoke(collision.contacts[0].point);
 		//Handle paddle reflect
-		if (CheckPaddleCollision(collision)) return;
+	//	if (CheckPaddleCollision(collision)) return;
+	//	OnCollisionEvent?.Invoke(collision.contacts[0].point);
 
-		Reflect(collision.contacts[0].normal);
-		CheckDamageableCollision(collision);
+	//	Reflect(collision.contacts[0].normal);
+	//	CheckDamageableCollision(collision);
 
 		if (!isActive)
 			CheckFallOnFloor(collision);
@@ -33,13 +33,14 @@ public sealed class Ball : Motor, IReflectObject, IThrowable {
 		if (collision.transform.TryGetComponent<IFloor>(out _))
 			FallOnFloorEvent?.Invoke();
 	}
-	private void CheckDamageableCollision(Collision collision) {
+	/*private void CheckDamageableCollision(Collision collision) {
 		var damageable = collision.gameObject.GetComponentInParent<IDamageable>();
 		if (damageable != null)
-			damageable?.Hit(damage);
+			damageable.Hit(damage);
 	}
-	
-	private bool CheckPaddleCollision(Collision collision) {
+	*/
+
+	/*private bool CheckPaddleCollision(Collision collision) {
 		if (collision.transform.TryGetComponent<ISpecialReflect>(out var paddle)) {
 			if (paddle.CouldSpecialReflectionBePerformed(collision.contacts[0].point, -collision.contacts[0].normal)) {
 				direction = paddle.GetDirectionDependsOnLocalPaddleHitPoint(collision.contacts[0].point);
@@ -49,9 +50,9 @@ public sealed class Ball : Motor, IReflectObject, IThrowable {
 			return true;
 		}
 		return false;
-	}
+	}*/
 
-	private void Reflect(Vector3 hitNormal) {
+	public void Reflect(Vector3 hitNormal, Obstacle sender = null) {
 		var isOppositeDirection = Vector3.Dot(direction, hitNormal) < 0;
 		if (!isOppositeDirection) return;
 

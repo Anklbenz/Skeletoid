@@ -63,7 +63,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallFlyingCoinService() {
 		Container.Bind<FlyingCoinsConfig>().FromInstance(coinsConfig).AsSingle();
-		Container.BindInterfacesAndSelfTo<FlyingCoinService>().AsSingle();
+		Container.BindInterfacesAndSelfTo<FlyingService>().AsSingle();
 	}
 
 	private void InstallGameplaySystem() {
@@ -73,7 +73,8 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallParticlesService() {
 		Container.Bind<ParticlesConfig>().FromInstance(particlesConfig);
-		Container.Bind<ParticlesService>().AsSingle();
+		Container.Bind<ParticlesPlayer>().AsSingle();
+		Container.Bind<LevelVfx>().AsSingle();
 	}
 
 	private void InstallInitializeForThis() =>

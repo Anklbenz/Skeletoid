@@ -6,14 +6,13 @@ public class Level : MonoBehaviour {
 
 	public Ball ball;
 	public Player player;
-	public BallLaunchSystem ballLaunchSystem;
+	public Wall[] walls;
 	public List<Brick> bricks = new();
 	public DeadZone deadZone;
 
 	public Environment environment;
 	public Transform paddleOrigin;
-
-
+	
 	
 	public void Destroy(Brick brick) {
 		bricks.Remove(brick);

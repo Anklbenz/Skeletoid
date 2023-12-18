@@ -114,7 +114,7 @@ public class ProgressSystem
 		nextWorld.freshUnlocked = true;
 	}
 
-	public void SetStars(int stars) {
+	public void SetCurrentLevelStars(int stars) {
 		var currentWorldStars = currentWorldData.starsCount;
 		if (stars < currentWorldStars) return;
 
@@ -123,7 +123,7 @@ public class ProgressSystem
 		IncreaseStarsCount(earnedStars);
 	}
 
-	public void SetLevelTime(float time) {
+	public void SetCurrentLevelTime(float time) {
 		if (currentWorldData.bestCompletedTime > time)
 			currentWorldData.bestCompletedTime = time;
 	}

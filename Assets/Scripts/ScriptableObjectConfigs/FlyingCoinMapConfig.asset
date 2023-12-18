@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b3f740bb95d644fa8b2dc5a567f8a3, type: 3}
   m_Name: FlyingCoinMapConfig
   m_EditorClassIdentifier: 
-  sphereRadius: 2
-  sphereOffset: {x: 0, y: 0.3, z: 0}
-  delayBeforeStartMovingMinMax: {x: 0, y: 2000}
-  coinPrefab: {fileID: 4279818372193215552, guid: 70fce0ffc4e9e2741a7d6286644b867b, type: 3}
-  speed: 0.5
-  prefabScaleValue: {x: 5, y: 5, z: 5}
+  sphereRadius: 3
+  sphereOffset: {x: 0, y: 0, z: 0}
+  circleOffset: {x: 0, y: 0}
+  delayBeforeStartMovingMinMax: {x: 700, y: 1000}
+  coinPrefab: {fileID: 4218228190853265906, guid: 524b1675a26ee524b90fa77e6619a64e, type: 3}
+  speed: 0.7
+  prefabScaleValue: {x: 0.45, y: 0.45, z: 0.45}
+  poolAmount: 5
+  itemsParentGameObjectName: CoinsParent

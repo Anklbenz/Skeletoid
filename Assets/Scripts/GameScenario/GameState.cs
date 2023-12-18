@@ -4,11 +4,12 @@ using UnityEngine;
 
 public sealed class GameState : State
 {
-	private readonly ParticlesService _particlesService;
-	private readonly FlyingCoinService _flyingCoinService;
+	private readonly ParticlesPlayer _particlesPlayer;
+	private readonly FlyingService _flyingService;
 	private readonly CameraSystem _cameraSystem;
 	private readonly StarsSystem _starsSystem;
 	private readonly HudSystem _hudSystem;
+	private readonly LevelVfx _levelVfx;
 	private readonly ProgressSystem _progressData;
 	private readonly StateSwitcher _stateSwitcher;
 	private readonly GameplayConfig _config;
@@ -20,30 +21,33 @@ public sealed class GameState : State
 		GameplaySystem gameplaySystem,
 		PauseHandler pauseHandler,
 		HudSystem hudSystem,
-		ParticlesService particlesService,
-		FlyingCoinService flyingCoinService,
+		ParticlesPlayer particlesPlayer,
+		LevelVfx levelVfx,
+		FlyingService flyingService,
 		CameraSystem cameraSystem,
 		StarsSystem starsSystem,
 		ProgressSystem progress) : base(stateSwitcher) {
 		
 		_progressData = progress;
-		_flyingCoinService = flyingCoinService;
+		_flyingService = flyingService;
 		_cameraSystem = cameraSystem;
 		_starsSystem = starsSystem;
 		_stateSwitcher = stateSwitcher;
 		_config = config;
 		_gameplaySystem = gameplaySystem;
 		_hudSystem = hudSystem;
-		_particlesService = particlesService;
+		_levelVfx = levelVfx;
+		//	_particlesPlayer = particlesPlayer;
 
 		_hudSystem.PauseValueChangedEvent += OnPause;
 
 		_gameplaySystem.DeadZoneReachedEvent += OnLoss;
-		_gameplaySystem.BallCollisionEvent += OnBallCollision;
+	//	_gameplaySystem.BallCollisionEvent += OnBallCollision;
 		_gameplaySystem.BrickDestroyedEvent += OnBrickDestroy;
+		//_gameplaySystem.
 		_gameplaySystem.AllBricksDestroyedEvent += OnWin;
 
-		_flyingCoinService.CollectedEvent += IncreaseHudCoinsCount;
+		_flyingService.CollectedEvent += IncreaseHudItemsCount;
 		pauseHandler.Register(_gameplaySystem);
 	}
 	
@@ -52,16 +56,19 @@ public sealed class GameState : State
 		if (_gameplaySystem.state == GameplayState.PlayEnded)
 			_gameplaySystem.Restart();
 	    
+		_levelVfx.Start(_gameplaySystem.currentLevel);
+		
 		_starsSystem.Start();
 		_hudSystem.SetActive(true);
 		RefreshHudValues();
 	}
 
 	public override void Exit() {
+		_levelVfx.Stop();
 		_starsSystem.Stop();
 	}
 
-	private void IncreaseHudCoinsCount()=>
+	private void IncreaseHudItemsCount()=>
 		_hudSystem.IncreaseCoinsCount();
 	
 	private void RefreshHudValues() =>
@@ -71,13 +78,13 @@ public sealed class GameState : State
 		var destroyedBrickPosition = brick.transform.position;
 		var brickCost = brick.randomizedCost;
 		_progressData.IncreaseCurrentCoins(brickCost);
-		_particlesService.PlayDestroy(destroyedBrickPosition);
-		_flyingCoinService.SpawnCoins(destroyedBrickPosition, brickCost);
+	//	_particlesPlayer.PlayDestroy(destroyedBrickPosition);
+		_flyingService.SpawnInSphere(destroyedBrickPosition, brickCost);
 		_cameraSystem.Shake();
 	}
 
-	private void OnBallCollision(Vector3 obj) =>
-		_particlesService.PlayCollision(obj);
+	/*private void OnBallCollision(Vector3 obj) =>
+		_particlesPlayer.PlaySpark(obj);*/
 
 	private async void OnWin() {
 		await UniTask.Delay(_config.delayBeforeWinSystemActivate);

@@ -10,7 +10,7 @@ public sealed class Reflector : MonoBehaviour
 
    private void OnCollisionStay(Collision collision) {
       Debug.Log(collision.gameObject.name);
-      if (!collision.gameObject.TryGetComponent<IReflectObject>(out var reflectObject)) return;
+      if (!collision.gameObject.TryGetComponent<IBall>(out var reflectObject)) return;
       reflectObject.direction = GetReflectDirection(reflectObject.direction, collision.contacts[0].normal);
    }
 

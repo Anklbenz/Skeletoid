@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worlds:
   - levels:
-    - levelPrefab: {fileID: 5911955914982965888, guid: cc693088a7e901f4f8d3940ec95591fc, type: 3}
+    - levelPrefab: {fileID: 9007782720395317439, guid: 5ec7288c69efccc4bb6557821db12623, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: FirstJourney
     firstSeconds: 10
     secondSeconds: 20
     thirdSeconds: 40
   - levels:
-    - levelPrefab: {fileID: 5803200103665712100, guid: 8cb56fb462e75b04ea024f23de192f34, type: 3}
+    - levelPrefab: {fileID: 9007782720395317439, guid: 5ec7288c69efccc4bb6557821db12623, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: SecondJourney
     firstSeconds: 40

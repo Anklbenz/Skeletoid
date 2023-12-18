@@ -15,9 +15,7 @@ public class CameraSystem
          _zoomedCamera.enabled = value;
       }
    }
-
-   public Transform zoomedCamTransform => _zoomedCamera.transform;
-
+ 
    private readonly CameraConfig _config;
    private CinemachineVirtualCamera _mainCamera;
    private CinemachineVirtualCamera _zoomedCamera;

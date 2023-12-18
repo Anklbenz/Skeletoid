@@ -14,7 +14,7 @@ public class LevelEditor : MonoBehaviour {
 		var prefab = BuildMapObject();
 		PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, localPath, InteractionMode.UserAction);
 		DestroyImmediate(prefab);
-		Debug.Log($"Level on path {localPath} created" );
+		Debug.Log($"Level on path {localPath} created");
 	}
 
 	private GameObject BuildMapObject() {
@@ -29,34 +29,55 @@ public class LevelEditor : MonoBehaviour {
 
 		level.paddleOrigin = AddPaddleOriginToContainer(container.transform);
 		level.deadZone = CreateDeadZone(container.transform);
-		CreateWallsAndFloorColliders(container.transform);
+		level.walls = CreateWall(container.transform);
+		CreateFloor(container.transform);
 		return container;
 	}
 
 	private DeadZone CreateDeadZone(Transform transformParent) {
-		var deadZone = CreateBoxColliderObject(gizmosDrawer.deadZoneCenter, gizmosDrawer.wallSizeFront, transformParent, true, "DeadZone");
+		var deadZone = CreateObjectWithComponents(gizmosDrawer.deadZoneCenter, gizmosDrawer.wallSizeFront, transformParent, true, "DeadZone");
 		return deadZone.AddComponent<DeadZone>();
 	}
 
-	private void CreateWallsAndFloorColliders(Transform transformParent) {
-		var leftWall = CreateBoxColliderObject(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
-		leftWall.isStatic = true;
-		var rigidBody = leftWall.AddComponent<Rigidbody>();
+	private Wall[] CreateWall(Transform transformParent) {
+		var left = CreateObjectWithComponents(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
+		var leftWall = left.AddComponent<Wall>();
+		//	leftWall.isStatic = true;
+		/*var rigidBody = leftWall.AddComponent<Rigidbody>();
 		rigidBody.useGravity = false;
-		rigidBody.isKinematic = true;
+		rigidBody.isKinematic = true;*/
 
-		var rightWall = CreateBoxColliderObject(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
-		rigidBody = rightWall.AddComponent<Rigidbody>();
+		var right = CreateObjectWithComponents(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
+		var rightWall = right.AddComponent<Wall>();
+
+		//	rightWall.isStatic = true;
+		/*rigidBody = rightWall.AddComponent<Rigidbody>();
 		rigidBody.useGravity = false;
-		rigidBody.isKinematic = true;
+		rigidBody.isKinematic = true;*/
 
-		var frontWall = CreateBoxColliderObject(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
-		var floor = CreateBoxColliderObject(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
+		var front = CreateObjectWithComponents(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
+		var frontWall = front.AddComponent<Wall>();
+
+		//	frontWall.isStatic = true;
+
+		var back = CreateObjectWithComponents(gizmosDrawer.backWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallBack");
+		back.SetActive(false);
+		var backWall = back.AddComponent<Wall>();
+		//	frontWall.isStatic = true;
+
+		return new[] {leftWall, rightWall, frontWall, backWall};
+	}
+
+	private void CreateFloor(Transform transformParent) {
+		var floor = CreateObjectWithComponents(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
 		floor.AddComponent<Floor>();
 	}
 
-	private GameObject CreateBoxColliderObject(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object") {
+
+	private GameObject CreateObjectWithComponents(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object") {
 		var box = new GameObject(objName);
+		box.isStatic = true;
+
 		var boxCollider = box.AddComponent<BoxCollider>();
 		boxCollider.isTrigger = isTrigger;
 		box.transform.position = position;

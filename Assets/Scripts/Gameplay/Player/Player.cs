@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 using Zenject;
-public sealed class Player : MonoBehaviour, IPauseSensitive, ISpecialReflect, ILaunch {
+public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 	private const float MAX_REFLECT_ANGLE = 70;
+	public event Action<Vector3> HitOnPaddleEvent;
+	
 	[SerializeField] private BoxCollider boxCollider;
 	[SerializeField] private Transform ballParent;
 	[SerializeField] private Rigidbody paddleRigidbody;
@@ -28,6 +31,17 @@ public sealed class Player : MonoBehaviour, IPauseSensitive, ISpecialReflect, IL
 	public void Constructor(IInput input) {
 		_input = input;
 		_input.HorizontalAxisChangedEvent += OnInput;
+	}
+	
+	protected override void Reflect(IBall ball, Collision collision) {
+		var collisionPoint = collision.contacts[0].point;
+		var collisionNormal = collision.contacts[0].normal;
+		if (CouldSpecialReflectionBePerformed(collisionPoint, collisionNormal))
+			ball.direction = GetDirectionDependsOnLocalPaddleHitPoint(collisionPoint);
+		else 
+		    ball.Reflect(-collisionNormal);
+		
+		HitOnPaddleEvent?.Invoke(collisionPoint);
 	}
 
 	private void OnInput(float xValue) =>
@@ -84,4 +98,5 @@ public sealed class Player : MonoBehaviour, IPauseSensitive, ISpecialReflect, IL
 
 	public void OnDestroy() =>
 			_input.HorizontalAxisChangedEvent -= OnInput;
+
 }

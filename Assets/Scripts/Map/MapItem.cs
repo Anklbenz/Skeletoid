@@ -9,7 +9,6 @@ public class MapItem : MonoBehaviour
     [Range(0, 3)] [SerializeField] private int starsCount;
     [SerializeField] private int worldIndex;
     [SerializeField] private Image firstStarImage, secondStarImage, thirdStarImage, lockImage;
-    [SerializeField] private Sprite filledStar, contourStar;
     [SerializeField] private TMP_Text levelNumberText, rankText;
     [SerializeField] private Transform content;
     [SerializeField] private Button startButton;
@@ -23,7 +22,6 @@ public class MapItem : MonoBehaviour
 
     public Transform dustParticlesTransform => lockImage.transform;
     
-
     private void Awake() {
         startButton.onClick.AddListener(StartClickNotify);
         levelNumberText.text = (worldIndex + 1).ToString("D2");

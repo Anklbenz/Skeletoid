@@ -5,22 +5,25 @@ using Random = UnityEngine.Random;
 public sealed class GameplaySystem : IPauseSensitive, IDisposable
 {
 	private const float X_BALL_POSITION_RANDOMIZE_LIMIT = 0.1f;
-
-	public event Action<Vector3> BallCollisionEvent;
+	
 	public event Action<Brick> BrickDestroyedEvent;
 	public event Action AllBricksDestroyedEvent, DeadZoneReachedEvent;
-
 	public GameplayState state { get; private set; }
 
-	private readonly BallLaunchSystem _ballLaunchSystem;
-	private readonly IInput _input;
-	private Level _level;
+	public Level currentLevel => _level;
 	private Ball ball => _level.ball;
 	private Player player => _level.player;
 	private DeadZone deadZone => _level.deadZone;
+	
+	private readonly BallLaunchSystem _ballLaunchSystem;
+	private readonly ComboSystem _comboSystem;
 
-	public GameplaySystem(BallLaunchSystem ballLaunchSystem, IInput input) {
+	private readonly IInput _input;
+	private Level _level;
+
+	public GameplaySystem(BallLaunchSystem ballLaunchSystem /*ComboSystem comboSystem*/,  IInput input) {
 		_ballLaunchSystem = ballLaunchSystem;
+	//	_comboSystem = comboSystem;
 		_input = input;
 	}
 
@@ -69,9 +72,12 @@ public sealed class GameplaySystem : IPauseSensitive, IDisposable
 		state = GameplayState.PlayEnded;
 	}
 
-	private void OnBallHit(Vector3 hitPosition) =>
-		BallCollisionEvent?.Invoke(hitPosition);
-
+	/*private void OnBallHit(Vector3 hitPosition) =>
+		BallCollisionEvent?.Invoke(hitPosition);*/
+	
+	private void OnBrickHit(Vector3 obj) {
+//		throw new NotImplementedException();
+	}
 	private void OnBrickNoLivesLeft(Brick sender) {
 		BrickDestroyedEvent?.Invoke(sender);
 		DestroyAndUnsubscribeBrick(sender);
@@ -81,8 +87,7 @@ public sealed class GameplaySystem : IPauseSensitive, IDisposable
 	}
 
 	private void DestroyAndUnsubscribeBrick(Brick brick) {
-		brick.HitEvent -= OnBallHit;
-		brick.NoLivesLeft -= OnBrickNoLivesLeft;
+		brick.HitEvent -= OnBrickHit;
 		_level.Destroy(brick);
 	}
 
@@ -90,19 +95,24 @@ public sealed class GameplaySystem : IPauseSensitive, IDisposable
 		_input.ShotEvent += Throw;
 
 	private void SubscribeLevelEvents() {
-		foreach (var brick in _level.bricks)
+		foreach (var brick in _level.bricks) {
 			brick.NoLivesLeft += OnBrickNoLivesLeft;
+			brick.HitEvent += OnBrickHit;
+		}
 
 		deadZone.DeadZoneReachedEvent += OnDeadZoneReached;
-		ball.OnCollisionEvent += OnBallHit;
+	//	ball.OnCollisionEvent += OnBallHit;
 	}
 
+
 	private void UnSubscribeLevelEvents() {
-		foreach (var brick in _level.bricks)
+		foreach (var brick in _level.bricks) {
 			brick.NoLivesLeft -= OnBrickNoLivesLeft;
+			brick.HitEvent -= OnBrickHit;
+		}
 
 		deadZone.DeadZoneReachedEvent -= OnDeadZoneReached;
-		ball.OnCollisionEvent -= OnBallHit;
+	//	ball.OnCollisionEvent -= OnBallHit;
 	}
 
 	private void SetBallToDefaultPosition() {
