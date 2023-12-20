@@ -12,11 +12,8 @@ public sealed class LevelFactory {
 		_factory = factory;
 	}
 
-	public Level CreateLevel(int wordIndex, int levelIndex) {
-		if (!_worldsConfig.LevelPrefabExists(wordIndex, levelIndex))
-			throw new Exception($"World {wordIndex} Level {levelIndex} not exists check gameplayConfig/Worlds");
-
-		var mapPrefab = _worldsConfig.GetLevelPrefab(wordIndex, levelIndex);
+	public Level CreateLevel(int wordIndex) {
+		var mapPrefab = _worldsConfig.GetLevelPrefab(wordIndex);
 		var map = _factory.Create(mapPrefab.levelPrefab);
 		CreateEnvironment(map, mapPrefab);
 		CreatePlayer(map);

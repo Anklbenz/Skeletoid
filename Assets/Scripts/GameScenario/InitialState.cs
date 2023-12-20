@@ -1,9 +1,7 @@
-using System.Linq;
 using UnityEngine;
 
 public class InitialState : State {
 	private readonly UiFactory _uiFactory;
-	private readonly CameraSystem _cameraSystem;
 	private readonly ParticlesPlayer _particlesPlayer;
 	private readonly FlyingService _flyingService;
 	private readonly StarsSystem _starsSystem;
@@ -16,7 +14,6 @@ public class InitialState : State {
 	public InitialState(
 			StateSwitcher stateSwitcher,
 			UiFactory uiFactory,
-			CameraSystem cameraSystem,
 			Lose lose,
 			Win win,
 			PauseUiSystem pauseUiSystem,
@@ -26,7 +23,6 @@ public class InitialState : State {
 			StarsSystem starsSystem) : base(stateSwitcher) {
 
 		_uiFactory = uiFactory;
-		_cameraSystem = cameraSystem;
 		_particlesPlayer = particlesPlayer;
 		_flyingService = flyingService;
 		_starsSystem = starsSystem;
@@ -56,7 +52,6 @@ public class InitialState : State {
 		_pauseUiSystem.Initialize(pauseView);
 
 		_particlesPlayer.Initialize();
-		_cameraSystem.Initialize();
 	    
 		_flyingService.Initialize();
 		var coinsPosition = _hudSystem.coinsTargetTransform.position;

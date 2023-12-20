@@ -4,13 +4,15 @@ using Zenject;
 
 public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameplayConfig gameplayConfig;
-	[SerializeField] private CameraConfig cameraConfig;
+	[SerializeField] private CameraZoomConfig cameraZoomConfig;
+	[SerializeField] private CameraShakeConfig cameraShakeConfig;
 	[SerializeField] private UiFactoryConfig uiFactoryConfig;
 	[SerializeField] private ParticlesConfig particlesConfig;
 	[SerializeField] private FlyingCoinsConfig coinsConfig;
-
+	[SerializeField] private CinemachineVirtualCamera mainCamera;
+	[SerializeField] private CinemachineVirtualCamera zoomedCamera;
+	
 	public override void InstallBindings() {
-		//InstallProgressDataSystem();
 		InstallDiFactory();
 		InstallUiFactory();
 		InstallLevelFactory();
@@ -33,8 +35,11 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	}
 
 	private void InstallGameCameraSystem() {
-		Container.Bind<CameraConfig>().FromInstance(cameraConfig);
-		Container.Bind<CameraSystem>().AsSingle();
+		Container.Bind<CameraZoomConfig>().FromInstance(cameraZoomConfig);
+		Container.Bind<CameraZoom>().AsSingle();
+		
+		Container.Bind<CameraShakeConfig>().FromInstance(cameraShakeConfig);
+		Container.Bind<CameraShaker>().AsSingle();
 	}
 
 	private void InstallPause() {
@@ -46,7 +51,6 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 			Container.BindInterfacesAndSelfTo<HudSystem>().AsSingle();
 
 	private void InstallLevelFactory() {
-	//	Container.Bind<WorldsConfig>().FromInstance(worldsConfig).AsSingle();
 		Container.Bind<GameplayConfig>().FromInstance(gameplayConfig).AsSingle();
 		Container.Bind<LevelFactory>().AsSingle();
 	}
@@ -68,7 +72,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallGameplaySystem() {
 		Container.Bind<BallLaunchSystem>().AsSingle();
-		Container.BindInterfacesAndSelfTo<GameplaySystem>().AsSingle();
+		Container.BindInterfacesAndSelfTo<Gameplay>().AsSingle();
 	}
 
 	private void InstallParticlesService() {
@@ -95,6 +99,12 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 			Container.Bind<IFactory>().To<DiFactory>().AsSingle();
 
 	public void Initialize() {
+		var cameraShaker = Container.Resolve<CameraShaker>();
+		cameraShaker.InitializeCamera(mainCamera);
+		
+		var cameraZoom = Container.Resolve<CameraZoom>();
+		cameraZoom.InitializeCameras(mainCamera,zoomedCamera);
+		
 		var gameScenario = Container.Resolve<GameScenario>();
 		gameScenario.Start();
 	}

@@ -9,7 +9,7 @@ public class WordMap {
 	private readonly MapParticlesPlayer _mapParticlesPlayer;
 	private readonly KeysRecoverySystem _keysRecoverySystem;
 	private readonly FlyingService _flyingService;
-	private readonly CameraSystem _cameraSystem;
+	private readonly CameraShaker _cameraShaker;
 	private Camera _cameraMain;
 
 	public WordMap(
@@ -19,7 +19,7 @@ public class WordMap {
 			MapParticlesPlayer mapParticlesPlayer,
 			KeysRecoverySystem keysRecoverySystem,
 			FlyingService flyingService,
-			CameraSystem cameraSystem) {
+			CameraShaker cameraShaker) {
 
 		_mapHud = mapHud;
 		_progressSystem = progressSystem;
@@ -27,7 +27,7 @@ public class WordMap {
 		_mapParticlesPlayer = mapParticlesPlayer;
 		_keysRecoverySystem = keysRecoverySystem;
 		_flyingService = flyingService;
-		_cameraSystem = cameraSystem;
+		_cameraShaker = cameraShaker;
 		_flyingService.CollectedEvent += AddCoin;
 	}
 
@@ -61,8 +61,7 @@ public class WordMap {
 
 			mapItem.isLevelCompleted = info.isCompleted;
 			mapItem.levelStarsCount = info.starsCount;
-			//  mapItem.levelsCount = info.levelsCount;
-			mapItem.StartEvent += OnLevelSelect;
+	        mapItem.StartEvent += OnLevelSelect;
 
 			if (info.freshUnlocked) {
 				info.freshUnlocked = false;
@@ -79,7 +78,8 @@ public class WordMap {
 	private async UniTask UnlockWorld(Vector3 mapItemPosition) {
 		await UniTask.Delay(PARTICLES_PLAY_DELAY);
 		_mapParticlesPlayer.PlayAtPoint(mapItemPosition);
-		_cameraSystem.Shake();
+		_cameraShaker.Shake();
+		//_cameraSystem.Shake();
 	}
 
 	private void OnLevelSelect(int worldIndex) {
@@ -95,5 +95,4 @@ public class WordMap {
 	private void AddCoin() {
 		_mapHud.AddCoin();
 	}
-
 }

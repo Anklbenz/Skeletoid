@@ -35,8 +35,12 @@ public class LoseView : AnimatedView {
 		await UniTask.Delay(lifeAppearDelay);
 		livesCount = countAfter;
 		
+		if(lifeChangeText == null) return;
+		
 		lifeChangeText.gameObject.SetActive(true);
 		await UniTask.Delay(lifeDisappearDelay);
+		
+		if(lifeChangeText == null) return;
 		lifeChangeText.gameObject.SetActive(false);
 	}
 

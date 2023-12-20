@@ -22,7 +22,7 @@ public class PauseUiSystem
     }
 
     public void Open() {
-        _view.SetCurrentLevelNumber(_progressSystem.currentLevelIndex, _progressSystem.currentWorldLevelsCount);
+       // _view.SetCurrentLevelNumber(_progressSystem.currentLevelIndex, _progressSystem.currentWorldLevelsCount);
         _view.Open();
     }
 

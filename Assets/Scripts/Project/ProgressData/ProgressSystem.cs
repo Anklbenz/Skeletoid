@@ -5,12 +5,9 @@ public class ProgressSystem
 {
 	public int worldsCount => _progressData.worldsInfo.Length;
 	public int currentWorldIndex => _currentWorldIndexWorldIndex;
-	public int currentWorldLevelsCount => _progressData.worldsInfo[_currentWorldIndexWorldIndex].levelsCount;
 	public int currentCoinsCount => _progressData.currentCoinsWallet.count;
 	public int totalCoinsCount => _progressData.totalCoinsWallet.count;
 	public int keysCount => _progressData.keysWallet.count;
-	public int currentLevelIndex => _progressData.levelsHolder.currentIndex;
-	public bool hasLives => _progressData.lives.count > 0;
 	public int livesCount => _progressData.lives.count;
 	public int starsCount => _progressData.statsWallet.count;
 
@@ -52,11 +49,8 @@ public class ProgressSystem
 		var worldData = new WorldData[wordsCount];
 
 		for (var i = 0; i < wordsCount; i++)
-			worldData[i] = new WorldData()
-			{
-				levelsCount = _worldsConfig.GetWorldByIndex(i).levelsCount
-			};
-		_progressData.worldsInfo = worldData;
+			worldData[i] = new WorldData();
+	    _progressData.worldsInfo = worldData;
 	}
 
 	private void SetFirstWorldUnlocked() =>
@@ -64,9 +58,8 @@ public class ProgressSystem
 
 	public void SetWorld(int index) {
 		_currentWorldIndexWorldIndex = index;
-		_progressData.levelsHolder = new LevelsHolder(_progressData.worldsInfo[index].levelsCount);
 	}
-
+	
 	public Vector3 GetCurrentTimeLimits() {
 		var world = _worldsConfig.GetWorldByIndex(_currentWorldIndexWorldIndex);
 		return new Vector3(world.firstStarSeconds, world.secondStarSeconds, world.thirdStarSeconds);
@@ -75,9 +68,12 @@ public class ProgressSystem
 	public WorldData GetWordInfoByIndex(int index) =>
 		_progressData.worldsInfo[index];
 
-	public bool TrySetNextLevel() =>
-		_progressData.levelsHolder.TryMoveNext();
-
+	public void SetCurrentWorldLives() {
+		var lives =_worldsConfig.GetWorldByIndex(_currentWorldIndexWorldIndex).lives;
+		_progressData.lives.Reset();
+		_progressData.lives.Increase(lives);
+	}
+	
 	public int AddLife(int count = 1) {
 		_progressData.lives.Increase(count);
 		return _progressData.lives.count;

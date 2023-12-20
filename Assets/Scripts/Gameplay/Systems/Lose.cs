@@ -9,7 +9,7 @@ public class Lose {
 
 	private readonly GameplayConfig _gameplayConfig;
 	private readonly ProgressSystem _progressSystem;
-	private readonly CameraSystem _cameraSystem;
+	//private readonly CameraSystem _cameraSystem;
 	private LoseView _view;
 
 	public Lose(GameplayConfig gameplayConfig, ProgressSystem progressSystem) {

@@ -1,17 +1,22 @@
-public class InitializeLevelState : State
-{
-	private readonly GameplaySystem _gameplaySystem;
+public class InitializeLevelState : State {
+	private readonly Gameplay _gameplay;
 	private readonly ProgressSystem _progressSystem;
 	private readonly LevelFactory _levelFactory;
-	private readonly CameraSystem _cameraSystem;
+	private readonly CameraZoom _cameraZoom;
 	private readonly StarsSystem _starsSystem;
 
-	public InitializeLevelState(StateSwitcher stateSwitcher, GameplaySystem gameplaySystem, ProgressSystem progressSystem, LevelFactory levelFactory,
-		CameraSystem cameraSystem, StarsSystem starsSystem) : base(stateSwitcher) {
-		_gameplaySystem = gameplaySystem;
+	public InitializeLevelState(
+			StateSwitcher stateSwitcher,
+			Gameplay gameplay,
+			ProgressSystem progressSystem,
+			LevelFactory levelFactory,
+
+			CameraZoom cameraZoom,
+			StarsSystem starsSystem) : base(stateSwitcher) {
+		_gameplay = gameplay;
 		_progressSystem = progressSystem;
 		_levelFactory = levelFactory;
-		_cameraSystem = cameraSystem;
+		_cameraZoom = cameraZoom;
 		_starsSystem = starsSystem;
 	}
 
@@ -22,11 +27,12 @@ public class InitializeLevelState : State
 
 	private void SetNewLevel() {
 		var worldIndex = _progressSystem.currentWorldIndex;
-		var levelIndex = _progressSystem.currentLevelIndex;
-		var level = _levelFactory.CreateLevel(worldIndex, levelIndex);
-		_gameplaySystem.SetNewLevel(level);
-		_cameraSystem.zoomedLookAt = level.player.skeletonHeadTransform;
+
+		var level = _levelFactory.CreateLevel(worldIndex);
+		_gameplay.SetNewLevel(level);
+		_cameraZoom.zoomedLookAt = level.player.skeletonHeadTransform;
 		_progressSystem.currentLevel = level;
+		_progressSystem.SetCurrentWorldLives();
 
 		var currentTimeLimits = _progressSystem.GetCurrentTimeLimits();
 		_starsSystem.Initialize(currentTimeLimits);

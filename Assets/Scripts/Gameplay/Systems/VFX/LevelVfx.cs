@@ -3,12 +3,14 @@ using ParticleEnum;
 using UnityEngine;
 
 public class LevelVfx {
-	//add camera shake
 	private readonly ParticlesPlayer _particlesPlayer;
+	private readonly CameraShaker _cameraShaker;
+
 	private Level _level;
 
-	public LevelVfx(ParticlesPlayer particlesPlayer) {
+	public LevelVfx(ParticlesPlayer particlesPlayer, CameraShaker cameraShaker) {
 		_particlesPlayer = particlesPlayer;
+		_cameraShaker = cameraShaker;
 	}
 
 	public void Start(Level level) {
@@ -20,13 +22,14 @@ public class LevelVfx {
 		UnSubscribe();
 		_level = null;
 	}
-	
+
 	private void OnPaddleHit(Vector3 hitPoint) {
 		_particlesPlayer.PlaySpark(hitPoint);
 	}
 
 	private void OnBrickDestroy(Brick brick) {
 		PlayExplosion(brick);
+		_cameraShaker.Shake();
 	}
 	private void PlayExplosion(Brick brick) {
 		switch (brick.effect) {
@@ -69,6 +72,5 @@ public class LevelVfx {
 			brick.NoLivesLeft -= OnBrickDestroy;
 		}
 		_level.player.HitOnPaddleEvent -= OnPaddleHit;
-
 	}
 }

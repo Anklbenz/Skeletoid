@@ -32,8 +32,8 @@ public class WinState : State
 	}
 
 	private void OnContinueSelected() {
-		if (_progressSystem.TrySetNextLevel())
-			_stateSwitcher.SetState<InitializeLevelState>();
+	//	if (_progressSystem.TrySetNextLevel())
+	//		_stateSwitcher.SetState<InitializeLevelState>();
 	
 		_sceneLoaderService.GoToMainMenuScene();
 	}
