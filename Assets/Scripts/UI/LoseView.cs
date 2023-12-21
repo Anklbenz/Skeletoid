@@ -35,11 +35,13 @@ public class LoseView : AnimatedView {
 		await UniTask.Delay(lifeAppearDelay);
 		livesCount = countAfter;
 		
+		//Because if user close panel, when delay in awaiting, after await give null reference
 		if(lifeChangeText == null) return;
 		
 		lifeChangeText.gameObject.SetActive(true);
 		await UniTask.Delay(lifeDisappearDelay);
 		
+		//Because if user close panel, when delay in awaiting, after await give null reference
 		if(lifeChangeText == null) return;
 		lifeChangeText.gameObject.SetActive(false);
 	}

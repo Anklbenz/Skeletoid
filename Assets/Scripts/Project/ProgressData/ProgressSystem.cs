@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class ProgressSystem
@@ -92,14 +91,15 @@ public class ProgressSystem
 
 	public void IncreaseCurrentCoins(int count) =>
 		_progressData.currentCoinsWallet.Increase(count);
+	
 
 	public void DecreaseTotalCoins(int count) =>
 		_progressData.totalCoinsWallet.Decrease(count);
 
-	public void IncreaseStarsCount(int count) =>
+	public void IncreaseStars(int count) =>
 		_progressData.statsWallet.Increase(count);
 
-	public void DecreaseStarsCount(int count) =>
+	public void DecreaseStars(int count) =>
 		_progressData.statsWallet.Decrease(count);
 
 	public void SetCurrentLevelCompleted() {
@@ -116,13 +116,14 @@ public class ProgressSystem
 
 		var earnedStars = stars - currentWorldStars;
 		currentWorldData.starsCount = stars;
-		IncreaseStarsCount(earnedStars);
+		IncreaseStars(earnedStars);
 	}
 
 	public void SetCurrentLevelTime(float time) {
 		if (currentWorldData.bestCompletedTime > time)
 			currentWorldData.bestCompletedTime = time;
 	}
+	
 
 	public void ApplyCurrentCoins() {
 		var currentScore = _progressData.currentCoinsWallet.count;

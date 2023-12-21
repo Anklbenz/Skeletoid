@@ -7,7 +7,7 @@ public class BootInstaller : MonoInstaller, IInitializable
 	}
 	
 	public void Initialize() {
-		var loaderService = Container.Resolve<SceneLoaderService>();
+		var loaderService = Container.Resolve<SceneLoader>();
 		loaderService.GoToGameplayScene();
 	}
 }

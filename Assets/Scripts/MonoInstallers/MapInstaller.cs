@@ -11,6 +11,8 @@ public class MapInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private CameraShakeConfig cameraShakeConfig;
 	[SerializeField] private FlyingCoinsConfig flyingCoinsConfig;
 	[SerializeField] private RectTransform coinsParent;
+	[SerializeField] private KeyShopView keyShopView;
+	[SerializeField] private KeySpendView keySpendView;
 
 	public override void InstallBindings() {
 		InstallMapSystem();
@@ -21,6 +23,7 @@ public class MapInstaller : MonoInstaller, IInitializable {
 		InstallGameCameraSystem();
 		InstallKeyRecovery();
 		InstallFlyingService();
+		InstallKeysShop();
 	}
 	private void InstallFlyingService() {
 		Container.BindInterfacesAndSelfTo<FlyingService>().AsSingle();
@@ -54,6 +57,12 @@ public class MapInstaller : MonoInstaller, IInitializable {
 
 	private void InstallMapSystem() {
 		Container.Bind<WordMap>().AsSingle();
+	}
+
+	private void InstallKeysShop() {
+		Container.Bind<KeyShop>().AsSingle();
+		Container.Bind<KeyShopView>().FromInstance(keyShopView);
+		Container.Bind<KeySpendView>().FromInstance(keySpendView);
 	}
 
 	private void InstallKeyRecovery() {

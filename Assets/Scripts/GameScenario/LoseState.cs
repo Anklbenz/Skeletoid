@@ -5,7 +5,7 @@ public class LoseState : State {
 	private readonly GameplayConfig _gameplayConfig;
 	private readonly KeysRecoverySystem _keysRecoverySystem;
 
-	private readonly SceneLoaderService _sceneLoaderService;
+	private readonly SceneLoader _sceneLoader;
 	private readonly PauseHandler _pauseHandler;
 	private readonly CameraZoom _cameraZoom;
 	private readonly Lose _lose;
@@ -16,13 +16,13 @@ public class LoseState : State {
 			Lose lose,
 			KeysRecoverySystem keysRecoverySystem,
 			PauseHandler pauseHandler,
-			SceneLoaderService sceneLoaderService,
+			SceneLoader sceneLoader,
 			CameraZoom cameraZoom) : base(stateSwitcher) {
 		_keysRecoverySystem = keysRecoverySystem;
 		_pauseHandler = pauseHandler;
 		_stateSwitcher = stateSwitcher;
 		_gameplayConfig = gameplayConfig;
-		_sceneLoaderService = sceneLoaderService;
+		_sceneLoader = sceneLoader;
 		_cameraZoom = cameraZoom;
 		
 		_lose = lose;
@@ -43,8 +43,8 @@ public class LoseState : State {
 	}
 
 	private void OnQuitSelected() {
-		_keysRecoverySystem.KeyDecrease();
-		_sceneLoaderService.GoToMainMenuScene();
+		
+		_sceneLoader.GoToMainMenuScene();
 	}
 
 	private async UniTask LookAtSkeleton() {

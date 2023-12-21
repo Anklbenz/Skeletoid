@@ -1,9 +1,9 @@
 using UnityEngine.SceneManagement;
 
-public class SceneLoaderService {
+public class SceneLoader {
 	private readonly SceneIndexes _indexes;
 	
-	public SceneLoaderService(SceneIndexes indexes) {
+	public SceneLoader(SceneIndexes indexes) {
 		_indexes = indexes;
 	}
 

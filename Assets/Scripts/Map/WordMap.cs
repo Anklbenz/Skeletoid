@@ -3,31 +3,38 @@ using UnityEngine;
 
 public class WordMap {
 	private const int PARTICLES_PLAY_DELAY = 500;
+	private const int KEY_SPEND_PREVIEW_TIME = 500;
 	private readonly MapHud _mapHud;
 	private readonly ProgressSystem _progressSystem;
-	private readonly SceneLoaderService _sceneLoaderService;
+	private readonly SceneLoader _sceneLoader;
 	private readonly MapParticlesPlayer _mapParticlesPlayer;
 	private readonly KeysRecoverySystem _keysRecoverySystem;
 	private readonly FlyingService _flyingService;
 	private readonly CameraShaker _cameraShaker;
+	private readonly KeyShop _keyShop;
+	private readonly KeySpendView _keySpendView;
 	private Camera _cameraMain;
 
 	public WordMap(
 			MapHud mapHud,
 			ProgressSystem progressSystem,
-			SceneLoaderService sceneLoaderService,
+			SceneLoader sceneLoader,
+			KeyShop keyShop,
 			MapParticlesPlayer mapParticlesPlayer,
 			KeysRecoverySystem keysRecoverySystem,
 			FlyingService flyingService,
-			CameraShaker cameraShaker) {
+			CameraShaker cameraShaker,
+			KeySpendView keySpendView) {
 
 		_mapHud = mapHud;
 		_progressSystem = progressSystem;
-		_sceneLoaderService = sceneLoaderService;
+		_sceneLoader = sceneLoader;
+		_keyShop = keyShop;
 		_mapParticlesPlayer = mapParticlesPlayer;
 		_keysRecoverySystem = keysRecoverySystem;
 		_flyingService = flyingService;
 		_cameraShaker = cameraShaker;
+		_keySpendView = keySpendView;
 		_flyingService.CollectedEvent += AddCoin;
 	}
 
@@ -42,10 +49,10 @@ public class WordMap {
 		var coinsPosition = _mapHud.coinsTargetTransform.position;
 		_cameraMain = Camera.main;
 		_flyingService.destination = CameraScreenToWorldPosition(coinsPosition);
-		
+
 	}
 	private Vector3 CameraScreenToWorldPosition(Vector3 screenPosition) =>
-		_cameraMain.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, _cameraMain.nearClipPlane));
+			_cameraMain.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, _cameraMain.nearClipPlane));
 
 	private void ApplyPreviousRewards() {
 		var lastEarnedCoins = _progressSystem.currentCoinsCount;
@@ -61,7 +68,7 @@ public class WordMap {
 
 			mapItem.isLevelCompleted = info.isCompleted;
 			mapItem.levelStarsCount = info.starsCount;
-	        mapItem.StartEvent += OnLevelSelect;
+			mapItem.StartEvent += OnLevelSelect;
 
 			if (info.freshUnlocked) {
 				info.freshUnlocked = false;
@@ -79,19 +86,22 @@ public class WordMap {
 		await UniTask.Delay(PARTICLES_PLAY_DELAY);
 		_mapParticlesPlayer.PlayAtPoint(mapItemPosition);
 		_cameraShaker.Shake();
-		//_cameraSystem.Shake();
 	}
 
-	private void OnLevelSelect(int worldIndex) {
+	private async void OnLevelSelect(int worldIndex) {
 		if (_progressSystem.keysCount == 0) {
-			Debug.Log("No Keys Left");
+			_keyShop.Open();
 			return;
 		}
+		var keyCount = _progressSystem.keysCount; 
+		
+		await _keySpendView.Show(keyCount, keyCount-1);
+		_progressSystem.SpendKey();
 
 		_progressSystem.SetWorld(worldIndex);
-		_sceneLoaderService.GoToGameplayScene();
+		_sceneLoader.GoToGameplayScene();
 	}
-	
+
 	private void AddCoin() {
 		_mapHud.AddCoin();
 	}

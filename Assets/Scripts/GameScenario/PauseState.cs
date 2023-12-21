@@ -4,16 +4,16 @@ public class PauseState : State {
 	private readonly PauseHandler _pauseHandler;
 	private readonly KeysRecoverySystem _keysRecoverySystem;
 	private readonly ProgressSystem _progressSystem;
-	private readonly SceneLoaderService _sceneLoaderService;
+	private readonly SceneLoader _sceneLoader;
 
 
-	public PauseState(StateSwitcher stateSwitcher, PauseUiSystem pauseUiSystem, PauseHandler pauseHandler, KeysRecoverySystem keysRecoverySystem, ProgressSystem progressSystem, SceneLoaderService sceneLoaderService) : base(stateSwitcher) {
+	public PauseState(StateSwitcher stateSwitcher, PauseUiSystem pauseUiSystem, PauseHandler pauseHandler, KeysRecoverySystem keysRecoverySystem, ProgressSystem progressSystem, SceneLoader sceneLoader) : base(stateSwitcher) {
 		_stateSwitcher = stateSwitcher;
 		_pauseUiSystem = pauseUiSystem;
 		_pauseHandler = pauseHandler;
 		_keysRecoverySystem = keysRecoverySystem;
 		_progressSystem = progressSystem;
-		_sceneLoaderService = sceneLoaderService;
+		_sceneLoader = sceneLoader;
 
 
 		_pauseUiSystem.ContinueEvent += OnResume;
@@ -44,8 +44,8 @@ public class PauseState : State {
 	}
 
 	private void OnQuit() {
-		_keysRecoverySystem.KeyDecrease();
+		
 		_progressSystem.ResetCurrentCoins();
-		_sceneLoaderService.GoToMainMenuScene();
+		_sceneLoader.GoToMainMenuScene();
 	}
 }

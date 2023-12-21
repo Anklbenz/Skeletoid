@@ -7,7 +7,7 @@ public class KeysRecoverySystem : IDisposable
    private const int REFRESH_TIMER_DELAY = 1000;
    public event Action LifeIncreasedEvent, TimerTickEvent;
 
-   public TimeSpan timeLeftToNextSpan => _timeLeft;
+   public TimeSpan timeLeftToNextSpawn => _timeLeft;
    public int maxKeysCount { get; }
    public string timeLeftToNextSpawnString => _timeLeft.ToString(@"mm\:ss");
    private bool isKeysCountMax => _progressSystem.keysCount == _gameConfig.maxKeys;
@@ -49,6 +49,11 @@ public class KeysRecoverySystem : IDisposable
       _progressSystem.IncreaseKey(clampedTotal - keysCount);
 
       LifeIncreasedEvent?.Invoke();
+   }
+
+   public void KeyIncrease(int count =1) {
+	  _progressSystem.IncreaseKey(count); 
+	  Refresh();
    }
 
    public void KeyDecrease() {

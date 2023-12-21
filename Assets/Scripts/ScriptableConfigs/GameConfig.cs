@@ -8,9 +8,12 @@ public class GameConfig : ScriptableObject
    [SerializeField] private int maxKeysCount = 5;
    [SerializeField] private int startsCoinsCount = 500;
    [SerializeField] private int timeToIncreaseSeconds = 50;
+   [SerializeField] private int keyPriceInGold = 300;
 
    public int maxKeys => maxKeysCount;
    public int startCoins => startsCoinsCount;
+
+   public int keyPrice => keyPriceInGold;
    public int keyIncreaseTime => timeToIncreaseSeconds;
 
 }
