@@ -1,5 +1,4 @@
 using System;
-using ParticleEnum;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

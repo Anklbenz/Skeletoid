@@ -4,7 +4,7 @@ public class KeyShop {
 	private readonly KeysRecoverySystem _keysRecoverySystem;
 	private readonly ProgressSystem _progressSystem;
 	private readonly KeyShopView _view;
-	private readonly int _keyPrice, _maxKeys;
+	private readonly int _keyPrice, _maxKeys, _goldPrice;
 	private bool _isOpened;
 
 	public KeyShop(GameConfig config, KeysRecoverySystem keysRecoverySystem, ProgressSystem progressSystem, KeyShopView view) {
@@ -22,7 +22,7 @@ public class KeyShop {
 
 	private void BuyOnGold() {
 		_progressSystem.DecreaseTotalCoins(_keyPrice);
-		_progressSystem.IncreaseKey(_maxKeys);
+		_keysRecoverySystem.KeyIncrease(_maxKeys);
 		Close();
 	}
 	private void BuyOnAds() {
@@ -36,6 +36,7 @@ public class KeyShop {
 		_keysRecoverySystem.LifeIncreasedEvent += OnKeyIncrease;
 		_keysRecoverySystem.TimerTickEvent += OnTimeTicked;
 
+		_view.goldPrice = _keyPrice.ToString("D2");
 		_view.buyForGoldInteractable = _progressSystem.totalCoinsCount >= _keyPrice;
 		_view.coinsCount = _progressSystem.totalCoinsCount.ToString("D2");
 

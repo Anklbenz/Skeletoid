@@ -16,6 +16,7 @@ public class Wall : Obstacle {
 	private void OnCollisionExit(Collision other) =>
 			_ball = null;
 
+	//someTimes ball stick to wall, because OnCollisionEnter already worked. Collision stare force reflect ball, if he is stick 
 	private void OnCollisionStay(Collision collision) =>
 			_ball?.Reflect(-collision.contacts[0].normal);
 }

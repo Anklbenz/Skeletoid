@@ -812,8 +812,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 52}
-  m_SizeDelta: {x: 621.36, y: 208.57}
+  m_AnchoredPosition: {x: 0, y: 50.879627}
+  m_SizeDelta: {x: 621.36, y: 246.2147}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3610920046505704027
 CanvasRenderer:
@@ -1310,8 +1310,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -90.655, y: 0.000041007996}
-  m_SizeDelta: {x: 440.05, y: 77.78}
+  m_AnchoredPosition: {x: -8.456207, y: 8}
+  m_SizeDelta: {x: 604.45, y: 77.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3610920046971681682
 CanvasRenderer:
@@ -1341,7 +1341,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u043A\u043B\u044E\u0447:"
+  m_text: "\u0414\u043E \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0433\u043E
+    \u043A\u043B\u044E\u0447\u0430:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bac89d45cff007a42b4a3e026e8e3cce, type: 2}
   m_sharedMaterial: {fileID: 8150315708399895843, guid: bac89d45cff007a42b4a3e026e8e3cce, type: 2}
@@ -1375,7 +1376,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1651,6 +1652,7 @@ GameObject:
   - component: {fileID: 3610920047325478447}
   - component: {fileID: 3610920047325478444}
   - component: {fileID: 3610920047325478445}
+  - component: {fileID: 3203370791437116954}
   m_Layer: 5
   m_Name: CoinsButton
   m_TagString: Untagged
@@ -1753,6 +1755,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &3203370791437116954
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3610920047325478443}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3610920047397498088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,8 +2164,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 218.37517, y: 0.000022888}
-  m_SizeDelta: {x: 150.7849, y: 77.78}
+  m_AnchoredPosition: {x: 0.00032806, y: -48.92218}
+  m_SizeDelta: {x: 586.65, y: 58.7872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3610920047838639745
 CanvasRenderer:
@@ -2215,7 +2229,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2285,7 +2299,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.7899, y: -36.74259}
+  m_AnchoredPosition: {x: 0.7899, y: -22}
   m_SizeDelta: {x: 586.6525, y: 58.5495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3669818733631991362
@@ -2382,6 +2396,7 @@ MonoBehaviour:
   buyForGoldButton: {fileID: 3610920047325478444}
   buyForAdsButton: {fileID: 3610920047147892066}
   closeButton: {fileID: 6163152990894963239}
+  canvasGroup: {fileID: 3203370791437116954}
 --- !u!1 &4383322768533681418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,7 +2652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000024796, y: 42.513}
+  m_AnchoredPosition: {x: -0.000024796, y: 62}
   m_SizeDelta: {x: 621.36, y: 99.962}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4309227230173534606
@@ -2817,7 +2832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5729568919136828266, guid: 004dab0046d25fc488a20cdbd4855b90, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 225.33
+      value: 230
       objectReference: {fileID: 0}
     - target: {fileID: 5729568919136828266, guid: 004dab0046d25fc488a20cdbd4855b90, type: 3}
       propertyPath: m_LocalPosition.x

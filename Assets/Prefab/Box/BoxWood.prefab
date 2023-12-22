@@ -78,8 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a5d6e5d120f4e4386b7d075168b14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectType: 1
   hitPoints: 1
-  particlesType: 1
   coinsMinMax: {x: 1, y: 2}
 --- !u!65 &4106374112833769783
 BoxCollider:

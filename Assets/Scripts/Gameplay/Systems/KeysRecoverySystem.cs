@@ -10,7 +10,7 @@ public class KeysRecoverySystem : IDisposable
    public TimeSpan timeLeftToNextSpawn => _timeLeft;
    public int maxKeysCount { get; }
    public string timeLeftToNextSpawnString => _timeLeft.ToString(@"mm\:ss");
-   private bool isKeysCountMax => _progressSystem.keysCount == _gameConfig.maxKeys;
+   public bool isKeysCountMax => _progressSystem.keysCount >= _gameConfig.maxKeys;
    private long timeLeftToIncrease => nextIncreaseTime - ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
    private long nowSeconds => ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds();
    private long nextIncreaseTime => _progressSystem.lastSpendTime + _gameConfig.keyIncreaseTime;
@@ -52,8 +52,11 @@ public class KeysRecoverySystem : IDisposable
    }
 
    public void KeyIncrease(int count =1) {
-	  _progressSystem.IncreaseKey(count); 
-	  Refresh();
+	  _progressSystem.IncreaseKey(count);
+	  _progressSystem.lastSpendTime = nowSeconds;
+	 
+	  LifeIncreasedEvent?.Invoke();
+	  TimerTickEvent?.Invoke();
    }
 
    public void KeyDecrease() {

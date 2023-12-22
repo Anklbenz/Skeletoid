@@ -93,10 +93,10 @@ public class WordMap {
 			_keyShop.Open();
 			return;
 		}
-		var keyCount = _progressSystem.keysCount; 
-		
-		await _keySpendView.Show(keyCount, keyCount-1);
-		_progressSystem.SpendKey();
+		var keyCount = _progressSystem.keysCount;
+
+		await _keySpendView.Show(keyCount, keyCount - 1);
+		_keysRecoverySystem.KeyDecrease();
 
 		_progressSystem.SetWorld(worldIndex);
 		_sceneLoader.GoToGameplayScene();

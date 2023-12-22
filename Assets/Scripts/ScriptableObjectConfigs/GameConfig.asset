@@ -15,3 +15,4 @@ MonoBehaviour:
   maxKeysCount: 5
   startsCoinsCount: 500
   timeToIncreaseSeconds: 15
+  keyPriceInGold: 50

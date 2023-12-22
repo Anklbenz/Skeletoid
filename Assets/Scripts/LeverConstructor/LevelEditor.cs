@@ -23,13 +23,23 @@ public class LevelEditor : MonoBehaviour {
 
 		foreach (Transform child in parent) {
 			if (!child.TryGetComponent<Brick>(out var brick)) continue;
-			var brickCopy = Instantiate(brick, brick.transform.position, brick.transform.rotation, container.transform);
+			var prefab = PrefabUtility.GetCorrespondingObjectFromSource(brick);
+			var brickCopy =(Brick) PrefabUtility.InstantiatePrefab (prefab, container.transform);
+			brickCopy.transform.position = brick.transform.position;
+			brickCopy.transform.rotation = brick.transform.rotation;
+			//var brickCopy = Instantiate(brick, brick.transform.position, brick.transform.rotation, container.transform);
 			level.bricks.Add(brickCopy);
 		}
 
 		level.paddleOrigin = AddPaddleOriginToContainer(container.transform);
 		level.deadZone = CreateDeadZone(container.transform);
-		level.walls = CreateWall(container.transform);
+		
+		var walls =CreateWalls(container.transform);
+		level.leftWall = walls[0];
+		level.rightWall = walls[1];
+		level.frontWall = walls[2];
+		level.backWall = walls[3];
+		
 		CreateFloor(container.transform);
 		return container;
 	}
@@ -39,31 +49,19 @@ public class LevelEditor : MonoBehaviour {
 		return deadZone.AddComponent<DeadZone>();
 	}
 
-	private Wall[] CreateWall(Transform transformParent) {
+	private Wall[] CreateWalls(Transform transformParent) {
 		var left = CreateObjectWithComponents(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
 		var leftWall = left.AddComponent<Wall>();
-		//	leftWall.isStatic = true;
-		/*var rigidBody = leftWall.AddComponent<Rigidbody>();
-		rigidBody.useGravity = false;
-		rigidBody.isKinematic = true;*/
 
 		var right = CreateObjectWithComponents(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
 		var rightWall = right.AddComponent<Wall>();
 
-		//	rightWall.isStatic = true;
-		/*rigidBody = rightWall.AddComponent<Rigidbody>();
-		rigidBody.useGravity = false;
-		rigidBody.isKinematic = true;*/
-
 		var front = CreateObjectWithComponents(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
 		var frontWall = front.AddComponent<Wall>();
-
-		//	frontWall.isStatic = true;
 
 		var back = CreateObjectWithComponents(gizmosDrawer.backWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallBack");
 		back.SetActive(false);
 		var backWall = back.AddComponent<Wall>();
-		//	frontWall.isStatic = true;
 
 		return new[] {leftWall, rightWall, frontWall, backWall};
 	}

@@ -10,7 +10,7 @@ public class MapHud : ICoinsTarget {
 	public MapHud(ProgressSystem progressSystem, KeysRecoverySystem keysRecoverySystem, MapHudView view) {
 		_progressSystem = progressSystem;
 		_keysRecoverySystem = keysRecoverySystem;
-		_keysRecoverySystem.LifeIncreasedEvent += LivesRefresh;
+		_keysRecoverySystem.LifeIncreasedEvent += Refresh;
 		_keysRecoverySystem.TimerTickEvent += RefreshTimer;
 		_view = view;
 	}
@@ -29,7 +29,7 @@ public class MapHud : ICoinsTarget {
 			_view.keysCount = $"{_progressSystem.keysCount:D2}";
 
 	private void RefreshTimer() {
-		_view.isTimerActive = _keysRecoverySystem.maxKeysCount != _progressSystem.keysCount;
+		_view.isTimerActive = !_keysRecoverySystem.isKeysCountMax;
 		_view.timeLeft = _keysRecoverySystem.timeLeftToNextSpawnString;
 	}
 

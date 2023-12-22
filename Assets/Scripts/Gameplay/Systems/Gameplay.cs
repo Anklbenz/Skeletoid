@@ -13,7 +13,7 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	private DeadZone deadZone => _level.deadZone;
 
 	private readonly BallLaunchSystem _ballLaunchSystem;
-	private readonly Bonus _bonus;
+	private readonly Combo _combo;
 	private readonly IInput _input;
 	private Level _level;
 

@@ -1,14 +1,13 @@
 using UnityEngine;
 using Zenject;
 
-public class ProjectInstaller : MonoInstaller, IInitializable 
-{
+public class ProjectInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private SceneIndexes scenesIndexes;
 	[SerializeField] private KeyboardConfig keyboardConfig;
 	[SerializeField] private WorldsConfig worldsConfig;
 	[SerializeField] private GameConfig gameConfig;
 	[SerializeField] private Canvas projectCanvasPrefab;
-	[SerializeField] private AnimatedView sceneTransitionsView;
+	[SerializeField] private FadeView sceneFadeTransitionsView;
 
 	public override void InstallBindings() {
 		InstallSceneLoader();
@@ -21,7 +20,7 @@ public class ProjectInstaller : MonoInstaller, IInitializable
 	private void InstallInitializableForThis() {
 		Container.Bind<IInitializable>().FromInstance(this).AsSingle();
 	}
-	
+
 	private void InstallControls() {
 		Container.Bind<KeyboardConfig>().FromInstance(keyboardConfig).AsSingle();
 		Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
@@ -38,14 +37,19 @@ public class ProjectInstaller : MonoInstaller, IInitializable
 	}
 
 	private void InstallProgressDataSystem() =>
-		Container.Bind<ProgressSystem>().AsSingle().NonLazy();
+			Container.Bind<ProgressSystem>().AsSingle().NonLazy();
 
 	private void InstallLivesRecoveryTimer() {
 		Container.Bind<GameConfig>().FromInstance(gameConfig);
 		Container.BindInterfacesAndSelfTo<KeysRecoverySystem>().AsSingle();
 	}
 	public void Initialize() {
-		//	var popupCanvas = Container.InstantiatePrefabForComponent<Canvas>(projectCanvasPrefab, this.transform);
-	//	var 
+		InitializeSceneLoaderWithFade();
+	}
+	private void InitializeSceneLoaderWithFade() {
+		var projectCanvas = Container.InstantiatePrefabForComponent<Canvas>(projectCanvasPrefab, this.transform);
+		var fadeView = Container.InstantiatePrefabForComponent<FadeView>(sceneFadeTransitionsView, projectCanvas.transform);
+		var sceneLoader = Container.Resolve<SceneLoader>();
+		sceneLoader.InitializeView(fadeView);
 	}
 }

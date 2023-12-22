@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class KeyShopView : AnimatedView {
+	private const float NON_INTERACTABLE_ALPHA = 0.3f;
 	[SerializeField] private TMP_Text coinsCountText, keysCountText, timeLeftToRecoveryText, goldPriceText;
 	[SerializeField] private Button buyForGoldButton, buyForAdsButton, closeButton;
+	[SerializeField] private CanvasGroup canvasGroup;
 
 	public event Action BuyForGoldEvent, BuyForAdsEvent, CloseEvent;
 
@@ -21,8 +23,15 @@ public class KeyShopView : AnimatedView {
 		set => timeLeftToRecoveryText.text = value;
 	}
 
+	public string goldPrice {
+		set => goldPriceText.text = value;
+	}
+
 	public bool buyForGoldInteractable {
-		set => buyForGoldButton.interactable = value;
+		set {
+			canvasGroup.interactable = value;
+			canvasGroup.alpha = value ? 1 : NON_INTERACTABLE_ALPHA;
+		}
 	}
 
 	private void Awake() {

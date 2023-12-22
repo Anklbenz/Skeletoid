@@ -3,26 +3,26 @@ using UnityEngine;
 [RequireComponent(typeof(CanvasGroup))]
 [RequireComponent(typeof(Animator))]
 public class AnimatedView : View {
-    [SerializeField] private Animator animator;
-    [SerializeField] private string closeTrigger = "disappear";
+	[SerializeField] private Animator animator;
+	[SerializeField] private string closeTrigger = "disappear";
 
-    public override void Close(){
-        ClosePlay();
-    }
+	public override void Close() {
+		ClosePlay();
+	}
 
-    public void ForceClose() =>
-        base.Close();
+	public void ForceClose() =>
+			base.Close();
 
-    private void ClosePlay(){
-        if (!animator ){
-            base.Close();
-            return;
-        }
+	private void ClosePlay() {
+		if (!animator) {
+			base.Close();
+			return;
+		}
 
-        var closeHash = Animator.StringToHash(closeTrigger);
-        animator.SetTrigger(closeHash);
-    }
-    
-    private void Handle_OnAnimationEnd() => // Animation event
-        ForceClose();
+		var closeHash = Animator.StringToHash(closeTrigger);
+		animator.SetTrigger(closeHash);
+	}
+	
+	private void Handle_OnAnimationEnd() => // Animation event
+			ForceClose();
 }

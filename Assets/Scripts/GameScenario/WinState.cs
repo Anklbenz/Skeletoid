@@ -35,7 +35,7 @@ public class WinState : State
 	//	if (_progressSystem.TrySetNextLevel())
 	//		_stateSwitcher.SetState<InitializeLevelState>();
 	
-		_sceneLoader.GoToMainMenuScene();
+		_sceneLoader.GoToWorldMapScene();
 	}
 
 	private void SaveProgress() {

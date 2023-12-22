@@ -17,7 +17,7 @@ MonoBehaviour:
   circleOffset: {x: 0, y: 0}
   delayBeforeStartMovingMinMax: {x: 700, y: 1000}
   coinPrefab: {fileID: 4218228190853265906, guid: 524b1675a26ee524b90fa77e6619a64e, type: 3}
-  speed: 0.7
+  speed: 0.8
   prefabScaleValue: {x: 0.45, y: 0.45, z: 0.45}
   poolAmount: 5
   itemsParentGameObjectName: CoinsParent

@@ -44,7 +44,7 @@ public class LoseState : State {
 
 	private void OnQuitSelected() {
 		
-		_sceneLoader.GoToMainMenuScene();
+		_sceneLoader.GoToWorldMapScene();
 	}
 
 	private async UniTask LookAtSkeleton() {
