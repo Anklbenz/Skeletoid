@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class MapHudView : MonoBehaviour, ICoinsTarget
+public class MapHudView : MonoBehaviour, IFlyingTarget
 {
    [SerializeField] private TMP_Text coinsText, livesText, startsText, timerText;
    [SerializeField] private Animator keysAnimator, coinAnimator;

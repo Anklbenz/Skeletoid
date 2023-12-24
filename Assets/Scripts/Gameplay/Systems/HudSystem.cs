@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class HudSystem : ICoinsTarget
+public class HudSystem : IFlyingTarget
 {
 	public event Action PauseValueChangedEvent;
 	public Transform coinsTargetTransform => _view.coinsTransform;

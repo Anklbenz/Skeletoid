@@ -9,6 +9,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private UiFactoryConfig uiFactoryConfig;
 	[SerializeField] private ParticlesConfig particlesConfig;
 	[SerializeField] private FlyingCoinsConfig coinsConfig;
+	[SerializeField] private TextDrawerConfig textDrawerConfig;
 	[SerializeField] private CinemachineVirtualCamera mainCamera;
 	[SerializeField] private CinemachineVirtualCamera zoomedCamera;
 	
@@ -27,6 +28,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallInitializeForThis();
 		InstallGameCameraSystem();
 		InstallTimer();
+		InstallBonus();
 	}
 
 	private void InstallTimer() {
@@ -73,11 +75,14 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	private void InstallGameplaySystem() {
 		Container.Bind<BallLaunchSystem>().AsSingle();
 		Container.BindInterfacesAndSelfTo<Gameplay>().AsSingle();
+	
 	}
 
 	private void InstallParticlesService() {
 		Container.Bind<ParticlesConfig>().FromInstance(particlesConfig);
 		Container.Bind<ParticlesPlayer>().AsSingle();
+		Container.Bind<TextDrawer>().AsSingle();
+		Container.Bind<TextDrawerConfig>().FromInstance(textDrawerConfig);
 		Container.Bind<LevelVfx>().AsSingle();
 	}
 
@@ -93,6 +98,11 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<LoseState>().AsSingle();
 		Container.Bind<WinState>().AsSingle();
 		Container.Bind<GameScenario>().AsSingle();
+	}
+
+	private void InstallBonus() {
+		Container.BindInterfacesAndSelfTo<BonusSystem>().AsSingle();
+		Container.Bind<Combo>().AsSingle();
 	}
 
 	private void InstallDiFactory() =>

@@ -1,5 +1,5 @@
 using UnityEngine;
-public class MapHud : ICoinsTarget {
+public class MapHud : IFlyingTarget {
 	public Transform coinsTargetTransform => _view.coinsTargetTransform;
 	private readonly ProgressSystem _progressSystem;
 	private readonly KeysRecoverySystem _keysRecoverySystem;

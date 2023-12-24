@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface ICoinsTarget
+public interface IFlyingTarget
 {
     Transform coinsTargetTransform { get; }
 }

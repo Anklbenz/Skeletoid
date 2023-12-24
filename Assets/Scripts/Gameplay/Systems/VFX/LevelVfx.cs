@@ -2,15 +2,27 @@ using System;
 using ParticleEnum;
 using UnityEngine;
 
-public class LevelVfx {
+public class LevelVfx
+{
+	private const string COMBO_MESSAGE = "Комбо\nx";
+
 	private readonly ParticlesPlayer _particlesPlayer;
+	private readonly TextDrawer _textDrawer;
 	private readonly CameraShaker _cameraShaker;
+	private readonly ICombo _combo;
 
 	private Level _level;
 
-	public LevelVfx(ParticlesPlayer particlesPlayer, CameraShaker cameraShaker) {
+	public LevelVfx(ParticlesPlayer particlesPlayer, TextDrawer textDrawer, CameraShaker cameraShaker, ICombo combo) {
 		_particlesPlayer = particlesPlayer;
+		_textDrawer = textDrawer;
 		_cameraShaker = cameraShaker;
+		_combo = combo;
+	}
+
+	public void Initialize() {
+		_particlesPlayer.Initialize();
+		_textDrawer.Initialize();
 	}
 
 	public void Start(Level level) {
@@ -31,6 +43,7 @@ public class LevelVfx {
 		PlayExplosion(brick);
 		_cameraShaker.Shake();
 	}
+
 	private void PlayExplosion(Brick brick) {
 		switch (brick.effect) {
 			case Particles.DustDark:
@@ -59,18 +72,26 @@ public class LevelVfx {
 		}
 	}
 
+	private void OnCombo(Vector3 position, int comboCount) =>
+		_textDrawer.ShowHint(position, $"{COMBO_MESSAGE}{comboCount}");
+
+
 	private void Subscribe() {
-		foreach (var brick in _level.bricks) {
+		_combo.ComboEvent += OnCombo;
+
+		foreach (var brick in _level.bricks)
 			brick.NoLivesLeft += OnBrickDestroy;
-		}
+
 		_level.player.HitOnPaddleEvent += OnPaddleHit;
 
 	}
 
 	private void UnSubscribe() {
-		foreach (var brick in _level.bricks) {
+		_combo.ComboEvent -= OnCombo;
+
+		foreach (var brick in _level.bricks)
 			brick.NoLivesLeft -= OnBrickDestroy;
-		}
+
 		_level.player.HitOnPaddleEvent -= OnPaddleHit;
 	}
 }

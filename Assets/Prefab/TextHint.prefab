@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6641950995358817180}
   - component: {fileID: 6176679316270198001}
   - component: {fileID: 7081657453074237633}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextHint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,8 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6176679316270198001}
   closeTrigger: disappear
-  textField: {fileID: 0}
-  showTimeMilliseconds: 0
+  textField: {fileID: 6421139506842635811}
 --- !u!1 &6421139506216433210
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +93,7 @@ GameObject:
   - component: {fileID: 6421139506216433211}
   - component: {fileID: 6421139506216433209}
   - component: {fileID: 6421139506216433208}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,8 +109,8 @@ RectTransform:
   m_GameObject: {fileID: 6421139506216433210}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6421139506842635810}
   m_Father: {fileID: 6421139505980696322}
@@ -177,7 +176,7 @@ GameObject:
   - component: {fileID: 6421139506842635810}
   - component: {fileID: 6421139506842635808}
   - component: {fileID: 6421139506842635811}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,35 +1,34 @@
 using UnityEngine;
 
-public class InitialState : State {
+public class InitialState : State
+{
 	private readonly UiFactory _uiFactory;
-	private readonly ParticlesPlayer _particlesPlayer;
 	private readonly FlyingService _flyingService;
-	private readonly StarsSystem _starsSystem;
 	private readonly Lose _lose;
 	private readonly Win _win;
 	private readonly HudSystem _hudSystem;
+	private readonly LevelVfx _levelVfx;
 	private readonly PauseUiSystem _pauseUiSystem;
 	private Camera _cameraMain;
 
 	public InitialState(
-			StateSwitcher stateSwitcher,
-			UiFactory uiFactory,
-			Lose lose,
-			Win win,
-			PauseUiSystem pauseUiSystem,
-			HudSystem hudSystem,
-			ParticlesPlayer particlesPlayer,
-			FlyingService flyingService,
-			StarsSystem starsSystem) : base(stateSwitcher) {
+		StateSwitcher stateSwitcher,
+		UiFactory uiFactory,
+		Lose lose,
+		Win win,
+		PauseUiSystem pauseUiSystem,
+		HudSystem hudSystem,
+		LevelVfx levelVfx,
+		FlyingService flyingService) : base(stateSwitcher) {
 
 		_uiFactory = uiFactory;
-		_particlesPlayer = particlesPlayer;
+		_levelVfx = levelVfx;
 		_flyingService = flyingService;
-		_starsSystem = starsSystem;
 		_lose = lose;
 		_win = win;
 		_pauseUiSystem = pauseUiSystem;
 		_hudSystem = hudSystem;
+		_levelVfx = levelVfx;
 	}
 
 	public override void Enter() {
@@ -51,8 +50,8 @@ public class InitialState : State {
 		pauseView.ForceClose();
 		_pauseUiSystem.Initialize(pauseView);
 
-		_particlesPlayer.Initialize();
-	    
+		_levelVfx.Initialize();
+
 		_flyingService.Initialize();
 		var coinsPosition = _hudSystem.coinsTargetTransform.position;
 		_flyingService.destination = _cameraMain.ScreenToWorldPoint(new Vector3(coinsPosition.x, coinsPosition.y, _cameraMain.nearClipPlane));

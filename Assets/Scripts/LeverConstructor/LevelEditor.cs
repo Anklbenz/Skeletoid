@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 public class LevelEditor : MonoBehaviour {
+#if UNITY_EDITOR
 	[SerializeField] private Transform parent;
 	[SerializeField] private GizmosDrawer gizmosDrawer;
 	[SerializeField] private string path = "Assets/Levels/";
@@ -95,4 +96,5 @@ public class LevelEditor : MonoBehaviour {
 		for (var count = parent.transform.childCount - 1; count >= 0; count--)
 			DestroyImmediate(parent.transform.GetChild(count).gameObject);
 	}
+	#endif
 }

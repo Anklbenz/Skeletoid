@@ -1,7 +1,8 @@
 using System;
+using UnityEngine;
 
-public class BonusSystem : IDisposable {
-	public event Action<int> ComboEvent;
+public class BonusSystem : IDisposable, ICombo {
+	public event Action<Vector3, int> ComboEvent;
 
 	private readonly Combo _combo;
 	private Level _level;
@@ -19,10 +20,9 @@ public class BonusSystem : IDisposable {
 		_combo.Stop();
 	}
 	
-	private void OnCombo(int comboCount) {
-		if(comboCount > 3)
-             ComboEvent?.Invoke(comboCount);			
-			
+	private void OnCombo(Vector3 position, int comboCount) {
+		if(comboCount >= 3)
+             ComboEvent?.Invoke(position, comboCount);
 	}
 
 	private void ApplyHitCombo() {

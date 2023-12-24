@@ -13,13 +13,14 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	private DeadZone deadZone => _level.deadZone;
 
 	private readonly BallLaunchSystem _ballLaunchSystem;
+	private readonly BonusSystem _bonusSystem;
 	private readonly Combo _combo;
 	private readonly IInput _input;
 	private Level _level;
 
-	public Gameplay(BallLaunchSystem ballLaunchSystem /*ComboSystem comboSystem*/, IInput input) {
+	public Gameplay(BallLaunchSystem ballLaunchSystem ,  BonusSystem bonusSystem, IInput input) {
 		_ballLaunchSystem = ballLaunchSystem;
-		//	_comboSystem = comboSystem;
+		_bonusSystem = bonusSystem;
 		_input = input;
 	}
 
@@ -29,6 +30,7 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 
 		_level = level;
 		_ballLaunchSystem.Initialize(ball, player);
+		_bonusSystem.Initialize(_level);
 		Restart();
 		SubscribeLevelEvents();
 		SubscribeInput();
