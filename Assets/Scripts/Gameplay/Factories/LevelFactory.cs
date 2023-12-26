@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 public sealed class LevelFactory {
 	private readonly IFactory _factory;
 	private readonly GameplayConfig _config;

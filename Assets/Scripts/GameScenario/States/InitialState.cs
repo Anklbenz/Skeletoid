@@ -8,7 +8,7 @@ public class InitialState : State
 	private readonly Win _win;
 	private readonly HudSystem _hudSystem;
 	private readonly LevelVfx _levelVfx;
-	private readonly PauseUiSystem _pauseUiSystem;
+	private readonly Pause _pause;
 	private Camera _cameraMain;
 
 	public InitialState(
@@ -16,7 +16,7 @@ public class InitialState : State
 		UiFactory uiFactory,
 		Lose lose,
 		Win win,
-		PauseUiSystem pauseUiSystem,
+		Pause pause,
 		HudSystem hudSystem,
 		LevelVfx levelVfx,
 		FlyingService flyingService) : base(stateSwitcher) {
@@ -26,7 +26,7 @@ public class InitialState : State
 		_flyingService = flyingService;
 		_lose = lose;
 		_win = win;
-		_pauseUiSystem = pauseUiSystem;
+		_pause = pause;
 		_hudSystem = hudSystem;
 		_levelVfx = levelVfx;
 	}
@@ -48,7 +48,7 @@ public class InitialState : State
 
 		var pauseView = _uiFactory.CreatePauseView();
 		pauseView.ForceClose();
-		_pauseUiSystem.Initialize(pauseView);
+		_pause.Initialize(pauseView);
 
 		_levelVfx.Initialize();
 

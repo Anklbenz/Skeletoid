@@ -18,13 +18,6 @@ public sealed class Ball : Motor, IBall, IThrowable {
 			rigidBody.AddForce(throwDirection, ForceMode.Impulse);
 
 	private void OnCollisionEnter(Collision collision) {
-		//Handle paddle reflect
-	//	if (CheckPaddleCollision(collision)) return;
-	//	OnCollisionEvent?.Invoke(collision.contacts[0].point);
-
-	//	Reflect(collision.contacts[0].normal);
-	//	CheckDamageableCollision(collision);
-
 		if (!isActive)
 			CheckFallOnFloor(collision);
 	}
@@ -33,24 +26,6 @@ public sealed class Ball : Motor, IBall, IThrowable {
 		if (collision.transform.TryGetComponent<IFloor>(out _))
 			FallOnFloorEvent?.Invoke();
 	}
-	/*private void CheckDamageableCollision(Collision collision) {
-		var damageable = collision.gameObject.GetComponentInParent<IDamageable>();
-		if (damageable != null)
-			damageable.Hit(damage);
-	}
-	*/
-
-	/*private bool CheckPaddleCollision(Collision collision) {
-		if (collision.transform.TryGetComponent<ISpecialReflect>(out var paddle)) {
-			if (paddle.CouldSpecialReflectionBePerformed(collision.contacts[0].point, -collision.contacts[0].normal)) {
-				direction = paddle.GetDirectionDependsOnLocalPaddleHitPoint(collision.contacts[0].point);
-				return true;
-			}
-			Reflect(collision.contacts[0].normal);
-			return true;
-		}
-		return false;
-	}*/
 
 	public void Reflect(Vector3 hitNormal, Obstacle sender = null) {
 		var isOppositeDirection = Vector3.Dot(direction, hitNormal) < 0;

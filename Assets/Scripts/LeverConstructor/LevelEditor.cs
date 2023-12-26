@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelEditor : MonoBehaviour {
 #if UNITY_EDITOR
 	[SerializeField] private Transform parent;
+	[SerializeField] private StoneBackWall stoneBackWall;
 	[SerializeField] private GizmosDrawer gizmosDrawer;
 	[SerializeField] private string path = "Assets/Levels/";
 	[SerializeField] private string fileName = "Level";
@@ -25,7 +26,7 @@ public class LevelEditor : MonoBehaviour {
 		foreach (Transform child in parent) {
 			if (!child.TryGetComponent<Brick>(out var brick)) continue;
 			var prefab = PrefabUtility.GetCorrespondingObjectFromSource(brick);
-			var brickCopy =(Brick) PrefabUtility.InstantiatePrefab (prefab, container.transform);
+			var brickCopy = (Brick)PrefabUtility.InstantiatePrefab(prefab, container.transform);
 			brickCopy.transform.position = brick.transform.position;
 			brickCopy.transform.rotation = brick.transform.rotation;
 			//var brickCopy = Instantiate(brick, brick.transform.position, brick.transform.rotation, container.transform);
@@ -34,17 +35,25 @@ public class LevelEditor : MonoBehaviour {
 
 		level.paddleOrigin = AddPaddleOriginToContainer(container.transform);
 		level.deadZone = CreateDeadZone(container.transform);
-		
-		var walls =CreateWalls(container.transform);
-		level.leftWall = walls[0];
-		level.rightWall = walls[1];
-		level.frontWall = walls[2];
-		level.backWall = walls[3];
-		
+
+		level.walls = CreateWalls(container.transform);
+
+		level.stoneBackWall = CreateStoneBackWall(container.transform);
+
+		level.stoneBackWall = CreateStoneBackWall(container.transform);
+
 		CreateFloor(container.transform);
 		return container;
 	}
 
+	private StoneBackWall CreateStoneBackWall(Transform transformParent) {
+		var backWall = (StoneBackWall)PrefabUtility.InstantiatePrefab(stoneBackWall, transformParent);
+		var backWallTransform = backWall.wall.transform;
+		backWallTransform.localScale = gizmosDrawer.wallSizeFront;
+		backWallTransform.position = gizmosDrawer.backWallCenter;
+		return backWall;
+	}
+	
 	private DeadZone CreateDeadZone(Transform transformParent) {
 		var deadZone = CreateObjectWithComponents(gizmosDrawer.deadZoneCenter, gizmosDrawer.wallSizeFront, transformParent, true, "DeadZone");
 		return deadZone.AddComponent<DeadZone>();
@@ -60,11 +69,11 @@ public class LevelEditor : MonoBehaviour {
 		var front = CreateObjectWithComponents(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
 		var frontWall = front.AddComponent<Wall>();
 
-		var back = CreateObjectWithComponents(gizmosDrawer.backWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallBack");
+		/*var back = CreateObjectWithComponents(gizmosDrawer.backWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallBack");
 		back.SetActive(false);
-		var backWall = back.AddComponent<Wall>();
+		var backWall = back.AddComponent<Wall>();*/
 
-		return new[] {leftWall, rightWall, frontWall, backWall};
+		return new[] {leftWall, rightWall, frontWall};
 	}
 
 	private void CreateFloor(Transform transformParent) {

@@ -22,17 +22,17 @@ public class Combo {
 	}
 
 	private void OnWallHit() =>
-		_comboCounter.Reset();
-	
+			_comboCounter.Reset();
+
 	private void OnBrickHit(Vector3 obj) {}
 	private void OnPaddleHit(Vector3 obj) =>
-		_comboCounter.Reset();
+			_comboCounter.Reset();
 	private void OnBrickDestroy(Brick brick) {
 		var comboCount = _comboCounter.Increase();
 		ComboNotify(brick.transform.position, comboCount);
 	}
 	private void ComboNotify(Vector3 position, int comboCount) =>
-		ComboEvent?.Invoke(position, comboCount);
+			ComboEvent?.Invoke(position, comboCount);
 
 	private void Subscribe() {
 		foreach (var brick in _level.bricks) {
@@ -41,10 +41,10 @@ public class Combo {
 		}
 		_level.player.HitOnPaddleEvent += OnPaddleHit;
 
-		_level.leftWall.WallHitEvent += OnWallHit;
-		_level.rightWall.WallHitEvent += OnWallHit;
-		_level.frontWall.WallHitEvent += OnWallHit;
-		_level.backWall.WallHitEvent += OnWallHit;
+		foreach (var wall in _level.walls)
+			wall.WallHitEvent += OnWallHit;
+
+		_level.stoneBackWall.wall.WallHitEvent += OnWallHit;
 	}
 	private void UnSubscribe() {
 		foreach (var brick in _level.bricks) {
@@ -53,10 +53,8 @@ public class Combo {
 		}
 		_level.player.HitOnPaddleEvent -= OnPaddleHit;
 
-		_level.leftWall.WallHitEvent -= OnWallHit;
-		_level.rightWall.WallHitEvent -= OnWallHit;
-		_level.frontWall.WallHitEvent -= OnWallHit;
-		_level.backWall.WallHitEvent -= OnWallHit;
-
+		foreach (var wall in _level.walls)
+			wall.WallHitEvent -= OnWallHit;
+		_level.stoneBackWall.wall.WallHitEvent -= OnWallHit;
 	}
 }

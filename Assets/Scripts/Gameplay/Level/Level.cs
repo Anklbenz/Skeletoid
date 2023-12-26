@@ -6,7 +6,8 @@ public class Level : MonoBehaviour {
 
 	public List<Brick> bricks = new();
 	public Transform paddleOrigin;
-	public Wall frontWall, backWall, leftWall, rightWall;
+	public Wall[] walls;
+	public StoneBackWall stoneBackWall;
 	public DeadZone deadZone;
 	public Ball ball;
 	public Player player;

@@ -45,7 +45,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	}
 
 	private void InstallPause() {
-		Container.Bind<PauseUiSystem>().AsSingle();
+		Container.Bind<Pause>().AsSingle();
 		Container.Bind<PauseHandler>().AsSingle();
 	}
 
