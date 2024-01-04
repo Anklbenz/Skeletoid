@@ -10,6 +10,7 @@ public sealed class Brick : Obstacle, ICost {
 	
 	[SerializeField] private int hitPoints;
 	[SerializeField] private Vector2Int coinsMinMax;
+	[SerializeField] private SkinSwitcher skinSwitcher;
 	protected override void Reflect(IBall ball, Collision collision) {
 		Hit(ball.damage);
 		ball.Reflect(-collision.contacts[0].normal, this);
@@ -19,10 +20,13 @@ public sealed class Brick : Obstacle, ICost {
 		hitPoints -= damage;
 		NotifyHit();
 
-		if (hitPoints > 0)
+		if (hitPoints > 0) {
 			NotifyDamaged();
-		else
+			skinSwitcher.MoveNext();
+		}
+		else {
 			NotifyIfNoLives();
+		}
 	}
 	private void NotifyDamaged() =>
 			DamagedEvent?.Invoke(transform.position);

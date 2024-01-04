@@ -21,9 +21,8 @@ public class Combo {
 		_level = null;
 	}
 
-	private void OnWallHit() =>
+	private void OnWallHit(Vector3 position) =>
 			_comboCounter.Reset();
-
 	private void OnBrickHit(Vector3 obj) {}
 	private void OnPaddleHit(Vector3 obj) =>
 			_comboCounter.Reset();
@@ -43,8 +42,6 @@ public class Combo {
 
 		foreach (var wall in _level.walls)
 			wall.WallHitEvent += OnWallHit;
-
-		_level.stoneBackWall.wall.WallHitEvent += OnWallHit;
 	}
 	private void UnSubscribe() {
 		foreach (var brick in _level.bricks) {
@@ -55,6 +52,5 @@ public class Combo {
 
 		foreach (var wall in _level.walls)
 			wall.WallHitEvent -= OnWallHit;
-		_level.stoneBackWall.wall.WallHitEvent -= OnWallHit;
 	}
 }

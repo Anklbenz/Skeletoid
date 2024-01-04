@@ -4,6 +4,7 @@ using Zenject;
 
 public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameplayConfig gameplayConfig;
+	[SerializeField] private BonusConfig bonusConfig;
 	[SerializeField] private CameraZoomConfig cameraZoomConfig;
 	[SerializeField] private CameraShakeConfig cameraShakeConfig;
 	[SerializeField] private UiFactoryConfig uiFactoryConfig;
@@ -32,8 +33,13 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	}
 
 	private void InstallTimer() {
-		Container.BindInterfacesAndSelfTo<Timer>().AsSingle();
-		Container.Bind<StarsSystem>().AsSingle();
+	//Container.BindInterfacesTo<Timer>().AsSingle();
+		//.ToSingle<Timer>();
+		Container.Bind<Timer>().AsTransient();
+	//	Container.Bind<ITickable>().To<Timer>().AsCached();//AsSingle();
+		//Container.Bind<Timer>().AsTransient();
+		//Container.BindInterfacesAndSelfTo<Timer>().AsTransient();
+		Container.BindInterfacesAndSelfTo<StarsSystem>().AsSingle();
 	}
 
 	private void InstallGameCameraSystem() {
@@ -75,7 +81,6 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	private void InstallGameplaySystem() {
 		Container.Bind<BallLaunchSystem>().AsSingle();
 		Container.BindInterfacesAndSelfTo<Gameplay>().AsSingle();
-	
 	}
 
 	private void InstallParticlesService() {
@@ -102,6 +107,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallBonus() {
 		Container.BindInterfacesAndSelfTo<BonusSystem>().AsSingle();
+		Container.Bind<BonusConfig>().FromInstance(bonusConfig);
 		Container.Bind<Combo>().AsSingle();
 	}
 
@@ -117,5 +123,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		
 		var gameScenario = Container.Resolve<GameScenario>();
 		gameScenario.Start();
+		
+	//	var c = Container.Resolve<Timer>();
 	}
 }

@@ -4,14 +4,13 @@ using Zenject;
 public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 	private const float MAX_REFLECT_ANGLE = 70;
 	public event Action<Vector3> HitOnPaddleEvent;
-	
+
 	[SerializeField] private BoxCollider boxCollider;
-	[SerializeField] private Transform ballParent;
 	[SerializeField] private Rigidbody paddleRigidbody;
-	[SerializeField] private AnimationPlayer animationPlayer;
+	[SerializeField] private Transform ballParent;
 	[SerializeField] private GameObject ballHolder;
 	[SerializeField] private Transform skeletonHead;
-
+	[SerializeField] private AnimationPlayer animationPlayer;
 	public Transform skeletonHeadTransform => skeletonHead;
 	public Transform aimTarget { set => animationPlayer.SetAimTarget(value); }
 	public bool isBallHolderActive {
@@ -32,15 +31,16 @@ public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 		_input = input;
 		_input.HorizontalAxisChangedEvent += OnInput;
 	}
-	
+
 	protected override void Reflect(IBall ball, Collision collision) {
 		var collisionPoint = collision.contacts[0].point;
 		var collisionNormal = collision.contacts[0].normal;
+		
 		if (CouldSpecialReflectionBePerformed(collisionPoint, collisionNormal))
 			ball.direction = GetDirectionDependsOnLocalPaddleHitPoint(collisionPoint);
-		else 
-		    ball.Reflect(-collisionNormal);
-		
+		else
+			ball.Reflect(-collisionNormal);
+
 		HitOnPaddleEvent?.Invoke(collisionPoint);
 	}
 
@@ -50,7 +50,7 @@ public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 	public void SetPause(bool isPaused) {
 		_isActive = !isPaused;
 		paddleRigidbody.isKinematic = isPaused;
-	
+
 		if (isPaused)
 			AnimateCharacter(0);
 	}
@@ -64,8 +64,8 @@ public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 
 	// Hit in opposite direction
 	public bool CouldSpecialReflectionBePerformed(Vector3 hitPoint, Vector3 hitNormal) =>
-		 Vector3.Dot(transform.forward, hitNormal) < 0;
-	
+			Vector3.Dot(transform.forward, hitNormal) < 0;
+
 
 	public Vector3 GetDirectionDependsOnLocalPaddleHitPoint(Vector3 collisionPoint) {
 		var colliderMinX = boxCollider.center.x - boxCollider.size.x / 2;
@@ -98,5 +98,4 @@ public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 
 	public void OnDestroy() =>
 			_input.HorizontalAxisChangedEvent -= OnInput;
-
 }

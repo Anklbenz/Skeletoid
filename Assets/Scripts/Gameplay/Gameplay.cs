@@ -18,7 +18,7 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	private readonly IInput _input;
 	private Level _level;
 
-	public Gameplay(BallLaunchSystem ballLaunchSystem ,  BonusSystem bonusSystem, IInput input) {
+	public Gameplay(BallLaunchSystem ballLaunchSystem, BonusSystem bonusSystem, IInput input) {
 		_ballLaunchSystem = ballLaunchSystem;
 		_bonusSystem = bonusSystem;
 		_input = input;
@@ -56,20 +56,21 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 		//important set paddle position previsosley than ball position
 		SetPaddleToDefaultPosition();
 		SetBallToDefaultPosition();
-		
+
 		player.aimTarget = ball.transform;
 	}
 
 	public void SetPause(bool isPaused) {
 		player.SetPause(isPaused);
 		ball.SetPause(isPaused);
+		_bonusSystem.SetPause(isPaused);
 	}
 
 	private void OnDeadZoneReached() {
 		DeadZoneReachedEvent?.Invoke();
 		state = GameplayState.PlayEnded;
 	}
-	
+
 	private void OnBrickDestroyed(Brick sender) {
 		BrickDestroyedEvent?.Invoke(sender);
 		DestroyAndUnsubscribeBrick(sender);
@@ -79,8 +80,8 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	}
 
 	private void DestroyAndUnsubscribeBrick(Brick brick) =>
-		_level.Destroy(brick);
-	
+			_level.Destroy(brick);
+
 	private void SubscribeLevelEvents() {
 		foreach (var brick in _level.bricks)
 			brick.NoLivesLeft += OnBrickDestroyed;
@@ -104,12 +105,12 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 
 	private void SetPaddleToDefaultPosition() =>
 			player.transform.position = _level.paddleOrigin.position;
-	
+
 	private void SubscribeInput() =>
 			_input.ShotEvent += Throw;
 	private void UnSubscribeInput() =>
 			_input.ShotEvent -= Throw;
-	
+
 	public void Dispose() =>
 			UnSubscribeInput();
 }

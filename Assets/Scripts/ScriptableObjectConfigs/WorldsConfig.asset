@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worlds:
   - level:
-      levelPrefab: {fileID: 4078345527749481315, guid: 7159c8fdc0c90f24e8c3e089c94a6259, type: 3}
+      levelPrefab: {fileID: 3475679725691744331, guid: 97110ab723946314cbaaf60a5c6c29b0, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: FirstJourney
     livesCount: 3
@@ -30,7 +30,7 @@ MonoBehaviour:
     secondSeconds: 60
     thirdSeconds: 100
   - level:
-      levelPrefab: {fileID: 867058063600439505, guid: 018ede81faf1293409e96f7a9b723fdc, type: 3}
+      levelPrefab: {fileID: 8843390847427837973, guid: 7b2f58e3768355c41a97790c28662c23, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: SecondJourney
     livesCount: 3

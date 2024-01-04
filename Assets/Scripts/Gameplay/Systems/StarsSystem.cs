@@ -1,22 +1,22 @@
 using System;
 using UnityEngine;
+using Zenject;
 
-public class StarsSystem
-{
+public class StarsSystem : ITickable {
 	private const int MAX_STARS_COUNT = 3;
 	public int starsCount => _starsCount;
 	public float levelTime => _timer.currentSeconds;
 	public TimeSpan levelTimeSpan => _timer.current;
-	
+
 	private readonly Timer _timer;
 	private bool _isFistStarLost, _isSecondStarLost, _isThirdStarLost;
 	private float _firstStarTime, _secondStarTime, _thirdStarTime;
-	private int _starsCount =MAX_STARS_COUNT;
-	
-	public StarsSystem(Timer timer) {
-		_timer = timer;
+	private int _starsCount = MAX_STARS_COUNT;
+
+	public StarsSystem() {
+		_timer = new Timer();
 		_timer.TickEvent += OnTimerRefresh;
-	}
+		}
 
 	public void Initialize(Vector3 timeLimits) {
 		_firstStarTime = timeLimits.x;
@@ -28,28 +28,31 @@ public class StarsSystem
 	}
 
 	public void Start() =>
-		_timer.Start();
-	
+			_timer.Run();
+
 	public void Stop() =>
-		_timer.Stop();
-	
+			_timer.Stop();
+
 	private void OnTimerRefresh() {
 		if (!_isFistStarLost && _firstStarTime < _timer.currentSeconds) {
 			_isFistStarLost = true;
 			StarsCountDecrease();
 		}
-		if(!_isSecondStarLost && _secondStarTime < _timer.currentSeconds) {
+		if (!_isSecondStarLost && _secondStarTime < _timer.currentSeconds) {
 			_isSecondStarLost = true;
 			StarsCountDecrease();
 		}
-		if(!_isThirdStarLost && _thirdStarTime < _timer.currentSeconds) {
+		if (!_isThirdStarLost && _thirdStarTime < _timer.currentSeconds) {
 			_isThirdStarLost = true;
 			StarsCountDecrease();
 		}
 		//upd hud
-	//	Debug.Log($"{_timer.current.Minutes:00}:{_timer.current.Seconds:00}:{_timer.current.Milliseconds:000}");
+		//	Debug.Log($"{_timer.current.Minutes:00}:{_timer.current.Seconds:00}:{_timer.current.Milliseconds:000}");
 	}
 
 	private void StarsCountDecrease() =>
-		_starsCount--;
+			_starsCount--;
+
+	public void Tick() =>
+			_timer.Tick();
 }

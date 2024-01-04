@@ -1,4 +1,3 @@
-using System;
 using ParticleEnum;
 using UnityEngine;
 
@@ -10,7 +9,6 @@ public abstract class Obstacle : MonoBehaviour {
 		if (ball != null)
 			Reflect(ball, collision);
 	}
-
 
 	protected abstract void Reflect(IBall ball, Collision collision);
 }

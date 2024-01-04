@@ -25,7 +25,11 @@ public class ParticlesConfig : ScriptableObject
     [Space]
     [SerializeField] private ParticleSystem fireParticles;
     [SerializeField] private int firePoolAmount;
-    
+    [Space]
+    [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private int damagePoolAmount;
+
+    public int  damagePoolSize => damagePoolAmount;
     public int sparkPoolSize => sparkPoolAmount;
     public int dustDarkPoolSize => dustDarkPoolAmount;
     public int dustBrightPoolSize => dustBrightPoolAmount;
@@ -41,4 +45,5 @@ public class ParticlesConfig : ScriptableObject
     public ParticleSystem waterParticlesPrefab => waterParticles;
     public ParticleSystem grenadeParticlesPrefab => grenadeParticles;
     public ParticleSystem fireParticlesPrefab => fireParticles;
+    public ParticleSystem damagePrefab => damageParticles;
 }

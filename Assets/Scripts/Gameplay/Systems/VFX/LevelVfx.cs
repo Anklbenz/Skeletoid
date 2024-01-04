@@ -9,15 +9,17 @@ public class LevelVfx
 	private readonly ParticlesPlayer _particlesPlayer;
 	private readonly TextDrawer _textDrawer;
 	private readonly CameraShaker _cameraShaker;
-	private readonly ICombo _combo;
+	private readonly IComboEvent _comboEvent;
+	private readonly IStoneWallEvent _stoneWallEvent;
 
 	private Level _level;
 
-	public LevelVfx(ParticlesPlayer particlesPlayer, TextDrawer textDrawer, CameraShaker cameraShaker, ICombo combo) {
+	public LevelVfx(ParticlesPlayer particlesPlayer, TextDrawer textDrawer, CameraShaker cameraShaker, IComboEvent comboEvent, IStoneWallEvent stoneWallEvent) {
 		_particlesPlayer = particlesPlayer;
 		_textDrawer = textDrawer;
 		_cameraShaker = cameraShaker;
-		_combo = combo;
+		_comboEvent = comboEvent;
+		_stoneWallEvent = stoneWallEvent;
 	}
 
 	public void Initialize() {
@@ -39,6 +41,11 @@ public class LevelVfx
 		_particlesPlayer.PlaySpark(hitPoint);
 	}
 
+	private void OnBrickDamage(Vector3 hitPoint) {
+		_particlesPlayer.PlayDamage(hitPoint);
+	//	_particlesPlayer.PlayDamage(hitPoint);
+	//	_particlesPlayer.PlaySpark(hitPoint);
+	}
 	private void OnBrickDestroy(Brick brick) {
 		PlayExplosion(brick);
 		_cameraShaker.Shake();
@@ -72,25 +79,41 @@ public class LevelVfx
 		}
 	}
 
-	private void OnCombo(Vector3 position, int comboCount) =>
+	private void OnComboEvent(Vector3 position, int comboCount) =>
 		_textDrawer.ShowHint(position, $"{COMBO_MESSAGE}{comboCount}");
 
-
+	private void OnWallActivate() =>
+			_cameraShaker.Shake();
+	private void OnWallHit(Vector3 position) {
+		_particlesPlayer.PlaySpark(position);
+	}
 	private void Subscribe() {
-		_combo.ComboEvent += OnCombo;
+		_comboEvent.ComboEvent += OnComboEvent;
+		_stoneWallEvent.WallActivateEvent += OnWallActivate;
 
-		foreach (var brick in _level.bricks)
+		foreach (var brick in _level.bricks) {
+			brick.DamagedEvent += OnBrickDamage;
 			brick.NoLivesLeft += OnBrickDestroy;
+		}
 
+		foreach (var wall in _level.walls)
+			wall.WallHitEvent += OnWallHit;	
+		
 		_level.player.HitOnPaddleEvent += OnPaddleHit;
-
 	}
 
-	private void UnSubscribe() {
-		_combo.ComboEvent -= OnCombo;
 
-		foreach (var brick in _level.bricks)
+	private void UnSubscribe() {
+		_comboEvent.ComboEvent -= OnComboEvent;
+		_stoneWallEvent.WallActivateEvent -= OnWallActivate;
+
+		foreach (var brick in _level.bricks) {
+			brick.DamagedEvent -= OnBrickDamage;
 			brick.NoLivesLeft -= OnBrickDestroy;
+		}
+
+		foreach (var wall in _level.walls)
+			wall.WallHitEvent -= OnWallHit;	
 
 		_level.player.HitOnPaddleEvent -= OnPaddleHit;
 	}

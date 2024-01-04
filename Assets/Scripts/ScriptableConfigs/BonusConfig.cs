@@ -2,8 +2,8 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Configs/BonusConfig", fileName = "BonusConfig", order = 0)]
 public class BonusConfig : ScriptableObject {
-	[SerializeField] private int threeHitCombo = 3;
-	[SerializeField] private int backWallActiveTimeMilliseconds = 3000;
+//	[SerializeField] private int threeHitCombo = 3;
+	[SerializeField] private float backWallTime = 10;
 
-	public int backWallActiveTime => backWallActiveTimeMilliseconds;
+	public float backWallActiveTime => backWallTime;
 }

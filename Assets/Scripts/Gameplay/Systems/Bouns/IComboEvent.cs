@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public interface ICombo
+public interface IComboEvent
 {
 	public event Action<Vector3, int> ComboEvent;
 }

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class Wall : Obstacle {
-	public event Action WallHitEvent;
+	public event Action<Vector3> WallHitEvent;
 	private IBall _ball;
 	protected override void Reflect(IBall ball, Collision collision) {
 		_ball = ball;
@@ -10,7 +10,7 @@ public class Wall : Obstacle {
 	}
 	protected override void OnCollisionEnter(Collision collision) {
 		base.OnCollisionEnter(collision);
-		WallHitEvent?.Invoke();
+		WallHitEvent?.Invoke(collision.contacts[0].point);
 	}
 
 	private void OnCollisionExit(Collision other) =>

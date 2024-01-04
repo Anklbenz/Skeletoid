@@ -1,24 +1,60 @@
+using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-public class StoneBackWall : MonoBehaviour {
+using Zenject;
+public class StoneBackWall : MonoBehaviour, IPauseSensitive{
 	private const int BEFORE_PAUSE_TIME = 1800;
 	private const int AFTER_PAUSE_TIME = 1000;
-	
-	[SerializeField] private ParticleSystem stoneParticles;
-	public Wall wall;
-	private bool _isShowed;
 
-	public async void Show() {
-		stoneParticles.Play();
-		gameObject.SetActive(true);
-		await UniTask.Delay(BEFORE_PAUSE_TIME);
-		stoneParticles.Pause();
+	[SerializeField] private ParticleSystem stoneParticles;
+
+	public Wall wall;
+	private bool _isActive;
+	private Timer _timer;
+	
+	public void Activate(float duration) {
+		if(_isActive) return;
+		_isActive = true;
+		
+		wall.gameObject.SetActive(true);
+		PlayAppearEffect();
+
+		_timer.StartWithNewAlarm(duration);
+		_timer.AlarmEvent += Deactivate;
 	}
 
-	public async void Hide() {
+	private void Deactivate() {
+		_timer.AlarmEvent -= Deactivate;
+
+		PlayDisappearEffect();
+		wall.gameObject.SetActive(false);
+		_isActive = false;
+	}
+	private async void PlayDisappearEffect() {
+		//Show wall disappear
 		stoneParticles.Play();
 		await UniTask.Delay(AFTER_PAUSE_TIME);
-		gameObject.SetActive(false);
+		//stop Particles
 		stoneParticles.Stop();
+	}
+	private async void PlayAppearEffect() {
+		//Show wall appear particles
+		stoneParticles.Play();
+		await UniTask.Delay(BEFORE_PAUSE_TIME);
+		//Pause particles On Wall ready
+		stoneParticles.Pause();
+	}
+	public void SetPause(bool isPaused) {
+		if(isPaused)
+			_timer.Stop();
+		else 
+			_timer.Run();
+	}
+
+	private void Awake() {
+		_timer = new Timer();
+	}
+	public void Update() {
+		_timer.Tick();
 	}
 }

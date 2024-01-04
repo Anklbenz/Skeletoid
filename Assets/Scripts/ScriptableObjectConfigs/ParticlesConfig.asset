@@ -26,3 +26,5 @@ MonoBehaviour:
   grenadePoolAmount: 3
   fireParticles: {fileID: 198409057676998786, guid: 623d947db24c0b84cb0f58a84bbe9273, type: 3}
   firePoolAmount: 3
+  damageParticles: {fileID: 198950242352517838, guid: e783e698126e2ec4d8b555dd79b4188b, type: 3}
+  damagePoolAmount: 3
