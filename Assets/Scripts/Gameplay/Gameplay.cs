@@ -2,7 +2,7 @@ using System;
 using Random = UnityEngine.Random;
 
 public sealed class Gameplay : IPauseSensitive, IDisposable {
-	private const float X_BALL_POSITION_RANDOMIZE = 0.1f;
+	private const float BALL_OFFSET_LIMIT_AXIS_X = 0.1f;
 
 	public event Action<Brick> BrickDestroyedEvent;
 	public event Action AllBricksDestroyedEvent, DeadZoneReachedEvent;
@@ -98,7 +98,7 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 
 	private void SetBallToDefaultPosition() {
 		var ballPosition = player.ballTransform.position;
-		ballPosition.x = Random.Range(ballPosition.x - X_BALL_POSITION_RANDOMIZE, ballPosition.x + X_BALL_POSITION_RANDOMIZE);
+		ballPosition.x = Random.Range(ballPosition.x - BALL_OFFSET_LIMIT_AXIS_X, ballPosition.x + BALL_OFFSET_LIMIT_AXIS_X);
 
 		ball.transform.position = ballPosition;
 	}

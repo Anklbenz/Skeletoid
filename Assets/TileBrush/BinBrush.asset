@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b86750ed953fa1c4ebe71c1a1f7b54ac, type: 3}
-  m_Name: BlueCheistBrush
+  m_Name: BinBrush
   m_EditorClassIdentifier: 
   m_Cells:
-  - m_GameObject: {fileID: 772491513648608889, guid: 00b0b68acb213ac4989c25999d7620c0, type: 3}
+  - m_GameObject: {fileID: 6914556421833397919, guid: 0d8a93b7b263d1d4eb09612ab5940c1d, type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     m_Orientation: {x: 0, y: 0, z: 0, w: 1}
