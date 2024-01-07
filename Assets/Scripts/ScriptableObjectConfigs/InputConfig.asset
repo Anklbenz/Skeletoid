@@ -18,3 +18,5 @@ MonoBehaviour:
   rightExtra: 100
   shot: 32
   shotExtra: 32
+  swipeUpMagnitude: 100
+  swipeUpPermitAngle: 45

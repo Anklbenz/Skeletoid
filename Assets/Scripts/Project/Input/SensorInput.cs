@@ -1,89 +1,80 @@
 using System;
-using System.Collections.Generic;
 using Zenject;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class SensorInput : IInput, ITickable {
+	private const float SWIPE_MAX_DELAY = 0.5f;
+	
 	public event Action<float> HorizontalAxisChangedEvent;
 	public event Action ShotEvent;
 	public bool enabled { get; set; } = true;
-	private readonly InputConfig _config;
-
-	private bool shotPressed => Input.GetKeyDown(_config.keyShot) || Input.GetKeyDown(_config.keyShotExtra);
-	private bool leftPressed => Input.GetKey(_config.keyLeft) || Input.GetKey(_config.keyLeftExtra);
-	private bool rightPressed => Input.GetKey(_config.keyRight) || Input.GetKey(_config.keyRightExtra);
-
-	private bool touched => Input.touchCount > 0 /*&& touchOne.phase == TouchPhase.Began*//* && !TryHitHud(touchOne.position*/;
-	
-	
-	private bool nothingPressed => !leftPressed && !rightPressed;
-	
+	private bool touched => Input.touchCount > 0/* && (touchOne.phase == TouchPhase.Stationary || touchOne.phase == TouchPhase.Moved)*/&&!TryHitHud(touchOne.position);
 	private Touch touchOne => Input.touches[0];
-	private Touch touchTwo => Input.touches[1];
+	private Vector2 _swipeStartPosition;
+	private float _upSwipePermitAngle, _swipeRequiredLength;
+	private Timer _timer;
 
 	public SensorInput(InputConfig config) {
-		_config = config;
+		_upSwipePermitAngle = config.swipePermitAngle;
+		_swipeRequiredLength = config.swipeRequiredLength;
+		_timer = new Timer();
 	}
-
-	/*public void Tick() {
-		if (!enabled) return;
-		var touch = Input.GetTouch(0);
-		
-		if()
-		
-		if (leftPressed)
-			HorizontalAxisChangedEvent?.Invoke(-1);
-		if (rightPressed)
-			HorizontalAxisChangedEvent?.Invoke(1);
-		if (nothingPressed)
-			HorizontalAxisChangedEvent?.Invoke(0);
-
-		if (shotPressed)
-			ShotEvent?.Invoke();
-	}*/
 
 	public void Tick() {
 		if (!enabled) return;
-
-		CheckSwipe();
 		
+		_timer.Tick();
+
+		var swipeHappened = TryDetectSwipe();
+		if (swipeHappened) return;
+
 		if (touched) {
 			var horizontalCenter = Screen.width / 2;
-		
+
 			if (horizontalCenter > touchOne.position.x)
 				HorizontalAxisChangedEvent?.Invoke(-1);
-			else 
+			else
 				HorizontalAxisChangedEvent?.Invoke(1);
 		}
 		else {
 			HorizontalAxisChangedEvent?.Invoke(0);
 		}
-		
 	}
 
-	private void CheckSwipe() {
-		Vector2 swipeStartPosition = Vector2.zero;
-		if (Input.touchCount == 1) {
-			if (touchOne.phase == TouchPhase.Began)
-				swipeStartPosition = touchOne.position;
-			
-			if (touchOne.phase == TouchPhase.Ended) {
-				 var swipeEndPosition = touchOne.position;
-				 var swipeDirection = swipeEndPosition - swipeStartPosition; 
-				 var swipeDirectionNormalized = swipeDirection.normalized; 
-				 
-				 var swipeLength = swipeDirection.magnitude;
-				 Debug.Log("swipeLength "+swipeLength);
-				 if(swipeLength < 10)
-					 return;
-				 
-				 var swipeAngle = Vector2.Angle(Vector2.up, swipeDirectionNormalized);
-				 Debug.Log("Angle "+swipeAngle);
-				 if(swipeAngle<45)
-					 ShotEvent?.Invoke();
+	private bool TryDetectSwipe() {
+		if (Input.touchCount != 1) return false;
+
+		switch (touchOne.phase) {
+			case TouchPhase.Began:
+				_swipeStartPosition = touchOne.position;
+				_timer.Start();
+				break;
+			case TouchPhase.Ended: {
+				_timer.Stop();
+				if (_timer.currentSeconds > SWIPE_MAX_DELAY)
+					return false;
+				
+				var swipeEndPosition = touchOne.position;
+
+				var swipeDirection = swipeEndPosition - _swipeStartPosition;
+				var swipeDirectionNormalized = swipeDirection.normalized;
+
+				var swipeLength = swipeDirection.magnitude;
+
+				if (swipeLength < _swipeRequiredLength)
+					return false;
+
+				var swipeAngle = Vector2.Angle(Vector2.up, swipeDirectionNormalized);
+				if (swipeAngle < _upSwipePermitAngle) {
+					ShotEvent?.Invoke();
+					return true;
+				}
+				break;
 			}
 		}
+		return false;
 	}
 
 	protected bool TryHitHud(Vector3 mousePosition) {

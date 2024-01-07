@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontSize: 17
-  messagesCount: 100
-  color: {r: 1, g: 0.7500215, b: 0.015686274, a: 1}
+  messagesCount: 30
+  color: {r: 1, g: 0.5986901, b: 0.015686274, a: 1}

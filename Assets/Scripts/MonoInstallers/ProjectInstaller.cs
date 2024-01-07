@@ -3,7 +3,7 @@ using Zenject;
 
 public class ProjectInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private SceneIndexes scenesIndexes;
-	[SerializeField] private InputConfig inputConfig;
+
 	[SerializeField] private WorldsConfig worldsConfig;
 	[SerializeField] private GameConfig gameConfig;
 	[SerializeField] private Canvas projectCanvasPrefab;
@@ -14,7 +14,7 @@ public class ProjectInstaller : MonoInstaller, IInitializable {
 	public override void InstallBindings() {
 		InstallSceneLoader();
 		InstallProjectStorage();
-		InstallControls();
+	
 		InstallProgressDataSystem();
 		InstallLivesRecoveryTimer();
 		InstallInitializableForThis();
@@ -23,11 +23,7 @@ public class ProjectInstaller : MonoInstaller, IInitializable {
 		Container.Bind<IInitializable>().FromInstance(this).AsSingle();
 	}
 
-	private void InstallControls() {
-		Container.Bind<InputConfig>().FromInstance(inputConfig).AsSingle();
-		//Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
-		Container.BindInterfacesAndSelfTo<SensorInput>().AsSingle();
-	}
+
 
 	private void InstallProjectStorage() {
 		Container.Bind<WorldsConfig>().FromInstance(worldsConfig).AsSingle();

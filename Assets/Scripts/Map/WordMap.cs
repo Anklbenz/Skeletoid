@@ -1,3 +1,4 @@
+using Cinemachine;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class WordMap {
 	private readonly CameraShaker _cameraShaker;
 	private readonly KeyShop _keyShop;
 	private readonly KeySpendView _keySpendView;
+	private readonly CinemachineVirtualCamera _virtualCamera;
 	private Camera _cameraMain;
 
 	public WordMap(
@@ -24,7 +26,8 @@ public class WordMap {
 			KeysRecoverySystem keysRecoverySystem,
 			FlyingService flyingService,
 			CameraShaker cameraShaker,
-			KeySpendView keySpendView) {
+			KeySpendView keySpendView,
+			CinemachineVirtualCamera virtualCamera) {
 
 		_mapHud = mapHud;
 		_progressSystem = progressSystem;
@@ -35,10 +38,14 @@ public class WordMap {
 		_flyingService = flyingService;
 		_cameraShaker = cameraShaker;
 		_keySpendView = keySpendView;
+		_virtualCamera = virtualCamera;
 		_flyingService.CollectedEvent += AddCoin;
 	}
 
 	public void Initialize(MapItem[] items) {
+		_cameraMain = Camera.main;
+		CenterCameraAtLastUnlocked(items[_progressSystem.lastUnlockedWorldIndex].transform.position);
+
 		_keysRecoverySystem.Initialize();
 		UpdateMap(items);
 		_mapHud.Refresh();
@@ -47,8 +54,9 @@ public class WordMap {
 	}
 	private void InitializeFlyingSystem() {
 		var coinsPosition = _mapHud.coinsTargetTransform.position;
-		_cameraMain = Camera.main;
-		_flyingService.destination = CameraScreenToWorldPosition(coinsPosition);
+		
+		//_flyingService.destination = CameraScreenToWorldPosition(coinsPosition);
+		_flyingService.destination = coinsPosition;
 
 	}
 	private Vector3 CameraScreenToWorldPosition(Vector3 screenPosition) =>
@@ -56,7 +64,8 @@ public class WordMap {
 
 	private void ApplyPreviousRewards() {
 		var lastEarnedCoins = _progressSystem.currentCoinsCount;
-		var screenCenterPosition = CameraScreenToWorldPosition(new Vector2((float)Screen.width / 2, (float)Screen.height / 2));
+		//var screenCenterPosition = CameraScreenToWorldPosition(new Vector2((float)Screen.width / 2, (float)Screen.height / 2));
+		var screenCenterPosition = new Vector2((float)Screen.width / 2, (float)Screen.height / 2);
 		_flyingService.SpawnInCircle(screenCenterPosition, lastEarnedCoins);
 		_progressSystem.ApplyCurrentCoins();
 	}
@@ -80,7 +89,12 @@ public class WordMap {
 
 		var lastUnlockedLevelIndex = _progressSystem.lastUnlockedWorldIndex;
 		items[lastUnlockedLevelIndex].isHighlight = true;
+
+
 	}
+	private void CenterCameraAtLastUnlocked(Vector2 lastUnlockedPosition) =>
+		_virtualCamera.transform.position = new Vector3(lastUnlockedPosition.x, lastUnlockedPosition.y, _virtualCamera.transform.position.z);
+	
 
 	private async UniTask UnlockWorld(Vector3 mapItemPosition) {
 		await UniTask.Delay(PARTICLES_PLAY_DELAY);

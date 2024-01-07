@@ -20,7 +20,7 @@ MonoBehaviour:
   correctionStepValue: 4
   player: {fileID: 4379953654239011457, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}
   paddleMaxSpeed: 4
-  paddleAccelerationStep: 0.4
+  paddleAccelerationStep: 0.5
   showingAdsCount: 1
   delayBeforeWinSystemActivateValue: 300
   lookAtSkeletonDelay: 700

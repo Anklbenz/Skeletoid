@@ -10,7 +10,7 @@ public class MapHud : IFlyingTarget {
 	public MapHud(ProgressSystem progressSystem, KeysRecoverySystem keysRecoverySystem, MapHudView view) {
 		_progressSystem = progressSystem;
 		_keysRecoverySystem = keysRecoverySystem;
-		_keysRecoverySystem.LifeIncreasedEvent += Refresh;
+		_keysRecoverySystem.LifeIncreasedEvent += LivesRefresh;
 		_keysRecoverySystem.TimerTickEvent += RefreshTimer;
 		_view = view;
 	}

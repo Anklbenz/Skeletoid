@@ -11,6 +11,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private ParticlesConfig particlesConfig;
 	[SerializeField] private FlyingCoinsConfig coinsConfig;
 	[SerializeField] private TextDrawerConfig textDrawerConfig;
+	[SerializeField] private InputConfig inputConfig;
 	[SerializeField] private CinemachineVirtualCamera mainCamera;
 	[SerializeField] private CinemachineVirtualCamera zoomedCamera;
 	
@@ -30,15 +31,16 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallGameCameraSystem();
 		InstallTimer();
 		InstallBonus();
+		InstallControls();
 	}
 
+	private void InstallControls() {
+		Container.Bind<InputConfig>().FromInstance(inputConfig).AsSingle();
+		Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
+		//Container.BindInterfacesAndSelfTo<SensorInput>().AsSingle();
+	}
 	private void InstallTimer() {
-	//Container.BindInterfacesTo<Timer>().AsSingle();
-		//.ToSingle<Timer>();
 		Container.Bind<Timer>().AsTransient();
-	//	Container.Bind<ITickable>().To<Timer>().AsCached();//AsSingle();
-		//Container.Bind<Timer>().AsTransient();
-		//Container.BindInterfacesAndSelfTo<Timer>().AsTransient();
 		Container.BindInterfacesAndSelfTo<StarsTimer>().AsSingle();
 	}
 

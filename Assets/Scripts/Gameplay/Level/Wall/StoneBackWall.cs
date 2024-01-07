@@ -17,7 +17,7 @@ public class StoneBackWall : MonoBehaviour, IPauseSensitive{
 		wall.gameObject.SetActive(true);
 		PlayAppearEffect();
 
-		_timer.StartWithNewAlarm(duration);
+		_timer.StartWithAlarm(duration);
 		_timer.AlarmEvent += Deactivate;
 	}
 

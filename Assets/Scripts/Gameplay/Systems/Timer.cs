@@ -11,8 +11,11 @@ public class Timer : ITickable {
 	private float _totalSeconds, _alarmSeconds;
 	private bool _isRunning, _isAlarmed;
 
-	public void StartWithNewAlarm(float alarmSeconds) {
+	public void StartWithAlarm(float alarmSeconds) {
 		SetAlarm(alarmSeconds);
+		Start();
+	}
+	public void Start() {
 		Reset();
 		Run();
 	}
