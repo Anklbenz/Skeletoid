@@ -1,62 +1,56 @@
 using System;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 public sealed class Gameplay : IPauseSensitive, IDisposable {
 	private const float BALL_OFFSET_LIMIT_AXIS_X = 0.1f;
 
-	public event Action<Brick> BrickDestroyedEvent;
-	public event Action AllBricksDestroyedEvent, DeadZoneReachedEvent;
+	public event Action<Brick> BeforeBrickDestroyedEvent;
+	public event Action AllBricksDestroyedEvent, LoseEvent;
 	public GameplayState state { get; private set; }
-	public Level currentLevel => _level;
 	private Ball ball => _level.ball;
 	private Player player => _level.player;
-	private DeadZone deadZone => _level.deadZone;
+	private List<Brick> bricksList => _level.bricks;
+	private List<Brick> junkList => _level.junk;
 
-	private readonly BallLaunchSystem _ballLaunchSystem;
 	private readonly BonusSystem _bonusSystem;
-	private readonly Combo _combo;
+	private readonly BallLaunch _ballLaunch;
+	private readonly BallSpeed _ballSpeed;
+	private readonly ILevelEvents _levelEvents;
 	private readonly IInput _input;
 	private Level _level;
 
-	public Gameplay(BallLaunchSystem ballLaunchSystem, BonusSystem bonusSystem, IInput input) {
-		_ballLaunchSystem = ballLaunchSystem;
+	public Gameplay(BallLaunch ballLaunch, BonusSystem bonusSystem, BallSpeed ballSpeed, ILevelEvents levelEvents, IInput input) {
+		_ballLaunch = ballLaunch;
 		_bonusSystem = bonusSystem;
+		_ballSpeed = ballSpeed;
+		_levelEvents = levelEvents;
 		_input = input;
+		SubscribeEvents();
 	}
 
 	public void SetNewLevel(Level level) {
-		if (_level != null)
-			RemovePreviousLevel();
-
 		_level = level;
-		_ballLaunchSystem.Initialize(ball, player);
-		_bonusSystem.Initialize(_level);
+		_ballLaunch.Initialize(ball, player);
+		_ballSpeed.Initialize(ball);
 		Restart();
-		SubscribeLevelEvents();
-		SubscribeInput();
 	}
-
-	private void RemovePreviousLevel() {
-		UnSubscribeLevelEvents();
-		UnityEngine.Object.Destroy(_level.gameObject);
-	}
-
 	private void Throw() {
 		if (state == GameplayState.InPlay) return;
 		state = GameplayState.InPlay;
 
-		_ballLaunchSystem.Throw();
+		_ballLaunch.Throw();
 	}
 
 	public void Restart() {
 		state = GameplayState.ReadyToPlay;
-
-		_ballLaunchSystem.Reload();
+        
+		_ballLaunch.Reload();
 		ball.isActive = false;
 		//important set paddle position previsosley than ball position
 		SetPaddleToDefaultPosition();
 		SetBallToDefaultPosition();
-
+	    SetBallDefaultSpeed();
 		player.aimTarget = ball.transform;
 	}
 
@@ -67,35 +61,38 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	}
 
 	private void OnDeadZoneReached() {
-		DeadZoneReachedEvent?.Invoke();
-		state = GameplayState.PlayEnded;
+		state = GameplayState.Lose;
+		//If ball count ==1, for may ball in game
+		LoseEvent?.Invoke();
 	}
 
-	private void OnBrickDestroyed(Brick sender) {
-		BrickDestroyedEvent?.Invoke(sender);
-		DestroyAndUnsubscribeBrick(sender);
+	private void OnDestroyed(Brick sender) {
+		BeforeBrickDestroyedEvent?.Invoke(sender);
 
+		if (sender.required) {
+			DestroyAndUnsubscribeBrick(sender);
+			NotifyIfAllBricksDestroyed();
+		}
+		else {
+			DestroyAndUnsubscribeJunk(sender);
+		}
+	}
+	private void NotifyIfAllBricksDestroyed() {
 		if (_level.brickCount <= 0)
 			AllBricksDestroyedEvent?.Invoke();
 	}
 
-	private void DestroyAndUnsubscribeBrick(Brick brick) =>
-			_level.Destroy(brick);
-
-	private void SubscribeLevelEvents() {
-		foreach (var brick in _level.bricks)
-			brick.NoLivesLeft += OnBrickDestroyed;
-
-		deadZone.DeadZoneReachedEvent += OnDeadZoneReached;
+	private void DestroyAndUnsubscribeJunk(Brick junk) {
+		junkList.Remove(junk);
+		UnityEngine.Object.Destroy(junk.gameObject);
 	}
 
-	private void UnSubscribeLevelEvents() {
-		foreach (var brick in _level.bricks)
-			brick.NoLivesLeft -= OnBrickDestroyed;
-
-		deadZone.DeadZoneReachedEvent -= OnDeadZoneReached;
+	private void DestroyAndUnsubscribeBrick(Brick brick) {
+		bricksList.Remove(brick);
+		UnityEngine.Object.Destroy(brick.gameObject);
 	}
-
+	private void SetPaddleToDefaultPosition() =>
+			player.transform.position = _level.paddleOrigin.position;
 	private void SetBallToDefaultPosition() {
 		var ballPosition = player.ballTransform.position;
 		ballPosition.x = Random.Range(ballPosition.x - BALL_OFFSET_LIMIT_AXIS_X, ballPosition.x + BALL_OFFSET_LIMIT_AXIS_X);
@@ -103,13 +100,24 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 		ball.transform.position = ballPosition;
 	}
 
-	private void SetPaddleToDefaultPosition() =>
-			player.transform.position = _level.paddleOrigin.position;
+	private void SetBallDefaultSpeed() =>
+			_ballSpeed.SetDefault();
+	private void IncreaseBallSpeed() =>
+			_ballSpeed.Increase();
 
-	private void SubscribeInput() =>
-			_input.ShotEvent += Throw;
-	private void UnSubscribeInput() =>
-			_input.ShotEvent -= Throw;
+	private void SubscribeEvents() {
+		_input.ShotEvent += Throw;
+		_levelEvents.DeadZoneReachedEvent += OnDeadZoneReached;
+		_levelEvents.BrickDestroyedEvent += OnDestroyed;
+		_levelEvents.AnyHitEvent += IncreaseBallSpeed;
+
+	}
+	private void UnSubscribeInput() {
+		_input.ShotEvent -= Throw;
+		_levelEvents.DeadZoneReachedEvent -= OnDeadZoneReached;
+		_levelEvents.BrickDestroyedEvent -= OnDestroyed;
+		_levelEvents.AnyHitEvent -= IncreaseBallSpeed;
+	}
 
 	public void Dispose() =>
 			UnSubscribeInput();

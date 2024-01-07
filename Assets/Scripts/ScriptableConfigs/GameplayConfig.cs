@@ -2,11 +2,11 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameplayConfig", menuName = "Configs/GameplayConfig")]
-public class GameplayConfig : ScriptableObject
-{
+public class GameplayConfig : ScriptableObject {
 	[Header("Skull")] [SerializeField] private Ball ball;
 	[SerializeField] private int damage;
-	[SerializeField] private float skullStartSpeed = 5;
+	[SerializeField] private float startSpeed = 3.5f;
+	[SerializeField] private float boostMultiplier = 1.003f;
 
 	[Header("Reflect settings")] [SerializeField]
 	private float permissibleAngleValue = 20;
@@ -22,19 +22,19 @@ public class GameplayConfig : ScriptableObject
 
 	[SerializeField] private int delayBeforeWinSystemActivateValue = 300;
 	[Header("LoseState")] [SerializeField] private int lookAtSkeletonDelay = 700;
-
-
+	
 	public int delayBeforeLookAtSkeleton => lookAtSkeletonDelay;
 	public int delayBeforeWinSystemActivate => delayBeforeWinSystemActivateValue;
 	public int showingAdsNumber => showingAdsCount;
-	public int skullDamage => damage;
+	public int ballDamage => damage;
 	public float paddleSpeed => paddleMaxSpeed;
 	public float paddleAcceleration => paddleAccelerationStep;
 
 	public float permissibleAngle => permissibleAngleValue;
 	public float correctionStep => correctionStepValue;
 
-	public float ballSpeed => skullStartSpeed;
+	public float ballSpeed => startSpeed;
+	public float ballBoostMultiplier => boostMultiplier;
 	public Ball ballPrefab => ball;
 	public Player playerPrefab => player;
 }

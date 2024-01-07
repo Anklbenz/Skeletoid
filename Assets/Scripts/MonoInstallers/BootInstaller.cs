@@ -1,3 +1,4 @@
+using UnityEngine;
 using Zenject;
 
 public class BootInstaller : MonoInstaller, IInitializable
@@ -7,7 +8,8 @@ public class BootInstaller : MonoInstaller, IInitializable
 	}
 	
 	public void Initialize() {
+		Application.targetFrameRate = 200;
 		var loaderService = Container.Resolve<SceneLoader>();
-		loaderService.GoToGameplayScene();
+		loaderService.GoToWorldMapScene();
 	}
 }

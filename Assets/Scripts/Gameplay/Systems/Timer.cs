@@ -6,6 +6,7 @@ public class Timer : ITickable {
 	public event Action TickEvent, AlarmEvent;
 	public TimeSpan current => TimeSpan.FromSeconds(_totalSeconds);
 	public float currentSeconds => _totalSeconds;
+	public bool isRunning => _isRunning;
 
 	private float _totalSeconds, _alarmSeconds;
 	private bool _isRunning, _isAlarmed;

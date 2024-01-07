@@ -51,6 +51,7 @@ MonoBehaviour:
   coinsMinMax: {x: 0, y: 0}
   skinSwitcher:
     skins: []
+  requiredForComplete: 1
 --- !u!65 &5239218465589934568
 BoxCollider:
   m_ObjectHideFlags: 0

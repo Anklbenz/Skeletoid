@@ -81,6 +81,9 @@ MonoBehaviour:
   effectType: 1
   hitPoints: 1
   coinsMinMax: {x: 1, y: 2}
+  skinSwitcher:
+    skins: []
+  requiredForComplete: 1
 --- !u!65 &4106374112833769783
 BoxCollider:
   m_ObjectHideFlags: 0

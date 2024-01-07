@@ -1,0 +1,1 @@
+using System;using UnityEngine;public interface IBonusEvents {	event Action WallActivateEvent; 	public event Action<Vector3, int> ComboEvent;}

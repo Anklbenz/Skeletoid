@@ -86,6 +86,7 @@ MonoBehaviour:
     skins:
     - {fileID: 3675881462410319837}
     - {fileID: 1493307293699861449}
+  requiredForComplete: 1
 --- !u!65 &4106374112833769783
 BoxCollider:
   m_ObjectHideFlags: 0

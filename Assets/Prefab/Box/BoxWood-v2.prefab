@@ -83,6 +83,7 @@ MonoBehaviour:
   coinsMinMax: {x: 1, y: 2}
   skinSwitcher:
     skins: []
+  requiredForComplete: 1
 --- !u!65 &4106374112833769783
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -145,7 +146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6879752505369073769, guid: 7190628c2797d954794c2c53e6a22ae3, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6879752505369073769, guid: 7190628c2797d954794c2c53e6a22ae3, type: 3}
       propertyPath: m_LocalRotation.x
@@ -153,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6879752505369073769, guid: 7190628c2797d954794c2c53e6a22ae3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6879752505369073769, guid: 7190628c2797d954794c2c53e6a22ae3, type: 3}
       propertyPath: m_LocalRotation.z
@@ -165,7 +166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6879752505369073769, guid: 7190628c2797d954794c2c53e6a22ae3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6879752505369073769, guid: 7190628c2797d954794c2c53e6a22ae3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

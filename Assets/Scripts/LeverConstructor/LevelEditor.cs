@@ -29,7 +29,10 @@ public class LevelEditor : MonoBehaviour {
 			brickCopy.transform.position = brick.transform.position;
 			brickCopy.transform.rotation = brick.transform.rotation;
 
-			level.bricks.Add(brickCopy);
+			if (brick.required)
+				level.bricks.Add(brickCopy);
+			else
+				level.junk.Add(brickCopy);
 		}
 
 		level.paddleOrigin = AddPaddleOriginToContainer(container.transform);

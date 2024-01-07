@@ -7,10 +7,12 @@ public sealed class Brick : Obstacle, ICost {
 	public event Action<Vector3> HitEvent, DamagedEvent;
 	public int randomizedCost => Random.Range(coinsMinMax.x, coinsMinMax.y + 1);
 	public Vector3 position => transform.position;
+	public bool required => requiredForComplete;
 	
 	[SerializeField] private int hitPoints;
 	[SerializeField] private Vector2Int coinsMinMax;
 	[SerializeField] private SkinSwitcher skinSwitcher;
+	[SerializeField] private bool requiredForComplete;
 	protected override void Reflect(IBall ball, Collision collision) {
 		Hit(ball.damage);
 		ball.Reflect(-collision.contacts[0].normal, this);

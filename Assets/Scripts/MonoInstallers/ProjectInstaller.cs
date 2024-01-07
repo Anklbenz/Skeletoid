@@ -3,11 +3,13 @@ using Zenject;
 
 public class ProjectInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private SceneIndexes scenesIndexes;
-	[SerializeField] private KeyboardConfig keyboardConfig;
+	[SerializeField] private InputConfig inputConfig;
 	[SerializeField] private WorldsConfig worldsConfig;
 	[SerializeField] private GameConfig gameConfig;
 	[SerializeField] private Canvas projectCanvasPrefab;
 	[SerializeField] private FadeView sceneFadeTransitionsView;
+	[SerializeField] private bool logEnabled;
+	[SerializeField] private GUIDebugLog logPrefab;
 
 	public override void InstallBindings() {
 		InstallSceneLoader();
@@ -22,8 +24,9 @@ public class ProjectInstaller : MonoInstaller, IInitializable {
 	}
 
 	private void InstallControls() {
-		Container.Bind<KeyboardConfig>().FromInstance(keyboardConfig).AsSingle();
-		Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
+		Container.Bind<InputConfig>().FromInstance(inputConfig).AsSingle();
+		//Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
+		Container.BindInterfacesAndSelfTo<SensorInput>().AsSingle();
 	}
 
 	private void InstallProjectStorage() {
@@ -47,6 +50,9 @@ public class ProjectInstaller : MonoInstaller, IInitializable {
 		InitializeSceneLoaderWithFade();
 	}
 	private void InitializeSceneLoaderWithFade() {
+		if(logEnabled)
+			Container.InstantiatePrefabForComponent<GUIDebugLog>(logPrefab, this.transform);
+		
 		var projectCanvas = Container.InstantiatePrefabForComponent<Canvas>(projectCanvasPrefab, this.transform);
 		var fadeView = Container.InstantiatePrefabForComponent<FadeView>(sceneFadeTransitionsView, projectCanvas.transform);
 		var sceneLoader = Container.Resolve<SceneLoader>();

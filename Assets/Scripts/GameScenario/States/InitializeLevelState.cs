@@ -3,21 +3,29 @@ public class InitializeLevelState : State {
 	private readonly ProgressSystem _progressSystem;
 	private readonly LevelFactory _levelFactory;
 	private readonly CameraZoom _cameraZoom;
-	private readonly StarsSystem _starsSystem;
+	private readonly StarsTimer _starsTimer;
+	private readonly LevelEventsHandler _levelEventsHandler;
+	private readonly LevelVfx _levelVfx;
+	private readonly BonusSystem _bonusSystem;
 
 	public InitializeLevelState(
 			StateSwitcher stateSwitcher,
 			Gameplay gameplay,
 			ProgressSystem progressSystem,
 			LevelFactory levelFactory,
-
 			CameraZoom cameraZoom,
-			StarsSystem starsSystem) : base(stateSwitcher) {
+			StarsTimer starsTimer,
+			LevelEventsHandler levelEventsHandler,
+			LevelVfx levelVfx,
+			BonusSystem bonusSystem) : base(stateSwitcher) {
 		_gameplay = gameplay;
 		_progressSystem = progressSystem;
 		_levelFactory = levelFactory;
 		_cameraZoom = cameraZoom;
-		_starsSystem = starsSystem;
+		_starsTimer = starsTimer;
+		_levelEventsHandler = levelEventsHandler;
+		_levelVfx = levelVfx;
+		_bonusSystem = bonusSystem;
 	}
 
 	public override void Enter() {
@@ -35,7 +43,11 @@ public class InitializeLevelState : State {
 		_progressSystem.SetCurrentWorldLives();
 
 		var currentTimeLimits = _progressSystem.GetCurrentTimeLimits();
-		_starsSystem.Initialize(currentTimeLimits);
+		_starsTimer.Initialize(currentTimeLimits);
+		
+		_levelEventsHandler.Set(level);
+		_levelVfx.Subscribe(_levelEventsHandler);
+		_bonusSystem.Initialize(level);
 	}
 
 	private void GotoGameplayState() {

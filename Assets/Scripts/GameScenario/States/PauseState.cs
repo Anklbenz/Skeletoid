@@ -44,8 +44,8 @@ public class PauseState : State {
 	}
 
 	private void OnQuit() {
-		
 		_progressSystem.ResetCurrentCoins();
-		_sceneLoader.GoToWorldMapScene();
+	//	_sceneLoader.GoToWorldMapScene();
+	_stateSwitcher.SetState<FinalizeState>();
 	}
 }

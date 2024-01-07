@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class InitialState : State
-{
+public class InitialState : State {
 	private readonly UiFactory _uiFactory;
 	private readonly FlyingService _flyingService;
 	private readonly Lose _lose;
@@ -12,14 +11,14 @@ public class InitialState : State
 	private Camera _cameraMain;
 
 	public InitialState(
-		StateSwitcher stateSwitcher,
-		UiFactory uiFactory,
-		Lose lose,
-		Win win,
-		Pause pause,
-		HudSystem hudSystem,
-		LevelVfx levelVfx,
-		FlyingService flyingService) : base(stateSwitcher) {
+			StateSwitcher stateSwitcher,
+			UiFactory uiFactory,
+			Lose lose,
+			Win win,
+			Pause pause,
+			HudSystem hudSystem,
+			LevelVfx levelVfx,
+			FlyingService flyingService) : base(stateSwitcher) {
 
 		_uiFactory = uiFactory;
 		_levelVfx = levelVfx;

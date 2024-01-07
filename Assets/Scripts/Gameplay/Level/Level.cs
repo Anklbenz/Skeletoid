@@ -10,11 +10,7 @@ public class Level : MonoBehaviour {
 	public DeadZone deadZone;
 
 	public List<Brick> bricks = new();
-	public Transform paddleOrigin;
+	public List<Brick> junk = new();
 	public Wall[] walls;
-
-	public void Destroy(Brick brick) {
-		bricks.Remove(brick);
-		UnityEngine.Object.Destroy(brick.gameObject);
-	}
+	public Transform paddleOrigin;
 }

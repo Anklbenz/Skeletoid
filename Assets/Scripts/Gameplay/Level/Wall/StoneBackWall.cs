@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using Zenject;
 public class StoneBackWall : MonoBehaviour, IPauseSensitive{
 	private const int BEFORE_PAUSE_TIME = 1800;
 	private const int AFTER_PAUSE_TIME = 1000;
@@ -45,7 +43,7 @@ public class StoneBackWall : MonoBehaviour, IPauseSensitive{
 		stoneParticles.Pause();
 	}
 	public void SetPause(bool isPaused) {
-		if(isPaused)
+		if(_timer.isRunning && isPaused )
 			_timer.Stop();
 		else 
 			_timer.Run();

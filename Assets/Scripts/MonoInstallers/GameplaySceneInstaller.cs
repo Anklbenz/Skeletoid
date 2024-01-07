@@ -39,7 +39,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	//	Container.Bind<ITickable>().To<Timer>().AsCached();//AsSingle();
 		//Container.Bind<Timer>().AsTransient();
 		//Container.BindInterfacesAndSelfTo<Timer>().AsTransient();
-		Container.BindInterfacesAndSelfTo<StarsSystem>().AsSingle();
+		Container.BindInterfacesAndSelfTo<StarsTimer>().AsSingle();
 	}
 
 	private void InstallGameCameraSystem() {
@@ -79,7 +79,8 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	}
 
 	private void InstallGameplaySystem() {
-		Container.Bind<BallLaunchSystem>().AsSingle();
+		Container.Bind<BallLaunch>().AsSingle();
+		Container.Bind<BallSpeed>().AsSingle();
 		Container.BindInterfacesAndSelfTo<Gameplay>().AsSingle();
 	}
 
@@ -102,13 +103,15 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<GameState>().AsSingle();
 		Container.Bind<LoseState>().AsSingle();
 		Container.Bind<WinState>().AsSingle();
+		Container.Bind<FinalizeState>().AsSingle();
+		
 		Container.Bind<GameScenario>().AsSingle();
 	}
 
 	private void InstallBonus() {
 		Container.BindInterfacesAndSelfTo<BonusSystem>().AsSingle();
 		Container.Bind<BonusConfig>().FromInstance(bonusConfig);
-		Container.Bind<Combo>().AsSingle();
+		Container.BindInterfacesAndSelfTo<LevelEventsHandler>().AsSingle();
 	}
 
 	private void InstallDiFactory() =>

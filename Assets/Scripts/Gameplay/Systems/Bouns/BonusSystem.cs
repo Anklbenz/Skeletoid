@@ -1,32 +1,30 @@
 using System;
 using UnityEngine;
-public class BonusSystem : IDisposable, IComboEvent, IStoneWallEvent, IPauseSensitive {
+public class BonusSystem : IDisposable, IBonusEvents, IPauseSensitive {
 	public event Action<Vector3, int> ComboEvent;
-	public event Action WallActivateEvent; 
+	public event Action WallActivateEvent;
 
 	private readonly BonusConfig _config;
-	private readonly Combo _combo;
+	private readonly ILevelEvents _levelEvents;
 	private Level _level;
 	private StoneBackWall backWall => _level.backWall;
 
-	public BonusSystem(BonusConfig config, Combo combo) {
+	public BonusSystem(BonusConfig config, ILevelEvents levelEvents) {
 		_config = config;
-		_combo = combo;
-		_combo.ComboEvent += OnCombo;
+		_levelEvents = levelEvents;
+		_levelEvents.ComboEvent += OnCombo;
 	}
 
 	public void Initialize(Level level) {
 		_level = level;
-		_combo.Start(level);
 	}
 
 	private void ActivateBackWall() {
 		backWall.Activate(_config.backWallActiveTime);
 	}
 
-	public void Dispose() {
-		_combo.Stop();
-	}
+	public void Dispose() =>
+			_levelEvents.ComboEvent -= OnCombo;
 
 	private void OnCombo(Vector3 position, int comboCount) {
 		if (comboCount >= 3) {
@@ -34,7 +32,6 @@ public class BonusSystem : IDisposable, IComboEvent, IStoneWallEvent, IPauseSens
 			ActivateBackWall();
 		}
 	}
-	public void SetPause(bool isPaused) {
-		backWall.SetPause(isPaused);
-	}
+	public void SetPause(bool isPaused) =>
+			backWall.SetPause(isPaused);
 }

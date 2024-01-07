@@ -1,0 +1,1 @@
+using System;using UnityEngine;public interface ILevelEvents {	public event Action<Vector3, int> ComboEvent;	public event Action<Vector3> WallHitEvent, PaddleHitEvent, BrickHitEvent, BrickDamagedEvent;	public event Action<Brick> BrickDestroyedEvent;	public event Action DeadZoneReachedEvent, AnyHitEvent;}

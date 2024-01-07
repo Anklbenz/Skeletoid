@@ -22,11 +22,12 @@ public sealed class LevelFactory {
 		map.environment = _factory.Create(mapPrefab.environmentPrefab, map.transform);
 	
 	private void CreateBall(Level map) {
-		map.ball = _factory.Create(_config.ballPrefab, map.transform);
-		map.ball.speed = _config.ballSpeed;
-		map.ball.damage = _config.skullDamage;
-		map.ball.permissibleAngle = _config.permissibleAngle;
-		map.ball.correctionStep = _config.correctionStep;
+		var ball = _factory.Create(_config.ballPrefab, map.transform);
+	//	ball.speed = _config.ballSpeed;
+		ball.damage = _config.ballDamage;
+		ball.permissibleAngle = _config.permissibleAngle;
+		ball.correctionStep = _config.correctionStep;
+		map.ball = ball;
 	}
 	private void CreatePlayer(Level map) {
 		map.player = _factory.Create(_config.playerPrefab, map.transform, map.paddleOrigin.position);
