@@ -16,8 +16,8 @@ MonoBehaviour:
   sphereOffset: {x: 0, y: 0, z: 0}
   circleOffset: {x: 0, y: 0}
   delayBeforeStartMovingMinMax: {x: 700, y: 1000}
-  coinPrefab: {fileID: 4218228190853265906, guid: 524b1675a26ee524b90fa77e6619a64e, type: 3}
+  delayBeforeAppearMinMax: {x: 0, y: 300}
+  flyingElementPrefab: {fileID: 4218228190853265906, guid: 524b1675a26ee524b90fa77e6619a64e, type: 3}
   speed: 30
-  prefabScaleValue: {x: 30, y: 30, z: 30}
   poolAmount: 5
   itemsParentGameObjectName: CoinsParent

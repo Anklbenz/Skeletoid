@@ -11,40 +11,42 @@ public class FlyingService : IFixedTickable {
 
 	private readonly FlyingCoinsConfig _config;
 	private readonly List<Transform> _flyingList = new();
-	private PoolObjects<Coin> _flyingItemsPool;
+	private PoolObjects<FlyingElement> _flyingItemsPool;
 
 	public FlyingService(FlyingCoinsConfig config) {
 		_config = config;
-		_config.prefab.transform.localScale = _config.prefabScale;
-		
+		//	_config.prefab.transform.localScale = _config.prefabScale;
 	}
 	public void Initialize(Transform parent = null) {
 		if (parent == null)
 			parent = new GameObject(_config.itemsParentName).transform;
 
-		_flyingItemsPool = new PoolObjects<Coin>(_config.prefab, _config.itemsPoolAmount, true, parent);
+		_flyingItemsPool = new PoolObjects<FlyingElement>(_config.prefab, _config.itemsPoolAmount, true, parent);
 	}
 
 	public void SpawnInSphere(Vector3 sphereCenter, int count) {
 		for (var i = 0; i < count; i++) {
-			var coin = _flyingItemsPool.GetFreeElement();
 			var randomPointInSphere = Random.insideUnitSphere * _config.radius + sphereCenter + _config.offsetInSphere;
-			coin.transform.position = randomPointInSphere;
-			AddToFlyingList(coin.transform);
+			CreateWithDelays(randomPointInSphere);
 		}
 	}
 
 	public void SpawnInCircle(Vector2 circleCenter, int count) {
 		for (var i = 0; i < count; i++) {
-			var coin = _flyingItemsPool.GetFreeElement();
 			var randomPointInCircle = Random.insideUnitCircle * _config.radius + circleCenter + _config.offsetInCircle;
-			coin.transform.position = randomPointInCircle;
-			
-			AddToFlyingList(coin.transform);
+			CreateWithDelays(randomPointInCircle);
 		}
 	}
 
-	private async void AddToFlyingList(Transform coinTransform) {
+	private async void CreateWithDelays(Vector3 position) {
+		await UniTask.Delay(_config.delayBeforeAppear);
+		var coin = _flyingItemsPool.GetFreeElement();
+		coin.position = position;
+
+		AddToFlyingListWithDelay(coin.transform);
+	}
+
+	private async void AddToFlyingListWithDelay(Transform coinTransform) {
 		await UniTask.Delay(_config.delayBeforeStartMoving);
 		_flyingList.Add(coinTransform);
 	}
@@ -59,10 +61,10 @@ public class FlyingService : IFixedTickable {
 
 			_flyingList[i].gameObject.SetActive(false);
 			_flyingList.RemoveAt(i);
-			
+
 			CollectedEvent?.Invoke();
-			
-			if(_flyingList.Count == 0)
+
+			if (_flyingList.Count == 0)
 				AllCollectedEvent?.Invoke();
 		}
 	}

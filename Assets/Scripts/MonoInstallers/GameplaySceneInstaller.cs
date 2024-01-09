@@ -36,8 +36,8 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallControls() {
 		Container.Bind<InputConfig>().FromInstance(inputConfig).AsSingle();
-		//Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
-		Container.BindInterfacesAndSelfTo<SensorInput>().AsSingle();
+		Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
+		//Container.BindInterfacesAndSelfTo<SensorInput>().AsSingle();
 	}
 	private void InstallTimer() {
 		Container.Bind<Timer>().AsTransient();
