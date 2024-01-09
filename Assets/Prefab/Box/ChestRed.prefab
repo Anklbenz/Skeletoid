@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 8195453196294860853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.185, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5275235459046951878}
@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectType: 5
   hitPoints: 1
-  coinsMinMax: {x: 0, y: 0}
+  coinsMinMax: {x: 4, y: 10}
   skinSwitcher:
     skins: []
   requiredForComplete: 1

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectType: 2
   hitPoints: 1
-  coinsMinMax: {x: 0, y: 0}
+  coinsMinMax: {x: 5, y: 10}
   skinSwitcher:
     skins: []
   requiredForComplete: 1

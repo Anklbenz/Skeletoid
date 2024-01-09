@@ -27,6 +27,7 @@ public class CameraZoom
 		_mainCamera = mainCamera;
 		_mainCamera.transform.position = _zoomConfig.mainPosition;
 		_mainCamera.transform.rotation =Quaternion.Euler( _zoomConfig.mainRotation);
+		_mainCamera.m_Lens.FieldOfView = _zoomConfig.mainCameraFOV;
 		
 		_zoomedCamera = zoomedCamera;
 		_zoomedCamera.transform.position = _zoomConfig.zoomedPosition;

@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worlds:
   - level:
-      levelPrefab: {fileID: 3495793368983769437, guid: 4ad178f2fb78b64499d46b3eac97cb73, type: 3}
+      levelPrefab: {fileID: 5384600902326786022, guid: f9f7476faea36c54198279526fd618c5, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: FirstJourney
     livesCount: 3
-    firstSeconds: 10
-    secondSeconds: 20
-    thirdSeconds: 40
+    firstSeconds: 160
+    secondSeconds: 180
+    thirdSeconds: 200
   - level:
-      levelPrefab: {fileID: 4553670651500969283, guid: 540b897f059965041b454305141e8938, type: 3}
+      levelPrefab: {fileID: 122652753151798809, guid: ff1c1572c03bbe44f8184f3eb6dfef12, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: SecondJourney
     livesCount: 5
-    firstSeconds: 40
-    secondSeconds: 60
-    thirdSeconds: 100
+    firstSeconds: 160
+    secondSeconds: 200
+    thirdSeconds: 220
   - level:
-      levelPrefab: {fileID: 8843390847427837973, guid: 7b2f58e3768355c41a97790c28662c23, type: 3}
+      levelPrefab: {fileID: 531239263549806815, guid: 018ede81faf1293409e96f7a9b723fdc, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: SecondJourney
     livesCount: 3

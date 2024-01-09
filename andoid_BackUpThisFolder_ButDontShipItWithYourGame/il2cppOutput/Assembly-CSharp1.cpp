@@ -2778,12 +2778,14 @@ struct CameraZoomConfig_tE385503B5FF3F89A1645AB475EE600276BE1C7D7  : public Scri
 	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___mainCameraPosition_4;
 	// UnityEngine.Vector3 CameraZoomConfig::mainCameraRotation
 	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___mainCameraRotation_5;
+	// System.Single CameraZoomConfig::mainFOV
+	float ___mainFOV_6;
 	// UnityEngine.Vector3 CameraZoomConfig::zoomedCameraPosition
-	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___zoomedCameraPosition_6;
+	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___zoomedCameraPosition_7;
 	// UnityEngine.Vector3 CameraZoomConfig::zoomedCameraRotation
-	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___zoomedCameraRotation_7;
+	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___zoomedCameraRotation_8;
 	// System.Single CameraZoomConfig::zoomedFOV
-	float ___zoomedFOV_8;
+	float ___zoomedFOV_9;
 };
 
 // UnityEngine.Collider
@@ -6194,12 +6196,21 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void CameraShakeConfig__ctor_m9A0EBAC64F5674C
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
+// System.Single CameraZoomConfig::get_mainCameraFOV()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float CameraZoomConfig_get_mainCameraFOV_m920C9FA1844E19C72134E7C01F7AC3DB34B31F86 (CameraZoomConfig_tE385503B5FF3F89A1645AB475EE600276BE1C7D7* __this, const RuntimeMethod* method) 
+{
+	{
+		// public float mainCameraFOV => mainFOV;
+		float L_0 = __this->___mainFOV_6;
+		return L_0;
+	}
+}
 // System.Single CameraZoomConfig::get_zoomedCameraFOV()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float CameraZoomConfig_get_zoomedCameraFOV_mE86B41E10DA3889C8059AB88C14614B4D88E22EA (CameraZoomConfig_tE385503B5FF3F89A1645AB475EE600276BE1C7D7* __this, const RuntimeMethod* method) 
 {
 	{
 		// public float zoomedCameraFOV => zoomedFOV;
-		float L_0 = __this->___zoomedFOV_8;
+		float L_0 = __this->___zoomedFOV_9;
 		return L_0;
 	}
 }
@@ -6226,7 +6237,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A
 {
 	{
 		// public Vector3 zoomedPosition => zoomedCameraPosition;
-		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 L_0 = __this->___zoomedCameraPosition_6;
+		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 L_0 = __this->___zoomedCameraPosition_7;
 		return L_0;
 	}
 }
@@ -6235,7 +6246,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A
 {
 	{
 		// public Vector3 zoomedRotation => zoomedCameraRotation;
-		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 L_0 = __this->___zoomedCameraRotation_7;
+		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 L_0 = __this->___zoomedCameraRotation_8;
 		return L_0;
 	}
 }
@@ -6253,18 +6264,20 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void CameraZoomConfig__ctor_m6B0336A3CC1349B2
 		memset((&L_1), 0, sizeof(L_1));
 		Vector3__ctor_m376936E6B999EF1ECBE57D990A386303E2283DE0_inline((&L_1), (50.0f), (0.0f), (0.0f), /*hidden argument*/NULL);
 		__this->___mainCameraRotation_5 = L_1;
+		// [SerializeField] private float mainFOV = 50;
+		__this->___mainFOV_6 = (50.0f);
 		// [SerializeField] private Vector3 zoomedCameraPosition = new (0, 4.1f, -2.8f);
 		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 L_2;
 		memset((&L_2), 0, sizeof(L_2));
 		Vector3__ctor_m376936E6B999EF1ECBE57D990A386303E2283DE0_inline((&L_2), (0.0f), (4.0999999f), (-2.79999995f), /*hidden argument*/NULL);
-		__this->___zoomedCameraPosition_6 = L_2;
+		__this->___zoomedCameraPosition_7 = L_2;
 		// [SerializeField] private Vector3 zoomedCameraRotation = new (50, 0, 0);
 		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 L_3;
 		memset((&L_3), 0, sizeof(L_3));
 		Vector3__ctor_m376936E6B999EF1ECBE57D990A386303E2283DE0_inline((&L_3), (50.0f), (0.0f), (0.0f), /*hidden argument*/NULL);
-		__this->___zoomedCameraRotation_7 = L_3;
+		__this->___zoomedCameraRotation_8 = L_3;
 		// [SerializeField] private float zoomedFOV = 27;
-		__this->___zoomedFOV_8 = (27.0f);
+		__this->___zoomedFOV_9 = (27.0f);
 		ScriptableObject__ctor_mD037FDB0B487295EA47F79A4DB1BF1846C9087FF(__this, NULL);
 		return;
 	}

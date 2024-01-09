@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
-	private const float MAX_REFLECT_ANGLE = 70;
+	private const float MAX_REFLECT_ANGLE = 55;
 	public event Action<Vector3> HitOnPaddleEvent;
 
 	[SerializeField] private BoxCollider boxCollider;

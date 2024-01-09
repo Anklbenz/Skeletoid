@@ -20593,12 +20593,14 @@ struct CameraZoomConfig_tE385503B5FF3F89A1645AB475EE600276BE1C7D7  : public Scri
 	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___mainCameraPosition_4;
 	// UnityEngine.Vector3 CameraZoomConfig::mainCameraRotation
 	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___mainCameraRotation_5;
+	// System.Single CameraZoomConfig::mainFOV
+	float ___mainFOV_6;
 	// UnityEngine.Vector3 CameraZoomConfig::zoomedCameraPosition
-	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___zoomedCameraPosition_6;
+	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___zoomedCameraPosition_7;
 	// UnityEngine.Vector3 CameraZoomConfig::zoomedCameraRotation
-	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___zoomedCameraRotation_7;
+	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___zoomedCameraRotation_8;
 	// System.Single CameraZoomConfig::zoomedFOV
-	float ___zoomedFOV_8;
+	float ___zoomedFOV_9;
 };
 
 // UnityEngine.CanvasRenderer

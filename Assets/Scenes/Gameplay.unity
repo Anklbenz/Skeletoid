@@ -202,7 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayConfig: {fileID: 11400000, guid: 8dfd77b928beb74479254886e2df9188, type: 2}
   bonusConfig: {fileID: 11400000, guid: 0347cbf623b77fe4da2256feafeae461, type: 2}
-  cameraZoomConfig: {fileID: 11400000, guid: 5cdef3711d75dbc4787473ab8d5d5dcc, type: 2}
+  cameraZoomConfig: {fileID: 11400000, guid: 23c88a350ffbe184fabbdc0fab534501, type: 2}
   cameraShakeConfig: {fileID: 11400000, guid: 6386d7c8bb7326245bd93647b71d5155, type: 2}
   uiFactoryConfig: {fileID: 11400000, guid: 4954dd9741fbd2b40a345a0311d6af31, type: 2}
   particlesConfig: {fileID: 11400000, guid: 7fe44d8c2ce7390439bfe79d9a508f30, type: 2}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1206f69b8f01d459d508cad5f514e1, type: 3}
+  m_Name: CameraZoomConfig(Gameplay) 1
+  m_EditorClassIdentifier: 
+  mainCameraPosition: {x: 0, y: 4.1, z: -2.8}
+  mainCameraRotation: {x: 50, y: 0, z: 0}
+  mainFOV: 60
+  zoomedCameraPosition: {x: 0, y: 2.1, z: -2.8}
+  zoomedCameraRotation: {x: 50, y: 0, z: 0}
+  zoomedFOV: 27
