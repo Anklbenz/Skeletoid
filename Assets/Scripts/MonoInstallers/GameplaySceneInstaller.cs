@@ -14,7 +14,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private InputConfig inputConfig;
 	[SerializeField] private CinemachineVirtualCamera mainCamera;
 	[SerializeField] private CinemachineVirtualCamera zoomedCamera;
-	
+
 	public override void InstallBindings() {
 		InstallDiFactory();
 		InstallUiFactory();
@@ -30,24 +30,31 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallInitializeForThis();
 		InstallGameCameraSystem();
 		InstallTimer();
+		InstallStarsTimer();
 		InstallBonus();
 		InstallControls();
 	}
-
 	private void InstallControls() {
 		Container.Bind<InputConfig>().FromInstance(inputConfig).AsSingle();
 		Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
 		//Container.BindInterfacesAndSelfTo<SensorInput>().AsSingle();
 	}
 	private void InstallTimer() {
-		Container.Bind<Timer>().AsTransient();
+		//
+		var tickableTracker = new TickableTracker();
+		//Container.BindInterfacesAndSelfTo<TickableTracker>().FromInstance(tickableTracker).AsSingle();
+		Container.BindInterfacesAndSelfTo<TickableTracker>().FromInstance(tickableTracker).AsSingle();
+		Container.BindInterfacesAndSelfTo<Timer>().AsTransient().OnInstantiated<Timer>((ctx, instance) => tickableTracker.Track(instance));
+	}
+
+	private void InstallStarsTimer() {
 		Container.BindInterfacesAndSelfTo<StarsTimer>().AsSingle();
 	}
 
 	private void InstallGameCameraSystem() {
 		Container.Bind<CameraZoomConfig>().FromInstance(cameraZoomConfig);
 		Container.Bind<CameraZoom>().AsSingle();
-		
+
 		Container.Bind<CameraShakeConfig>().FromInstance(cameraShakeConfig);
 		Container.Bind<CameraShaker>().AsSingle();
 	}
@@ -57,8 +64,10 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<PauseHandler>().AsSingle();
 	}
 
-	private void InstallHudSystem() =>
-			Container.BindInterfacesAndSelfTo<HudSystem>().AsSingle();
+	private void InstallHudSystem() {
+		Container.BindInterfacesAndSelfTo<GameplayHint>().AsSingle();
+		Container.BindInterfacesAndSelfTo<HudSystem>().AsSingle();
+	}
 
 	private void InstallLevelFactory() {
 		Container.Bind<GameplayConfig>().FromInstance(gameplayConfig).AsSingle();
@@ -106,7 +115,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<LoseState>().AsSingle();
 		Container.Bind<WinState>().AsSingle();
 		Container.Bind<FinalizeState>().AsSingle();
-		
+
 		Container.Bind<GameScenario>().AsSingle();
 	}
 
@@ -122,13 +131,11 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	public void Initialize() {
 		var cameraShaker = Container.Resolve<CameraShaker>();
 		cameraShaker.InitializeCamera(mainCamera);
-		
+
 		var cameraZoom = Container.Resolve<CameraZoom>();
-		cameraZoom.InitializeCameras(mainCamera,zoomedCamera);
-		
+		cameraZoom.InitializeCameras(mainCamera, zoomedCamera);
+
 		var gameScenario = Container.Resolve<GameScenario>();
 		gameScenario.Start();
-		
-	//	var c = Container.Resolve<Timer>();
 	}
 }

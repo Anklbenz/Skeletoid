@@ -6,31 +6,31 @@ using System.Collections.Generic;
 
 public class SensorInput : IInput, ITickable {
 	private const float SWIPE_MAX_DELAY = 0.5f;
-	
+
 	public event Action<float> HorizontalAxisChangedEvent;
-	public event Action ShotEvent;
+	public event Action ShotEvent, AnyPressedEvent;
 	public bool enabled { get; set; } = true;
-	private bool touched => Input.touchCount > 0/* && (touchOne.phase == TouchPhase.Stationary || touchOne.phase == TouchPhase.Moved)*/&&!TryHitHud(touchOne.position);
+	private bool touched => Input.touchCount > 0 && !TryHitHud(touchOne.position);
+	private readonly float _upSwipePermitAngle;
+	private readonly float _swipeRequiredLength;
 	private Touch touchOne => Input.touches[0];
 	private Vector2 _swipeStartPosition;
-	private float _upSwipePermitAngle, _swipeRequiredLength;
-	private Timer _timer;
+	private readonly Timer _timer;
 
-	public SensorInput(InputConfig config) {
+	public SensorInput(InputConfig config, Timer timer) {
 		_upSwipePermitAngle = config.swipePermitAngle;
 		_swipeRequiredLength = config.swipeRequiredLength;
-		_timer = new Timer();
+		_timer = timer;
 	}
 
 	public void Tick() {
 		if (!enabled) return;
-		
-		_timer.Tick();
 
 		var swipeHappened = TryDetectSwipe();
 		if (swipeHappened) return;
 
 		if (touched) {
+			AnyTouchedNotify();
 			var horizontalCenter = Screen.width / 2;
 
 			if (horizontalCenter > touchOne.position.x)
@@ -42,6 +42,8 @@ public class SensorInput : IInput, ITickable {
 			HorizontalAxisChangedEvent?.Invoke(0);
 		}
 	}
+	private void AnyTouchedNotify() =>
+			AnyPressedEvent?.Invoke();
 
 	private bool TryDetectSwipe() {
 		if (Input.touchCount != 1) return false;
@@ -55,7 +57,7 @@ public class SensorInput : IInput, ITickable {
 				_timer.Stop();
 				if (_timer.currentSeconds > SWIPE_MAX_DELAY)
 					return false;
-				
+
 				var swipeEndPosition = touchOne.position;
 
 				var swipeDirection = swipeEndPosition - _swipeStartPosition;
@@ -77,7 +79,7 @@ public class SensorInput : IInput, ITickable {
 		return false;
 	}
 
-	protected bool TryHitHud(Vector3 mousePosition) {
+	private bool TryHitHud(Vector3 mousePosition) {
 		var pointerData = new PointerEventData(EventSystem.current) {
 				position = mousePosition
 		};

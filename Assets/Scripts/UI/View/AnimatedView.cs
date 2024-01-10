@@ -6,9 +6,8 @@ public class AnimatedView : View {
 	[SerializeField] private Animator animator;
 	[SerializeField] private string closeTrigger = "disappear";
 
-	public override void Close() {
+	public override void Close() =>
 		ClosePlay();
-	}
 
 	public void ForceClose() =>
 			base.Close();

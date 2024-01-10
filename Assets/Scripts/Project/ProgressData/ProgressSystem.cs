@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class ProgressSystem
-{
+public class ProgressSystem {
 	public int worldsCount => _progressData.worldsInfo.Length;
 	public int currentWorldIndex => _currentWorldIndexWorldIndex;
 	public int currentCoinsCount => _progressData.currentCoinsWallet.count;
@@ -17,9 +16,9 @@ public class ProgressSystem
 
 	public Level currentLevel { get; set; }
 
+	public bool isFirstLevel => _currentWorldIndexWorldIndex == 0;
 	public int lastUnlockedWorldIndex {
-		get
-		{
+		get {
 			for (var i = 0; i < _progressData.worldsInfo.Length; i++)
 				if (!_progressData.worldsInfo[i].isUnlocked)
 					return i - 1;
@@ -49,30 +48,30 @@ public class ProgressSystem
 
 		for (var i = 0; i < wordsCount; i++)
 			worldData[i] = new WorldData();
-	    _progressData.worldsInfo = worldData;
+		_progressData.worldsInfo = worldData;
 	}
 
 	private void SetFirstWorldUnlocked() =>
-		_progressData.worldsInfo[0].isUnlocked = true;
+			_progressData.worldsInfo[0].isUnlocked = true;
 
 	public void SetWorld(int index) {
 		_currentWorldIndexWorldIndex = index;
 	}
-	
+
 	public Vector3 GetCurrentTimeLimits() {
 		var world = _worldsConfig.GetWorldByIndex(_currentWorldIndexWorldIndex);
 		return new Vector3(world.firstStarSeconds, world.secondStarSeconds, world.thirdStarSeconds);
 	}
 
 	public WorldData GetWordInfoByIndex(int index) =>
-		_progressData.worldsInfo[index];
+			_progressData.worldsInfo[index];
 
 	public void SetCurrentWorldLives() {
-		var lives =_worldsConfig.GetWorldByIndex(_currentWorldIndexWorldIndex).lives;
+		var lives = _worldsConfig.GetWorldByIndex(_currentWorldIndexWorldIndex).lives;
 		_progressData.lives.Reset();
 		_progressData.lives.Increase(lives);
 	}
-	
+
 	public int AddLife(int count = 1) {
 		_progressData.lives.Increase(count);
 		return _progressData.lives.count;
@@ -84,23 +83,23 @@ public class ProgressSystem
 	}
 
 	public void SpendKey() =>
-		_progressData.keysWallet.Decrease();
+			_progressData.keysWallet.Decrease();
 
-	public void IncreaseKey(int count=1) =>
-		_progressData.keysWallet.Increase(count);
+	public void IncreaseKey(int count = 1) =>
+			_progressData.keysWallet.Increase(count);
 
 	public void IncreaseCurrentCoins(int count) =>
-		_progressData.currentCoinsWallet.Increase(count);
-	
+			_progressData.currentCoinsWallet.Increase(count);
+
 
 	public void DecreaseTotalCoins(int count) =>
-		_progressData.totalCoinsWallet.Decrease(count);
+			_progressData.totalCoinsWallet.Decrease(count);
 
 	public void IncreaseStars(int count) =>
-		_progressData.statsWallet.Increase(count);
+			_progressData.statsWallet.Increase(count);
 
 	public void DecreaseStars(int count) =>
-		_progressData.statsWallet.Decrease(count);
+			_progressData.statsWallet.Decrease(count);
 
 	public void SetCurrentLevelCompleted() {
 		currentWorldData.isCompleted = true;
@@ -123,8 +122,6 @@ public class ProgressSystem
 		if (currentWorldData.bestCompletedTime > time)
 			currentWorldData.bestCompletedTime = time;
 	}
-	
-
 	public void ApplyCurrentCoins() {
 		var currentScore = _progressData.currentCoinsWallet.count;
 		_progressData.totalCoinsWallet.Increase(currentScore);
@@ -132,5 +129,5 @@ public class ProgressSystem
 	}
 
 	public void ResetCurrentCoins() =>
-		_progressData.currentCoinsWallet.Reset();
+			_progressData.currentCoinsWallet.Reset();
 }

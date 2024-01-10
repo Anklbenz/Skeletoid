@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using Zenject;
 
-public class StarsTimer : ITickable {
+public class StarsTimer {
 	private const int MAX_STARS_COUNT = 3;
 	public int starsCount => _starsCount;
 	public float levelTime => _timer.currentSeconds;
@@ -13,10 +12,10 @@ public class StarsTimer : ITickable {
 	private float _firstStarTime, _secondStarTime, _thirdStarTime;
 	private int _starsCount = MAX_STARS_COUNT;
 
-	public StarsTimer() {
-		_timer = new Timer();
+	public StarsTimer(Timer timer) {
+		_timer = timer;
 		_timer.TickEvent += OnTimerRefresh;
-		}
+	}
 
 	public void Initialize(Vector3 timeLimits) {
 		_firstStarTime = timeLimits.x;
@@ -47,12 +46,10 @@ public class StarsTimer : ITickable {
 			StarsCountDecrease();
 		}
 		//upd hud
-		//	Debug.Log($"{_timer.current.Minutes:00}:{_timer.current.Seconds:00}:{_timer.current.Milliseconds:000}");
+		//		Debug.Log($"{_timer.current.Minutes:00}:{_timer.current.Seconds:00}:{_timer.current.Milliseconds:000}");
 	}
 
 	private void StarsCountDecrease() =>
 			_starsCount--;
 
-	public void Tick() =>
-			_timer.Tick();
 }

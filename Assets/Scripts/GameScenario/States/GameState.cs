@@ -44,6 +44,7 @@ public sealed class GameState : State {
 	}
 
 	public override void Enter() {
+		
 		//for pause state
 		if (_gameplay.state == GameplayState.Lose)
 			_gameplay.Restart();

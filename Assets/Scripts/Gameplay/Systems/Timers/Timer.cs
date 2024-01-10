@@ -47,6 +47,7 @@ public class Timer : ITickable {
 	private void Alarm() {
 		AlarmEvent?.Invoke();
 		_isAlarmed = false;
+		Stop();
 	}
 	private void TickNotify() =>
 			TickEvent?.Invoke();

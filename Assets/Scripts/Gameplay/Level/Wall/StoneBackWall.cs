@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-public class StoneBackWall : MonoBehaviour, IPauseSensitive{
+using Zenject;
+public class StoneBackWall : MonoBehaviour, IPauseSensitive {
 	private const int BEFORE_PAUSE_TIME = 1800;
 	private const int AFTER_PAUSE_TIME = 1000;
 
@@ -9,11 +10,14 @@ public class StoneBackWall : MonoBehaviour, IPauseSensitive{
 	public Wall wall;
 	private bool _isActive;
 	private Timer _timer;
-	
+
+	[Inject]
+	public void Construct(Timer timer) =>
+			_timer = timer;
 	public void Activate(float duration) {
-		if(_isActive) return;
+		if (_isActive) return;
 		_isActive = true;
-		
+
 		wall.gameObject.SetActive(true);
 		PlayAppearEffect();
 
@@ -43,16 +47,9 @@ public class StoneBackWall : MonoBehaviour, IPauseSensitive{
 		stoneParticles.Pause();
 	}
 	public void SetPause(bool isPaused) {
-		if(_timer.isRunning && isPaused )
+		if (_timer.isRunning && isPaused)
 			_timer.Stop();
-		else 
+		else
 			_timer.Run();
-	}
-
-	private void Awake() {
-		_timer = new Timer();
-	}
-	public void Update() {
-		_timer.Tick();
 	}
 }
