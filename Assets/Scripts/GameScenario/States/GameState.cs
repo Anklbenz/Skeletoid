@@ -1,16 +1,21 @@
 using Cysharp.Threading.Tasks;
 
 public sealed class GameState : State {
+	private bool isTrainingRequired => !_isTrainingWasShown && _progressSystem.isFirstLevel;
+	
 	private readonly ParticlesPlayer _particlesPlayer;
 	private readonly FlyingService _flyingService;
 	private readonly StarsTimer _starsTimer;
 	private readonly HudSystem _hudSystem;
 	private readonly LevelVfx _levelVfx;
-	private readonly ProgressSystem _progressData;
+	private readonly ProgressSystem _progressSystem;
 	private readonly StateSwitcher _stateSwitcher;
 
 	private readonly GameplayConfig _config;
 	private readonly Gameplay _gameplay;
+	private readonly PauseHandler _pauseHandler;
+
+	private bool _isTrainingWasShown;
 
 	public GameState(
 			StateSwitcher stateSwitcher,
@@ -21,10 +26,9 @@ public sealed class GameState : State {
 			LevelVfx levelVfx,
 			FlyingService flyingService,
 			StarsTimer starsTimer,
-
 			ProgressSystem progress) : base(stateSwitcher) {
 
-		_progressData = progress;
+		_progressSystem = progress;
 		_flyingService = flyingService;
 		_starsTimer = starsTimer;
 
@@ -39,13 +43,19 @@ public sealed class GameState : State {
 		_gameplay.BeforeBrickDestroyedEvent += GetAndShowCoins;
 		_gameplay.AllBricksDestroyedEvent += OnWin;
 
+		_pauseHandler = pauseHandler;
+	
+		
 		_flyingService.CollectedEvent += IncreaseHudItemsCount;
-		pauseHandler.Register(_gameplay);
 	}
 
-	public override void Enter() {
+	public override async void Enter() {
+		if ( isTrainingRequired)
+			await PlayTraining();
+
+		_pauseHandler.SetPause(false);
 		
-		//for pause state
+		//If enter is state happened from GameMenu
 		if (_gameplay.state == GameplayState.Lose)
 			_gameplay.Restart();
 
@@ -55,10 +65,14 @@ public sealed class GameState : State {
 	}
 
 	public override void Exit() {
-		//	_levelVfx.Stop();
+		_pauseHandler.SetPause(true);
 		_starsTimer.Stop();
 	}
 
+	private async UniTask PlayTraining() {
+		await _hudSystem.PlayTraining();
+		_isTrainingWasShown = true;
+	}
 	private void IncreaseHudItemsCount() =>
 			_hudSystem.IncreaseCoinsCount();
 
@@ -68,7 +82,7 @@ public sealed class GameState : State {
 	private void GetAndShowCoins(Brick brick) {
 		var destroyedBrickPosition = brick.transform.position;
 		var brickCost = brick.randomizedCost;
-		_progressData.IncreaseCurrentCoins(brickCost);
+		_progressSystem.IncreaseCurrentCoins(brickCost);
 		_flyingService.SpawnInSphere(destroyedBrickPosition, brickCost);
 	}
 
@@ -81,5 +95,5 @@ public sealed class GameState : State {
 			_stateSwitcher.SetState<LoseState>();
 
 	private void OnPause() =>
-			_stateSwitcher.SetState<PauseState>();
+			_stateSwitcher.SetState<GameMenuState>();
 }

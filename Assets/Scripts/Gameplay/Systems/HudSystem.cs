@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class HudSystem : IFlyingTarget {
@@ -27,9 +28,11 @@ public class HudSystem : IFlyingTarget {
 			_view.Close();
 	}
 
-	public void PlayTraining() =>
-			_view.PlayTrainingAnimation();
-
+	public async UniTask PlayTraining() {
+		_view.StartTrainingAnimation();
+		await UniTask.Delay(_view.trainingDuration);
+	}
+	
 	public void IncreaseCoinsCount(int count = 1) {
 		_hudCoinsCount += count;
 		_view.coinsCount = _hudCoinsCount.ToString("D2");

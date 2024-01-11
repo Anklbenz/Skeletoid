@@ -1,5 +1,5 @@
-using System;
 using TMPro;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,13 +7,15 @@ public class HudView : AnimatedView {
 	[Header("HudView")]
 	[SerializeField] private Animator coinsAnimator;
 	[SerializeField] private string playTrigger = "Play";
-	[SerializeField] private TMP_Text skullsCountText;
-	[SerializeField] private TMP_Text coinsCountText;
+	[SerializeField] private TMP_Text skullsCountText, coinsCountText;
 	[SerializeField] private Button pauseButton, muteButton;
 	[SerializeField] private Animator trainingAnimator;
 	[SerializeField] private string activateTrigger = "activate";
-	public Transform coinsTransform => coinsCountText.transform;
+	[SerializeField] private int trainingAnimationDurationMilliseconds = 3600;
+
 	public event Action PauseClickedEvent;
+	public Transform coinsTransform => coinsCountText.transform;
+	public int trainingDuration => trainingAnimationDurationMilliseconds;
 
 	public string skullsCount {
 		get => skullsCountText.text;
@@ -26,13 +28,11 @@ public class HudView : AnimatedView {
 	}
 	private int playHash => Animator.StringToHash(activateTrigger);
 
-	public void PlayTrainingAnimation() {
-		trainingAnimator.SetTrigger(playHash);
-	}
+	public void StartTrainingAnimation() =>
+			trainingAnimator.SetTrigger(playHash);
 
-	private void Awake() {
-		pauseButton.onClick.AddListener(PauseClickNotify);
-	}
+	private void Awake() =>
+			pauseButton.onClick.AddListener(PauseClickNotify);
 
 	private void PauseClickNotify() =>
 			PauseClickedEvent?.Invoke();

@@ -1080,7 +1080,7 @@ Animator:
   m_GameObject: {fileID: 4730905245754144673}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aea3a7d2ed4994241b48d349517e3c40, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1110,6 +1110,9 @@ MonoBehaviour:
   coinsCountText: {fileID: 4730905245336525460}
   pauseButton: {fileID: 3927865837161378261}
   muteButton: {fileID: 0}
+  trainingAnimator: {fileID: 8994093312411491306}
+  activateTrigger: activate
+  trainingAnimationDurationMilliseconds: 3600
 --- !u!1 &5220764570924232262
 GameObject:
   m_ObjectHideFlags: 0

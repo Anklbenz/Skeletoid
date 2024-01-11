@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 public class LoseState : State {
 	private readonly StateSwitcher _stateSwitcher;
 	private readonly GameplayConfig _gameplayConfig;
-	private readonly PauseHandler _pauseHandler;
+
 	private readonly CameraZoom _cameraZoom;
 	private readonly Lose _lose;
 
@@ -14,7 +14,7 @@ public class LoseState : State {
 			PauseHandler pauseHandler,
 			CameraZoom cameraZoom) : base(stateSwitcher) {
 
-		_pauseHandler = pauseHandler;
+	
 		_stateSwitcher = stateSwitcher;
 		_gameplayConfig = gameplayConfig;
 		_cameraZoom = cameraZoom;
@@ -25,15 +25,14 @@ public class LoseState : State {
 	}
 
 	public override async void Enter() {
-		_pauseHandler.SetPause(true);
+	
 		await LookAtSkeleton();
 
 		_lose.OnLose();
 	}
 
 	public override void Exit() {
-		_pauseHandler.SetPause(false);
-		_cameraZoom.zoomedIsActive = false;
+	_cameraZoom.zoomedIsActive = false;
 	}
 
 	private void OnQuitSelected() =>

@@ -1,12 +1,13 @@
 public class InitializeLevelState : State {
 	private readonly Gameplay _gameplay;
-	private readonly ProgressSystem _progressSystem;
-	private readonly LevelFactory _levelFactory;
+	private readonly LevelVfx _levelVfx;
 	private readonly CameraZoom _cameraZoom;
 	private readonly StarsTimer _starsTimer;
-	private readonly LevelEventsHandler _levelEventsHandler;
-	private readonly LevelVfx _levelVfx;
 	private readonly BonusSystem _bonusSystem;
+	private readonly LevelFactory _levelFactory;
+	private readonly PauseHandler _pauseHandler;
+	private readonly ProgressSystem _progressSystem;
+	private readonly LevelEventsHandler _levelEventsHandler;
 
 	public InitializeLevelState(
 			StateSwitcher stateSwitcher,
@@ -17,7 +18,8 @@ public class InitializeLevelState : State {
 			StarsTimer starsTimer,
 			LevelEventsHandler levelEventsHandler,
 			LevelVfx levelVfx,
-			BonusSystem bonusSystem) : base(stateSwitcher) {
+			BonusSystem bonusSystem,
+			PauseHandler pauseHandler) : base(stateSwitcher) {
 		_gameplay = gameplay;
 		_progressSystem = progressSystem;
 		_levelFactory = levelFactory;
@@ -26,6 +28,7 @@ public class InitializeLevelState : State {
 		_levelEventsHandler = levelEventsHandler;
 		_levelVfx = levelVfx;
 		_bonusSystem = bonusSystem;
+		_pauseHandler = pauseHandler;
 	}
 
 	public override void Enter() {
@@ -44,13 +47,15 @@ public class InitializeLevelState : State {
 
 		var currentTimeLimits = _progressSystem.GetCurrentTimeLimits();
 		_starsTimer.Initialize(currentTimeLimits);
-		
+
 		_levelEventsHandler.Set(level);
 		_levelVfx.Subscribe(_levelEventsHandler);
 		_bonusSystem.Initialize(level);
+
+		_pauseHandler.Register(_gameplay);
+		_pauseHandler.SetPause(true);
 	}
 
-	private void GotoGameplayState() {
-		switcher.SetState<GameState>();
-	}
+	private void GotoGameplayState() =>
+			switcher.SetState<GameState>();
 }

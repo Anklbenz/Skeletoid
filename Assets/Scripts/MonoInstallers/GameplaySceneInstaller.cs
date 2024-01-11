@@ -60,12 +60,12 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	}
 
 	private void InstallPause() {
-		Container.Bind<Pause>().AsSingle();
+		Container.Bind<GameMenu>().AsSingle();
 		Container.Bind<PauseHandler>().AsSingle();
 	}
 
 	private void InstallHudSystem() {
-		Container.BindInterfacesAndSelfTo<GameplayHint>().AsSingle();
+		//Container.BindInterfacesAndSelfTo<GameplayHint>().AsSingle();
 		Container.BindInterfacesAndSelfTo<HudSystem>().AsSingle();
 	}
 
@@ -110,7 +110,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<StateSwitcher>().AsSingle();
 		Container.Bind<InitialState>().AsSingle();
 		Container.Bind<InitializeLevelState>().AsSingle();
-		Container.Bind<PauseState>().AsSingle();
+		Container.Bind<GameMenuState>().AsSingle();
 		Container.Bind<GameState>().AsSingle();
 		Container.Bind<LoseState>().AsSingle();
 		Container.Bind<WinState>().AsSingle();

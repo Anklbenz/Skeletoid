@@ -18,7 +18,7 @@ public class GameplayHint : IDisposable {
 		_timer.AlarmEvent += OnShot;
 	}
 	private void OnAnyKeyPressed() {
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 

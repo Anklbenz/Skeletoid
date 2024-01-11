@@ -5,7 +5,7 @@ public class GameScenario {
 			StateSwitcher stateSwitcher,
 			InitialState initialState,
 			InitializeLevelState initializeLevelState,
-			PauseState pauseState,
+			GameMenuState gameMenuState,
 			GameState gameState,
 			LoseState loseState,
 			WinState winState,
@@ -15,7 +15,7 @@ public class GameScenario {
 		_stateSwitcher.AddState(initializeLevelState);
 		_stateSwitcher.AddState(gameState);
 		_stateSwitcher.AddState(loseState);
-		_stateSwitcher.AddState(pauseState);
+		_stateSwitcher.AddState(gameMenuState);
 		_stateSwitcher.AddState(winState);
 		_stateSwitcher.AddState(finalizeState);
 	}

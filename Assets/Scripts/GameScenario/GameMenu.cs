@@ -1,6 +1,6 @@
 using System;
 
-public class Pause {
+public class GameMenu {
 	public event Action ContinueEvent, RestartEvent, QuitEvent;
 	private PauseView _view;
 	public void Initialize(PauseView view) {
