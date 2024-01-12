@@ -66,6 +66,7 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 		player.SetPause(isPaused);
 		ball.SetPause(isPaused);
 		_bonusSystem.SetPause(isPaused);
+		_botNavigationSystem.SetPause(isPaused);
 	}
 
 	private void OnDeadZoneReached() {

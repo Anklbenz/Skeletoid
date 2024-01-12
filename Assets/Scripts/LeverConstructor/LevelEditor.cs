@@ -12,7 +12,7 @@ public class LevelEditor : MonoBehaviour {
 	[SerializeField] private StoneBackWall stoneBackWall;
 	[SerializeField] private NavMeshSurface navMeshSurfacePrefab;
 	[SerializeField] private LayerMask navigationLayer;
-	
+
 	[SerializeField] private string path = "Assets/Levels/";
 	[SerializeField] private string fileName = "Level";
 	[SerializeField] private string bricksParentName = "Bricks";
@@ -22,7 +22,7 @@ public class LevelEditor : MonoBehaviour {
 	private string levelFileName => $"{fileName}[{DateTime.Now.ToShortTimeString()}]";
 
 	public void CreatePrefab() {
-		var localPath = AssetDatabase.GenerateUniqueAssetPath($"{path}{fileName}{fileExtension}");
+		var localPath = AssetDatabase.GenerateUniqueAssetPath($"{path}{levelFileName}{fileExtension}");
 		var prefab = BuildMapObject();
 		PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, localPath, InteractionMode.UserAction);
 		DestroyImmediate(prefab);
@@ -30,18 +30,19 @@ public class LevelEditor : MonoBehaviour {
 	}
 //Create enemies
 	private GameObject BuildMapObject() {
-		var container = new GameObject(levelFileName);
+		var container = new GameObject(fileName);
 		var brickContainer = new GameObject(bricksParentName);
 		var junkContainer = new GameObject(junkParentName);
 		var enemiesContainer = new GameObject(enemiesParentName);
 		brickContainer.transform.SetParent(container.transform);
 		junkContainer.transform.SetParent(container.transform);
 		enemiesContainer.transform.SetParent(container.transform);
-		
+
 		var level = container.AddComponent<Level>();
 
 		level.bricks = CreateBricksOrJunk(brickContainer.transform, true).ToList();
 		level.junk = CreateBricksOrJunk(junkContainer.transform, false).ToList();
+		level.enemies = CreateEnemies(enemiesContainer.transform).ToList();
 
 		level.paddleOrigin = AddPaddleOriginToContainer(container.transform);
 		level.deadZone = CreateDeadZone(container.transform);
@@ -60,23 +61,37 @@ public class LevelEditor : MonoBehaviour {
 		return (NavMeshSurface)PrefabUtility.InstantiatePrefab(navMeshSurfacePrefab, container);
 	}
 
-	private List<Enemy> CreateEnemies(Transform container) {
-		List<Enemy> bricks = new();
+	private Enemy[] CreateEnemies(Transform container) {
+		List<Enemy> enemies = new();
+		foreach (Transform child in parent) {
+			if (!child.TryGetComponent<Enemy>(out var enemy)) continue;
+			var enemyCopy = CreateEnemy(container, enemy); 
+			enemies.Add(enemyCopy);
 
-		return bricks;
+		}
+		return enemies.ToArray();
 	}
-	
+
+	private Enemy CreateEnemy(Transform container, Enemy enemy) {
+		var prefab = PrefabUtility.GetCorrespondingObjectFromSource(enemy);
+		var enemyCopy = (Enemy)PrefabUtility.InstantiatePrefab(prefab, container);
+		enemyCopy.transform.position = enemy.transform.position;
+		enemyCopy.transform.rotation = enemy.transform.rotation;
+		return enemyCopy;
+	}
+
 	private Brick[] CreateBricksOrJunk(Transform container, bool isBrick) {
 		List<Brick> bricks = new();
 		foreach (Transform child in parent) {
-			if (!child.TryGetComponent<Brick>(out var brick) && brick.required != isBrick) continue;
+			if (!child.TryGetComponent<Brick>(out var brick) ) continue;
+			if( brick.required != isBrick) continue;
 			var brickCopy = CreateBrick(container, brick);
 			bricks.Add(brickCopy);
 		}
 		return bricks.ToArray();
 	}
-	
-	private static Brick CreateBrick(Transform container, Brick brick) {
+
+	private Brick CreateBrick(Transform container, Brick brick) {
 		var prefab = PrefabUtility.GetCorrespondingObjectFromSource(brick);
 		var brickCopy = (Brick)PrefabUtility.InstantiatePrefab(prefab, container);
 		brickCopy.transform.position = brick.transform.position;
@@ -114,11 +129,12 @@ public class LevelEditor : MonoBehaviour {
 
 	private Floor CreateFloor(Transform transformParent) {
 		var floorGameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		floorGameObject.name = "Floor";
 		floorGameObject.transform.position = gizmosDrawer.floorCenter; //  CreateObjectWithComponents(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
 		floorGameObject.transform.localScale = gizmosDrawer.floorSize;
 		floorGameObject.transform.SetParent(transformParent);
-		floorGameObject.layer = navigationLayer;
-		
+		floorGameObject.layer = (int)Mathf.Log(navigationLayer.value, 2);
+
 		var meshRenderer = floorGameObject.GetComponent<MeshRenderer>();
 
 		var floor = floorGameObject.AddComponent<Floor>();

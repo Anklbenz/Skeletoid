@@ -50,7 +50,10 @@ public class InitializeLevelState : State {
 		var worldIndex = _progressSystem.currentWorldIndex;
 
 		var level = _levelFactory.CreateLevel(worldIndex);
-		_gameplay.SetNewLevel(level);
+		level.navMeshSurface.BuildNavMesh();
+		//mesh needed only for navMeshSurfaceBuild
+		level.floor.isMeshRenderEnabled = false;
+		
 		_cameraZoom.zoomedLookAt = level.player.skeletonHeadTransform;
 		_progressSystem.currentLevel = level;
 		_progressSystem.SetCurrentWorldLives();
@@ -65,12 +68,10 @@ public class InitializeLevelState : State {
 		_ballLaunch.Initialize(level.ball, level.player);
 		_ballSpeedIncrease.Initialize(level.ball);
 		
+		_botNavigationSystem.Initialize(level.enemies, level.floor.floorBounds);
+		_gameplay.SetNewLevel(level);
 		_pauseHandler.Register(_gameplay);
 		_pauseHandler.SetPause(true);
-		
-		_botNavigationSystem.Initialize(level.enemies, level.floor.floorBounds);
-		//mesh needed only for navMeshSurfaceBuild
-		level.floor.isMeshRenderEnabled = false;
 	}
 
 	private void GotoGameplayState() =>

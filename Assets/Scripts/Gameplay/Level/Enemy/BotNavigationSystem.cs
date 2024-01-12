@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BotNavigationSystem {
+public class BotNavigationSystem : IPauseSensitive {
 	private const float PATH_REFRESH_RATE = 0.5f;
 	private readonly Timer _timer;
 	private List<Enemy> _enemies;
@@ -43,5 +43,11 @@ public class BotNavigationSystem {
 		var z = Random.Range(_navSurfaceBounds.min.z, _navSurfaceBounds.max.z);
 		var y = _navSurfaceBounds.max.y;
 		return new Vector3(x, y, z);
+	}
+	public void SetPause(bool isPaused) {
+		if (isPaused)
+			Start();
+		else
+			Stop();
 	}
 }
