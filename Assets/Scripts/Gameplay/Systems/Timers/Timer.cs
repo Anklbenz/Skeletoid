@@ -9,7 +9,7 @@ public class Timer : ITickable {
 	public bool isRunning => _isRunning;
 
 	private float _totalSeconds, _alarmSeconds;
-	private bool _isRunning, _isAlarmed;
+	private bool _isRunning, _isAlarmed, _isRepeatEnabled;
 
 	public void StartWithAlarm(float alarmSeconds) {
 		SetAlarm(alarmSeconds);
@@ -19,12 +19,11 @@ public class Timer : ITickable {
 		Reset();
 		Run();
 	}
+	public void Stop() =>
+			_isRunning = false;
 
 	public void Run() =>
 			_isRunning = true;
-
-	public void Stop() =>
-			_isRunning = false;
 
 	public void Reset() =>
 			_totalSeconds = 0;
@@ -40,12 +39,17 @@ public class Timer : ITickable {
 
 		TickNotify();
 
-		if (_isAlarmed && _totalSeconds >= _alarmSeconds)
-			Alarm();
+		var isAlarmHappened = _isAlarmed && _totalSeconds >= _alarmSeconds;
+		if (!isAlarmHappened) return;
+
+		AlarmNotify();
+		AlarmReset();
 	}
 
-	private void Alarm() {
-		AlarmEvent?.Invoke();
+	private void AlarmNotify() =>
+			AlarmEvent?.Invoke();
+
+	private void AlarmReset() {
 		_isAlarmed = false;
 		Stop();
 	}

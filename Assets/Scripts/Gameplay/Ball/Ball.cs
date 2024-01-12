@@ -23,11 +23,11 @@ public sealed class Ball : Motor, IBall, IThrowable {
 	}
 
 	private void CheckFallOnFloor(Collision collision) {
-		if (collision.transform.TryGetComponent<IFloor>(out _))
+		if (collision.transform.TryGetComponent<Floor>(out _))
 			FallOnFloorEvent?.Invoke();
 	}
 
-	public void Reflect(Vector3 hitNormal, Obstacle sender = null) {
+	public void Reflect(Vector3 hitNormal) {
 		var isOppositeDirection = Vector3.Dot(direction, hitNormal) < 0;
 		if (!isOppositeDirection) return;
 

@@ -1,9 +1,13 @@
+using UnityEngine;
 public class InitializeLevelState : State {
 	private readonly Gameplay _gameplay;
 	private readonly LevelVfx _levelVfx;
 	private readonly CameraZoom _cameraZoom;
 	private readonly StarsTimer _starsTimer;
 	private readonly BonusSystem _bonusSystem;
+	private readonly BallLaunch _ballLaunch;
+	private readonly BallSpeedIncrease _ballSpeedIncrease;
+	private readonly BotNavigationSystem _botNavigationSystem;
 	private readonly LevelFactory _levelFactory;
 	private readonly PauseHandler _pauseHandler;
 	private readonly ProgressSystem _progressSystem;
@@ -19,6 +23,9 @@ public class InitializeLevelState : State {
 			LevelEventsHandler levelEventsHandler,
 			LevelVfx levelVfx,
 			BonusSystem bonusSystem,
+			BallLaunch ballLaunch,
+			BallSpeedIncrease ballSpeedIncrease,
+			BotNavigationSystem botNavigationSystem,
 			PauseHandler pauseHandler) : base(stateSwitcher) {
 		_gameplay = gameplay;
 		_progressSystem = progressSystem;
@@ -28,15 +35,18 @@ public class InitializeLevelState : State {
 		_levelEventsHandler = levelEventsHandler;
 		_levelVfx = levelVfx;
 		_bonusSystem = bonusSystem;
+		_ballLaunch = ballLaunch;
+		_ballSpeedIncrease = ballSpeedIncrease;
+		_botNavigationSystem = botNavigationSystem;
 		_pauseHandler = pauseHandler;
 	}
 
 	public override void Enter() {
-		SetNewLevel();
+		InitializeLevel();
 		GotoGameplayState();
 	}
 
-	private void SetNewLevel() {
+	private void InitializeLevel() {
 		var worldIndex = _progressSystem.currentWorldIndex;
 
 		var level = _levelFactory.CreateLevel(worldIndex);
@@ -51,9 +61,16 @@ public class InitializeLevelState : State {
 		_levelEventsHandler.Set(level);
 		_levelVfx.Subscribe(_levelEventsHandler);
 		_bonusSystem.Initialize(level);
-
+		
+		_ballLaunch.Initialize(level.ball, level.player);
+		_ballSpeedIncrease.Initialize(level.ball);
+		
 		_pauseHandler.Register(_gameplay);
 		_pauseHandler.SetPause(true);
+		
+		_botNavigationSystem.Initialize(level.enemies, level.floor.floorBounds);
+		//mesh needed only for navMeshSurfaceBuild
+		level.floor.isMeshRenderEnabled = false;
 	}
 
 	private void GotoGameplayState() =>

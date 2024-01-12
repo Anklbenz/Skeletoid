@@ -1,9 +1,9 @@
-public class BallSpeed {
-	private float _startSpeed;
-	private float _boostMultiplier;
+public class BallSpeedIncrease {
+	private readonly float _startSpeed;
+	private readonly float _boostMultiplier;
 	private Ball _ball;
 
-	public BallSpeed(GameplayConfig config) {
+	public BallSpeedIncrease(GameplayConfig config) {
 		_startSpeed = config.ballSpeed;
 		_boostMultiplier = config.ballBoostMultiplier;
 	}

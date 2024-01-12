@@ -91,7 +91,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 
 	private void InstallGameplaySystem() {
 		Container.Bind<BallLaunch>().AsSingle();
-		Container.Bind<BallSpeed>().AsSingle();
+		Container.Bind<BallSpeedIncrease>().AsSingle();
 		Container.BindInterfacesAndSelfTo<Gameplay>().AsSingle();
 	}
 

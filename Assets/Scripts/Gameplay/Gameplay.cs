@@ -12,18 +12,28 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	private Player player => _level.player;
 	private List<Brick> bricksList => _level.bricks;
 	private List<Brick> junkList => _level.junk;
+	private List<Enemy> enemiesList => _level.enemies;
 
 	private readonly BonusSystem _bonusSystem;
 	private readonly BallLaunch _ballLaunch;
-	private readonly BallSpeed _ballSpeed;
+	private readonly BallSpeedIncrease _ballSpeedIncrease;
+	private readonly BotNavigationSystem _botNavigationSystem;
 	private readonly ILevelEvents _levelEvents;
 	private readonly IInput _input;
 	private Level _level;
 
-	public Gameplay(BallLaunch ballLaunch, BonusSystem bonusSystem, BallSpeed ballSpeed, ILevelEvents levelEvents, IInput input) {
+	public Gameplay(
+			BallLaunch ballLaunch,
+			BonusSystem bonusSystem,
+			BallSpeedIncrease ballSpeedIncrease,
+			BotNavigationSystem botNavigationSystem,
+			ILevelEvents levelEvents,
+			IInput input) {
+	
 		_ballLaunch = ballLaunch;
 		_bonusSystem = bonusSystem;
-		_ballSpeed = ballSpeed;
+		_ballSpeedIncrease = ballSpeedIncrease;
+		_botNavigationSystem = botNavigationSystem;
 		_levelEvents = levelEvents;
 		_input = input;
 		SubscribeEvents();
@@ -31,8 +41,6 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 
 	public void SetNewLevel(Level level) {
 		_level = level;
-		_ballLaunch.Initialize(ball, player);
-		_ballSpeed.Initialize(ball);
 		Restart();
 	}
 	private void Throw() {
@@ -101,9 +109,9 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	}
 
 	private void SetBallDefaultSpeed() =>
-			_ballSpeed.SetDefault();
+			_ballSpeedIncrease.SetDefault();
 	private void IncreaseBallSpeed() =>
-			_ballSpeed.Increase();
+			_ballSpeedIncrease.Increase();
 
 	private void SubscribeEvents() {
 		_input.ShotEvent += Throw;

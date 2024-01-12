@@ -1,8 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Floor : MonoBehaviour, IFloor
-{
-   
+public class Floor : MonoBehaviour {
+	//needs only for build navMeshSurface
+	public MeshRenderer meshRenderer;
+	public bool isMeshRenderEnabled {
+		set => meshRenderer.enabled = value;
+	}
+	public Bounds floorBounds => meshRenderer.bounds;
 }
