@@ -17,4 +17,5 @@ public class Level : MonoBehaviour {
 	public Wall[] walls;
 	public Floor floor;
 	public Transform paddleOrigin;
+	public NavMap navMap;
 }

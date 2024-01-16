@@ -35,8 +35,8 @@ public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 	protected override void Reflect(IBall ball, Collision collision) {
 		var collisionPoint = collision.contacts[0].point;
 		var collisionNormal = collision.contacts[0].normal;
-		
-		if (CouldSpecialReflectionBePerformed(collisionPoint, collisionNormal))
+
+		if (CouldSpecialReflectionBePerformed(collisionNormal))
 			ball.direction = GetDirectionDependsOnLocalPaddleHitPoint(collisionPoint);
 		else
 			ball.Reflect(-collisionNormal);
@@ -58,14 +58,13 @@ public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 	public void FixedUpdate() {
 		if (!_isActive) return;
 
-		InertialMove();
+		MoveInertial();
 		AnimateCharacter(paddleRigidbody.velocity.x);
 	}
 
 	// Hit in opposite direction
-	public bool CouldSpecialReflectionBePerformed(Vector3 hitPoint, Vector3 hitNormal) =>
+	private bool CouldSpecialReflectionBePerformed(Vector3 hitNormal) =>
 			Vector3.Dot(transform.forward, hitNormal) < 0;
-
 
 	public Vector3 GetDirectionDependsOnLocalPaddleHitPoint(Vector3 collisionPoint) {
 		var colliderMinX = boxCollider.center.x - boxCollider.size.x / 2;
@@ -78,7 +77,7 @@ public sealed class Player : Obstacle, IPauseSensitive, ILaunch {
 		return (Quaternion.AngleAxis(angle, Vector3.up) * transform.forward);
 	}
 
-	private void InertialMove() {
+	private void MoveInertial() {
 		// if move vector changed, but !=0 remember _velocityVector
 		if (_velocityVector != _moveVector && _moveVector != Vector3.zero)
 			_velocityVector = _moveVector;

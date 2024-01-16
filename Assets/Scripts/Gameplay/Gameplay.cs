@@ -6,6 +6,7 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	private const float BALL_OFFSET_LIMIT_AXIS_X = 0.1f;
 
 	public event Action<Brick> BeforeBrickDestroyedEvent;
+	public event Action<Enemy> BeforeEnemyDestroyedEvent;
 	public event Action AllBricksDestroyedEvent, LoseEvent;
 	public GameplayState state { get; private set; }
 	private Ball ball => _level.ball;
@@ -75,7 +76,7 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 		LoseEvent?.Invoke();
 	}
 
-	private void OnDestroyed(Brick sender) {
+	private void OnBrickDestroyed(Brick sender) {
 		BeforeBrickDestroyedEvent?.Invoke(sender);
 
 		if (sender.required) {
@@ -85,6 +86,13 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 		else {
 			DestroyAndUnsubscribeJunk(sender);
 		}
+	}
+
+	private void OnEnemyDestroyed(Enemy enemy) {
+		//BeforeEnemyDestroyedEvent?.Invoke(enemy);
+		enemiesList.Remove(enemy);
+		UnityEngine.Object.Destroy(enemy.gameObject);
+
 	}
 	private void NotifyIfAllBricksDestroyed() {
 		if (_level.brickCount <= 0)
@@ -117,14 +125,15 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	private void SubscribeEvents() {
 		_input.ShotEvent += Throw;
 		_levelEvents.DeadZoneReachedEvent += OnDeadZoneReached;
-		_levelEvents.BrickDestroyedEvent += OnDestroyed;
+		_levelEvents.BrickDestroyedEvent += OnBrickDestroyed;
+		_levelEvents.EnemyDestroyedEvent += OnEnemyDestroyed;
 		_levelEvents.AnyHitEvent += IncreaseBallSpeed;
 
 	}
 	private void UnSubscribeInput() {
 		_input.ShotEvent -= Throw;
 		_levelEvents.DeadZoneReachedEvent -= OnDeadZoneReached;
-		_levelEvents.BrickDestroyedEvent -= OnDestroyed;
+		_levelEvents.BrickDestroyedEvent -= OnBrickDestroyed;
 		_levelEvents.AnyHitEvent -= IncreaseBallSpeed;
 	}
 

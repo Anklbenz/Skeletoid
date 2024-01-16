@@ -5,6 +5,8 @@ public class LevelEventsHandler : ILevelEvents {
 	public event Action<Vector3, int> ComboEvent;
 	public event Action<Vector3> WallHitEvent, PaddleHitEvent, BrickHitEvent, BrickDamagedEvent;
 	public event Action<Brick> BrickDestroyedEvent;
+	public event Action<Enemy> EnemyDestroyedEvent;
+	public event Action<Damageble> DamagebleDestroyedEvent;
 	public event Action DeadZoneReachedEvent, AnyHitEvent;
 
 	//remove from here
@@ -30,7 +32,7 @@ public class LevelEventsHandler : ILevelEvents {
 		WallHitEvent?.Invoke(position);
 		AnyHitEvent?.Invoke();
 	}
-	private void BrickHitNotify(Vector3 position) {
+	private void ObstacleHitNotify(Vector3 position) {
 		BrickHitEvent?.Invoke(position);
 		AnyHitEvent?.Invoke();
 	}
@@ -39,10 +41,18 @@ public class LevelEventsHandler : ILevelEvents {
 
 	private void OnBrickDestroy(Brick brick) {
 		BrickDestroyedEvent?.Invoke(brick);
-		
+		DamagebleDestroyedNotify(brick);	
 		var comboCount = _comboCounter.Increase();
 		ComboNotify(brick.transform.position, comboCount);
 	}
+
+	private void OnEnemyDestroyed(Enemy enemy) {
+		EnemyDestroyedEvent?.Invoke(enemy);
+		DamagebleDestroyedNotify(enemy);
+	}
+
+	private void DamagebleDestroyedNotify(Damageble damageble) =>
+			DamagebleDestroyedEvent?.Invoke(damageble);
 
 	private void OnPaddleHit(Vector3 hitPosition) {
 		_comboCounter.Reset();
@@ -55,15 +65,20 @@ public class LevelEventsHandler : ILevelEvents {
 			ComboEvent?.Invoke(position, comboCount);
 	private void Subscribe() {
 		foreach (var brick in _level.bricks) {
-			brick.HitEvent += BrickHitNotify;
+			brick.HitEvent += ObstacleHitNotify;
 			brick.DamagedEvent += BrickDamagedNotify;
 			brick.NoLivesLeft += OnBrickDestroy;
 		}
 
 		foreach (var junk in _level.junk) {
-			junk.HitEvent += BrickHitNotify;
+			junk.HitEvent += ObstacleHitNotify;
 			junk.DamagedEvent += BrickDamagedNotify;
 			junk.NoLivesLeft += OnBrickDestroy;
+		}
+
+		foreach (var enemy in _level.enemies) {
+			enemy.HitEvent += ObstacleHitNotify;
+			enemy.NoLivesLeft += OnEnemyDestroyed;
 		}
 
 		foreach (var wall in _level.walls)
@@ -74,13 +89,13 @@ public class LevelEventsHandler : ILevelEvents {
 	}
 	private void UnSubscribe() {
 		foreach (var brick in _level.bricks) {
-			brick.HitEvent -= BrickHitNotify;
+			brick.HitEvent -= ObstacleHitNotify;
 			brick.DamagedEvent -= BrickDamagedNotify;
 			brick.NoLivesLeft -= OnBrickDestroy;
 		}
 		
 		foreach (var junk in _level.junk) {
-			junk.HitEvent -= BrickHitNotify;
+			junk.HitEvent -= ObstacleHitNotify;
 			junk.DamagedEvent -= BrickDamagedNotify;
 			junk.NoLivesLeft -= OnBrickDestroy;
 		}

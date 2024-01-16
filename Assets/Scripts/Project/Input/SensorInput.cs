@@ -54,7 +54,7 @@ public class SensorInput : IInput, ITickable {
 				_timer.Start();
 				break;
 			case TouchPhase.Ended: {
-				_timer.Stop();
+				_timer.Pause();
 				if (_timer.currentSeconds > SWIPE_MAX_DELAY)
 					return false;
 

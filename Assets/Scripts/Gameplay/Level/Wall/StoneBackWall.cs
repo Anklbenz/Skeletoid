@@ -48,7 +48,7 @@ public class StoneBackWall : MonoBehaviour, IPauseSensitive {
 	}
 	public void SetPause(bool isPaused) {
 		if (_timer.isRunning && isPaused)
-			_timer.Stop();
+			_timer.Pause();
 		else
 			_timer.Run();
 	}

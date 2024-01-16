@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 8195453196294860850}
   - component: {fileID: 8195453196294860854}
   - component: {fileID: 463579373361760531}
+  - component: {fileID: 5521419978395278267}
   m_Layer: 0
   m_Name: ChestRed
   m_TagString: Untagged
@@ -97,6 +98,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.43, y: 0.37, z: 0.35}
   m_Center: {x: 0, y: 0.185, z: 0}
+--- !u!208 &5521419978395278267
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8195453196294860853}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.215, y: 0.185, z: 0.175}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.185, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1927894490263496440
 PrefabInstance:
   m_ObjectHideFlags: 0

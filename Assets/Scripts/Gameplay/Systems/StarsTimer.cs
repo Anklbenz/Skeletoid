@@ -30,7 +30,7 @@ public class StarsTimer {
 			_timer.Run();
 
 	public void Stop() =>
-			_timer.Stop();
+			_timer.Pause();
 
 	private void OnTimerRefresh() {
 		if (!_isFistStarLost && _firstStarTime < _timer.currentSeconds) {

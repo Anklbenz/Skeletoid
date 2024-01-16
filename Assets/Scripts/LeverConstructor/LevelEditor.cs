@@ -15,6 +15,7 @@ public class LevelEditor : MonoBehaviour {
 
 	[SerializeField] private string path = "Assets/Levels/";
 	[SerializeField] private string fileName = "Level";
+	[SerializeField] private string wallsName = "Walls";
 	[SerializeField] private string bricksParentName = "Bricks";
 	[SerializeField] private string junkParentName = "Junk";
 	[SerializeField] private string enemiesParentName = "Enemies";
@@ -34,9 +35,12 @@ public class LevelEditor : MonoBehaviour {
 		var brickContainer = new GameObject(bricksParentName);
 		var junkContainer = new GameObject(junkParentName);
 		var enemiesContainer = new GameObject(enemiesParentName);
+		var wallsContainer = new GameObject(wallsName);
+
 		brickContainer.transform.SetParent(container.transform);
 		junkContainer.transform.SetParent(container.transform);
 		enemiesContainer.transform.SetParent(container.transform);
+		wallsContainer.transform.SetParent(container.transform);
 
 		var level = container.AddComponent<Level>();
 
@@ -45,14 +49,15 @@ public class LevelEditor : MonoBehaviour {
 		level.enemies = CreateEnemies(enemiesContainer.transform).ToList();
 
 		level.paddleOrigin = AddPaddleOriginToContainer(container.transform);
-		level.deadZone = CreateDeadZone(container.transform);
+		level.deadZone = CreateDeadZone(wallsContainer.transform);
 
-		level.walls = CreateWalls(container.transform);
+		level.walls = CreateWalls(wallsContainer.transform);
 
-		level.backWall = CreateStoneBackWall(container.transform);
+		level.backWall = CreateStoneBackWall(wallsContainer.transform);
 		level.backWall.wall = level.walls[3];
 
-		level.floor = CreateFloor(container.transform);
+		level.floor = CreateFloor(wallsContainer.transform);
+		level.navMap = CreateNavMap(wallsContainer.transform);
 		level.navMeshSurface = CreateNavMeshSurface(container.transform);
 		return container;
 	}
@@ -106,44 +111,48 @@ public class LevelEditor : MonoBehaviour {
 	}
 
 	private DeadZone CreateDeadZone(Transform transformParent) {
-		var deadZone = CreateObjectWithComponents(gizmosDrawer.deadZoneCenter, gizmosDrawer.wallSizeFront, transformParent, true, "DeadZone");
+		var deadZone = CreateObjectWithBoxCollider(gizmosDrawer.deadZoneCenter, gizmosDrawer.wallSizeFront, transformParent, true, "DeadZone");
 		return deadZone.AddComponent<DeadZone>();
 	}
 
 	private Wall[] CreateWalls(Transform transformParent) {
-		var left = CreateObjectWithComponents(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
+		var left = CreateObjectWithBoxCollider(gizmosDrawer.leftWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallLeft");
 		var leftWall = left.AddComponent<Wall>();
 
-		var right = CreateObjectWithComponents(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
+		var right = CreateObjectWithBoxCollider(gizmosDrawer.rightWallCenter, gizmosDrawer.wallSizeSides, transformParent, false, "WallRight");
 		var rightWall = right.AddComponent<Wall>();
 
-		var front = CreateObjectWithComponents(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
+		var front = CreateObjectWithBoxCollider(gizmosDrawer.frontWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallFront");
 		var frontWall = front.AddComponent<Wall>();
 
-		var back = CreateObjectWithComponents(gizmosDrawer.backWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallBack");
+		var back = CreateObjectWithBoxCollider(gizmosDrawer.backWallCenter, gizmosDrawer.wallSizeFront, transformParent, false, "WallBack");
 		var backWall = back.AddComponent<Wall>();
 		back.SetActive(false);
 
 		return new[] {leftWall, rightWall, frontWall, backWall};
 	}
 
+	private NavMap CreateNavMap(Transform transformParent) {
+		var navGameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		navGameObject.name = "Floor";
+		navGameObject.transform.position = gizmosDrawer.navigationMapCenter; //  CreateObjectWithComponents(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
+		navGameObject.transform.localScale = gizmosDrawer.navMapSize;
+		navGameObject.transform.SetParent(transformParent);
+		navGameObject.layer = (int)Mathf.Log(navigationLayer.value, 2);
+		var meshRenderer = navGameObject.GetComponent<MeshRenderer>();
+
+		var navMap = navGameObject.AddComponent<NavMap>();
+		navMap.meshRenderer = meshRenderer;
+		return navMap;
+	} 
+	
 	private Floor CreateFloor(Transform transformParent) {
-		var floorGameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		floorGameObject.name = "Floor";
-		floorGameObject.transform.position = gizmosDrawer.floorCenter; //  CreateObjectWithComponents(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
-		floorGameObject.transform.localScale = gizmosDrawer.floorSize;
-		floorGameObject.transform.SetParent(transformParent);
-		floorGameObject.layer = (int)Mathf.Log(navigationLayer.value, 2);
-
-		var meshRenderer = floorGameObject.GetComponent<MeshRenderer>();
-
+		var floorGameObject = CreateObjectWithBoxCollider(gizmosDrawer.floorCenter, gizmosDrawer.floorSize, transformParent, false, "Floor");
 		var floor = floorGameObject.AddComponent<Floor>();
-		floor.meshRenderer = meshRenderer;
-
 		return floor;
 	}
 
-	private GameObject CreateObjectWithComponents(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object") {
+	private GameObject CreateObjectWithBoxCollider(Vector3 position, Vector3 size, Transform parentTransform = null, bool isTrigger = false, string objName = "object") {
 		var box = new GameObject(objName);
 		box.isStatic = true;
 

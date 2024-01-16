@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class Floor : MonoBehaviour {
-	//needs only for build navMeshSurface
+public class NavMap : MonoBehaviour
+{
 	public MeshRenderer meshRenderer;
 	public bool isMeshRenderEnabled {
 		set => meshRenderer.enabled = value;

@@ -6,7 +6,7 @@ public sealed class Brick : Damageble, ICost {
 	public event Action<Brick> NoLivesLeft;
 	public event Action<Vector3> HitEvent, DamagedEvent;
 	public int randomizedCost => Random.Range(coinsMinMax.x, coinsMinMax.y + 1);
-	public Vector3 position => transform.position;
+	
 	public bool required => requiredForComplete;
 
 	[SerializeField] private Vector2Int coinsMinMax;

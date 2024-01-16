@@ -26,9 +26,17 @@ public class GizmosDrawer : MonoBehaviour {
 	[SerializeField] private int lineNumber = 3;
 	[SerializeField] private Color paddleZoneColor = Color.white;
 
-	[Header("DeadZone")] [SerializeField] private bool isDeadZoneVisible = true;
+	[Header("DeadZone")]
+	[SerializeField] private bool isDeadZoneVisible = true;
 	[SerializeField] private int deadZoneLineNumber = 5;
 	[SerializeField] private Color deadZoneColor = Color.white;
+
+
+	[Header("NavigationZone")]
+	[SerializeField] private bool isNavMapVisible = true;
+	[SerializeField] private Vector2Int navFieldSize;
+	[SerializeField] private Vector2Int navCenterSize;
+	[SerializeField] private Color navigationMapColor = Color.white;
 
 	[Header("HorizontalCenterLine")] [SerializeField]
 	private bool isHorizontalCenterLineVisible = true;
@@ -44,11 +52,13 @@ public class GizmosDrawer : MonoBehaviour {
 	public Vector3 leftWallCenter => new(-realSize.x / 2 - STEP / 2, STEP / 2, 0);
 	public Vector3 rightWallCenter => new(realSize.x / 2 + STEP / 2, STEP / 2, 0);
 	public Vector3 frontWallCenter => new(0, STEP / 2, realSize.z / 2 + STEP / 2);
+	public Vector3 navigationMapCenter => new((float)navCenterSize.x / 2, -STEP / 2, (float)navCenterSize.y / 2);
+	public Vector3 navMapSize => new(navMapSizeVector3.x, STEP, navMapSizeVector3.z);
 	public Vector3 floorCenter => new(0, -STEP / 2, 0);
+	public Vector3 floorSize => new(realSize.x, STEP, realSize.z);
 	public Vector3 wallSizeFront => new(realSize.x, STEP, STEP);
 	public Vector3 wallSizeSides => new(STEP, STEP, realSize.z);
-	public Vector3 floorSize => new(realSize.x, STEP, realSize.z);
-
+	private Vector3 navMapSizeVector3 => new Vector3(navFieldSize.x, 0, navFieldSize.y) * STEP;
 	private Vector3 realSize => new Vector3(gameFieldSize.x, 0, gameFieldSize.y) * STEP;
 	private Vector3 sizeExtends => new Vector3(gameFieldSize.x, 0, gameFieldSize.y) / 2;
 
@@ -61,7 +71,7 @@ public class GizmosDrawer : MonoBehaviour {
 
 		if (isWallsVisible)
 			DrawWalls();
-		
+
 		if (isBackWallVisible)
 			DrawBackWall();
 
@@ -76,6 +86,14 @@ public class GizmosDrawer : MonoBehaviour {
 
 		if (isVerticalCenterLineVisible)
 			DrawVerticalCenterLine();
+
+		if (isNavMapVisible)
+			DrawNavigationMap();
+	}
+
+	private void DrawNavigationMap() {
+		Gizmos.color = navigationMapColor;
+		Gizmos.DrawCube(navigationMapCenter, navMapSize);
 	}
 
 	private void DrawVerticalCenterLine() {

@@ -430,15 +430,19 @@ MonoBehaviour:
   wallsColor: {r: 0, g: 0.70129013, b: 1, a: 0.80784315}
   isFloorVisible: 0
   floorColor: {r: 0.1479174, g: 0.2174672, b: 0.2830189, a: 1}
-  isBackWallVisible: 1
+  isBackWallVisible: 0
   backWallLineNumber: 4
   backWallColor: {r: 0, g: 1, b: 0.051216364, a: 0.8}
   isPaddleZoneVisible: 1
   lineNumber: 2
   paddleZoneColor: {r: 0.91745067, g: 1, b: 0, a: 1}
-  isDeadZoneVisible: 1
+  isDeadZoneVisible: 0
   deadZoneLineNumber: 6
   deadZoneColor: {r: 1, g: 0.09811318, b: 0.09811318, a: 0.68235296}
+  isNavMapVisible: 1
+  navFieldSize: {x: 10, y: 14}
+  navCenterSize: {x: 0, y: 4}
+  navigationMapColor: {r: 0.252549, g: 0.03921568, b: 0.41568628, a: 0.35686275}
   isHorizontalCenterLineVisible: 1
   horizontalCenterLineColor: {r: 1, g: 0.5021508, b: 0, a: 0.98039216}
   isVerticalCenterLineVisible: 1
@@ -479,6 +483,7 @@ MonoBehaviour:
     m_Bits: 64
   path: Assets/Levels/
   fileName: Level
+  wallsName: Walls
   bricksParentName: Bricks
   junkParentName: Junk
   enemiesParentName: Enemies
@@ -1007,6 +1012,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 489300109}
     m_Modifications:
+    - target: {fileID: 5363145671135134800, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
+      propertyPath: avoidancePriority
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 5363145671135134802, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -1021,7 +1030,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5363145671135134802, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.75
+      value: 4.72
       objectReference: {fileID: 0}
     - target: {fileID: 5363145671135134802, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1069,6 +1078,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 489300109}
     m_Modifications:
+    - target: {fileID: 5363145671135134800, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
+      propertyPath: avoidancePriority
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5363145671135134802, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -1446,7 +1459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5363145671135134802, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.25
+      value: 4.18
       objectReference: {fileID: 0}
     - target: {fileID: 5363145671135134802, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1626,6 +1639,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 489300109}
     m_Modifications:
+    - target: {fileID: 5363145671135134800, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
+      propertyPath: avoidancePriority
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 5363145671135134802, guid: e957e54b469057a489a5e49d3a1a79a3, type: 3}
       propertyPath: m_RootOrder
       value: 23

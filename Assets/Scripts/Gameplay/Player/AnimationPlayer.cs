@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 public sealed class AnimationPlayer : MonoBehaviour {
-	private const string ANIMATOR_KEY = "Direction";
-	private static readonly int ANIMATION_HASH = Animator.StringToHash(ANIMATOR_KEY);
+	private const string ANIMATOR_SPEED_DIRECTION_KEY = "Direction";
+	private static readonly int ANIMATION_SPEED_DIRECTION_HASH = Animator.StringToHash(ANIMATOR_SPEED_DIRECTION_KEY);
 
 	[SerializeField] private Animator animator;
 	[Header("Rig Aim Settings")]
@@ -12,7 +12,7 @@ public sealed class AnimationPlayer : MonoBehaviour {
 	[SerializeField] private MultiAimConstraint spineMultiAimConstraint;
 
 	public void MoveDirection(float speed) =>
-			animator.SetFloat(ANIMATION_HASH, speed);
+			animator.SetFloat(ANIMATION_SPEED_DIRECTION_HASH, speed);
 
 	public void SetAimTarget(Transform target) {
 		SetAimTargetTransform(headMultiAimConstraint,target);

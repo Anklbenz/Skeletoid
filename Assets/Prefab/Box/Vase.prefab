@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7750287071112386822}
   - component: {fileID: 7750287071112386818}
   - component: {fileID: 4633295780130322821}
+  - component: {fileID: 929091689706422779}
   m_Layer: 0
   m_Name: Vase
   m_TagString: Untagged
@@ -97,6 +98,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.36, y: 0.37, z: 0.36}
   m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!208 &929091689706422779
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7750287071112386817}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.18, y: 0.18, z: 0.18}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.2, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &6453607107610446633
 PrefabInstance:
   m_ObjectHideFlags: 0

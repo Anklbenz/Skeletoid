@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class BotNavigationSystem : IPauseSensitive {
-	private const float PATH_REFRESH_RATE = 0.5f;
+	private const float PATH_REFRESH_RATE = 1.5f;
 	private readonly Timer _timer;
 	private List<Enemy> _enemies;
 	private Bounds _navSurfaceBounds;
@@ -13,18 +12,27 @@ public class BotNavigationSystem : IPauseSensitive {
 		_timer = timer;
 	}
 
-	public void Initialize(IEnumerable<Enemy> enemies, Bounds navSurfaceBounds) {
+	public void Initialize(List<Enemy> enemies, Bounds navSurfaceBounds) {
 		_navSurfaceBounds = navSurfaceBounds;
-		_enemies = enemies.ToList();
+		_enemies = enemies;
+	}
+	
+	public void SetPause(bool isPaused) {
+		if (isPaused)
+			Stop();
+		else
+			Start();
+
+		_enemies.ForEach(enemy => enemy.SetPause(isPaused));
 	}
 
-	public void Start() {
-		_timer.StartWithAlarm(PATH_REFRESH_RATE);
+	private void Start() {
+		_timer.StartWithRepeatAlarm(PATH_REFRESH_RATE);
 		_timer.AlarmEvent += RefreshPaths;
 	}
 
-	public void Stop() {
-		_timer.Stop();
+	private void Stop() {
+		_timer.Pause();
 		_timer.AlarmEvent -= RefreshPaths;
 	}
 
@@ -34,7 +42,7 @@ public class BotNavigationSystem : IPauseSensitive {
 				continue;
 
 			var target = GetRandomPointInBounds();
-			enemy.SetNewDestination(target);
+			enemy.destination = target;
 		}
 	}
 
@@ -44,10 +52,5 @@ public class BotNavigationSystem : IPauseSensitive {
 		var y = _navSurfaceBounds.max.y;
 		return new Vector3(x, y, z);
 	}
-	public void SetPause(bool isPaused) {
-		if (isPaused)
-			Start();
-		else
-			Stop();
-	}
+
 }

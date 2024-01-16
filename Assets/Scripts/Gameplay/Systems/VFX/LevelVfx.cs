@@ -43,36 +43,36 @@ public class LevelVfx {
 	private void OnBrickHit(Vector3 position) =>
 			_particlesPlayer.PlaySpark(position);
 
-	private void OnBrickDestroy(Brick brick) {
-		PlayExplosion(brick);
+	private void OnDamagebleDestroy(Damageble sender) {
+		PlayExplosion(sender);
 		_cameraShaker.Shake();
 	}
 
-	private void PlayExplosion(Brick brick) {
-		switch (brick.effect) {
+	private void PlayExplosion(Damageble sender) {
+		switch (sender.effect) {
 			case Particles.DustDark:
-				_particlesPlayer.PlayDustDarkExplosion(brick.position);
+				_particlesPlayer.PlayDustDarkExplosion(sender.position);
 				break;
 			case Particles.DustBright:
-				_particlesPlayer.PlayDustBrightExplosion(brick.position);
+				_particlesPlayer.PlayDustBrightExplosion(sender.position);
 				break;
 			case Particles.DustCircle:
-				_particlesPlayer.PlayDustCircleExplosion(brick.position);
+				_particlesPlayer.PlayDustCircleExplosion(sender.position);
 				break;
 			case Particles.Grenade:
-				_particlesPlayer.PlayGrenadeExplosion(brick.position);
+				_particlesPlayer.PlayGrenadeExplosion(sender.position);
 				break;
 			case Particles.Water:
-				_particlesPlayer.PlayWaterExplosion(brick.position);
+				_particlesPlayer.PlayWaterExplosion(sender.position);
 				break;
 			case Particles.Fire:
-				_particlesPlayer.PlayFireExplosion(brick.position);
+				_particlesPlayer.PlayFireExplosion(sender.position);
 				break;
 			case Particles.None:
 				return;
 
 			default:
-				throw new Exception($"Particle type {brick.effect.ToString()} not exists ");
+				throw new Exception($"Particle type {sender.effect.ToString()} not exists ");
 		}
 	}
 
@@ -80,7 +80,7 @@ public class LevelVfx {
 		_levelEvents = levelEvents;
 		_levelEvents.BrickHitEvent += OnBrickHit;
 		_levelEvents.BrickDamagedEvent += OnBrickDamage;
-		_levelEvents.BrickDestroyedEvent += OnBrickDestroy;
+		_levelEvents.DamagebleDestroyedEvent += OnDamagebleDestroy;
 		_levelEvents.WallHitEvent += OnWallHit;
 		_levelEvents.PaddleHitEvent += OnPaddleHit;
 
@@ -92,7 +92,7 @@ public class LevelVfx {
 	public void UnSubscribe() {
 		_levelEvents.BrickHitEvent -= OnBrickHit;
 		_levelEvents.BrickDamagedEvent -= OnBrickDamage;
-		_levelEvents.BrickDestroyedEvent -= OnBrickDestroy;
+		_levelEvents.DamagebleDestroyedEvent  -= OnDamagebleDestroy;
 		_levelEvents.WallHitEvent -= OnWallHit;
 		_levelEvents.PaddleHitEvent -= OnPaddleHit;
 
