@@ -804,6 +804,7 @@ GameObject:
   - component: {fileID: 4379953654239011469}
   - component: {fileID: 4379953654239011457}
   - component: {fileID: 9131331434632669748}
+  - component: {fileID: 7002763981448526936}
   - component: {fileID: 131908898589579492}
   - component: {fileID: 2355270342637404909}
   m_Layer: 0
@@ -846,12 +847,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e956668a28e8f0649bcb94e1356b0a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectType: 0
   boxCollider: {fileID: 131908898589579492}
   ballParent: {fileID: 7942078375253538739}
-  paddleRigidbody: {fileID: 2355270342637404909}
-  animationPlayer: {fileID: 9131331434632669748}
   ballHolder: {fileID: 8113389298673779252}
   skeletonHead: {fileID: 2439769554590234198}
+  animationPlayer: {fileID: 9131331434632669748}
+  inertialMotor: {fileID: 7002763981448526936}
 --- !u!114 &9131331434632669748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +870,19 @@ MonoBehaviour:
   rigBuilder: {fileID: 42958413993941721}
   headMultiAimConstraint: {fileID: 1798762955866508765}
   spineMultiAimConstraint: {fileID: 6500400747841394043}
+--- !u!114 &7002763981448526936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4379953654239011470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a8360774eca2c41b08896113739f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddleRigidbody: {fileID: 2355270342637404909}
 --- !u!65 &131908898589579492
 BoxCollider:
   m_ObjectHideFlags: 0

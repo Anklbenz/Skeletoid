@@ -44,6 +44,12 @@ public class Enemy : Damageble, IPauseSensitive {
 	private void FixedUpdate() =>
 			_skeletonAnimator.Move(navMeshAgent.desiredVelocity);
 
+	protected override void OnCollisionEnter(Collision collision) {
+		base.OnCollisionEnter(collision);
+		if (collision.gameObject.TryGetComponent<IPaddle>(out _))
+			DeathHit();
+	}
+
 #if UNITY_EDITOR
 	private void OnDrawGizmos() =>
 			Gizmos.DrawSphere(navMeshAgent.destination, 0.1f);

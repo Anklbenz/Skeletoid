@@ -111,6 +111,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.Bind<StateSwitcher>().AsSingle();
 		Container.Bind<InitialState>().AsSingle();
 		Container.Bind<InitializeLevelState>().AsSingle();
+		Container.Bind<TrainingState>().AsSingle();
 		Container.Bind<GameMenuState>().AsSingle();
 		Container.Bind<GameState>().AsSingle();
 		Container.Bind<LoseState>().AsSingle();

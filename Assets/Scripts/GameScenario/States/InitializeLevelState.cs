@@ -1,5 +1,7 @@
 using UnityEngine;
 public class InitializeLevelState : State {
+	private bool isTrainingRequired => _progressSystem.isFirstLevel;
+
 	private readonly Gameplay _gameplay;
 	private readonly LevelVfx _levelVfx;
 	private readonly CameraZoom _cameraZoom;
@@ -74,6 +76,10 @@ public class InitializeLevelState : State {
 		_pauseHandler.SetPause(true);
 	}
 
-	private void GotoGameplayState() =>
+	private void GotoGameplayState() {
+		if (isTrainingRequired)
+			switcher.SetState<TrainingState>();
+		else
 			switcher.SetState<GameState>();
+	}
 }

@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
 
 public sealed class GameState : State {
-	private bool isTrainingRequired => !_isTrainingWasShown && _progressSystem.isFirstLevel;
-	
 	private readonly ParticlesPlayer _particlesPlayer;
 	private readonly FlyingService _flyingService;
 	private readonly StarsTimer _starsTimer;
@@ -44,17 +42,13 @@ public sealed class GameState : State {
 		_gameplay.AllBricksDestroyedEvent += OnWin;
 
 		_pauseHandler = pauseHandler;
-	
-		
+
 		_flyingService.CollectedEvent += IncreaseHudItemsCount;
 	}
 
-	public override async void Enter() {
-		if ( isTrainingRequired)
-			await PlayTraining();
-
+	public override void Enter() {
 		_pauseHandler.SetPause(false);
-		
+
 		//If enter is state happened from GameMenu
 		if (_gameplay.state == GameplayState.Lose)
 			_gameplay.Restart();
@@ -69,10 +63,6 @@ public sealed class GameState : State {
 		_starsTimer.Stop();
 	}
 
-	private async UniTask PlayTraining() {
-		await _hudSystem.PlayTraining();
-		_isTrainingWasShown = true;
-	}
 	private void IncreaseHudItemsCount() =>
 			_hudSystem.IncreaseCoinsCount();
 

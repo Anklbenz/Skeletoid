@@ -31,7 +31,7 @@ public sealed class LevelFactory {
 	}
 	private void CreatePlayer(Level map) {
 		map.player = _factory.Create(_config.playerPrefab, map.transform, map.paddleOrigin.position);
-		map.player.maxSpeed = _config.paddleSpeed;
-		map.player.accelerationStep = _config.paddleAcceleration;
+		map.player.motor.maxSpeed = _config.paddleSpeed;
+		map.player.motor.accelerationStep = _config.paddleAcceleration;
 	}
 }

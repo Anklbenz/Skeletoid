@@ -1,1 +1,0 @@
-using UnityEngine;public interface ILaunch {	public Vector3 GetDirectionDependsOnLocalPaddleHitPoint(Vector3 collisionPoint);	public bool isBallHolderActive { get; set; }}

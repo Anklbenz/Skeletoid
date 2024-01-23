@@ -1,18 +1,18 @@
 public class BallLaunch {
 	private const int THROW_POWER_IMPULSE = 4;
 	private Ball _ball;
-	private ILaunch _launchSite;
+	private IPaddle _paddleSite;
 
-	public void Initialize(Ball ball, ILaunch specialReflect) {
+	public void Initialize(Ball ball, IPaddle specialReflect) {
 		_ball = ball;
-		_launchSite = specialReflect;
+		_paddleSite = specialReflect;
 	}
 
 	public void Throw() {
 		_ball.FallOnFloorEvent += OnFallOnFloor;
 
-		var throwDirection = _launchSite.GetDirectionDependsOnLocalPaddleHitPoint(_ball.transform.position);
-		_launchSite.isBallHolderActive = false;
+		var throwDirection = _paddleSite.GetDirectionDependsOnLocalPaddleHitPoint(_ball.transform.position);
+		_paddleSite.isBallHolderActive = false;
 		_ball.direction = throwDirection;
 		_ball.Throw(throwDirection * THROW_POWER_IMPULSE);
 	}
@@ -23,6 +23,6 @@ public class BallLaunch {
 	}
 
 	public void Reload() {
-		_launchSite.isBallHolderActive = true;
+		_paddleSite.isBallHolderActive = true;
 	}
 }
