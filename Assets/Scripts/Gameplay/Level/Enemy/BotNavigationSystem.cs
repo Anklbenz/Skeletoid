@@ -15,26 +15,32 @@ public class BotNavigationSystem : IPauseSensitive {
 	public void Initialize(List<Enemy> enemies, Bounds navSurfaceBounds) {
 		_navSurfaceBounds = navSurfaceBounds;
 		_enemies = enemies;
+		_enemies.ForEach(enemy => enemy.isNavEnabled = true);
 	}
-	
+
 	public void SetPause(bool isPaused) {
 		if (isPaused)
 			Stop();
 		else
 			Start();
-
-		_enemies.ForEach(enemy => enemy.SetPause(isPaused));
 	}
 
 	private void Start() {
 		_timer.StartWithRepeatAlarm(PATH_REFRESH_RATE);
 		_timer.AlarmEvent += RefreshPaths;
+
+		StopEnemies(false);
 	}
 
 	private void Stop() {
 		_timer.Pause();
 		_timer.AlarmEvent -= RefreshPaths;
+
+		StopEnemies(true);
 	}
+
+	private void StopEnemies(bool isPaused) =>
+			_enemies.ForEach(enemy => enemy.isStopped = isPaused);
 
 	private void RefreshPaths() {
 		foreach (var enemy in _enemies) {
@@ -52,5 +58,4 @@ public class BotNavigationSystem : IPauseSensitive {
 		var y = _navSurfaceBounds.max.y;
 		return new Vector3(x, y, z);
 	}
-
 }

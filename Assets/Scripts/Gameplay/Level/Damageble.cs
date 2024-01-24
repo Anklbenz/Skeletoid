@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Damageble : Obstacle {
 	[SerializeField] private int hitPoints;
 	public Vector3 position => transform.position;
+	public Quaternion rotation => transform.rotation;
 	public virtual void Hit(int damage) {
 		hitPoints -= damage;
 		OnHit();

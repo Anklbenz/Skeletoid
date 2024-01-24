@@ -24,9 +24,8 @@ public class LevelVfx {
 		_textDrawer.Initialize();
 	}
 
-	private void OnPaddleHit(Vector3 hitPoint) {
-		_particlesPlayer.PlaySpark(hitPoint);
-	}
+	private void OnPaddleHit(Vector3 hitPoint) =>
+			_particlesPlayer.PlaySpark(hitPoint);
 
 	private void OnComboEvent(Vector3 position, int comboCount) =>
 			_textDrawer.ShowHint(position, $"{COMBO_MESSAGE}{comboCount}");
@@ -68,6 +67,9 @@ public class LevelVfx {
 			case Particles.Fire:
 				_particlesPlayer.PlayFireExplosion(sender.position);
 				break;
+			case Particles.Skull:
+				_particlesPlayer.PlaySkull(sender.position, sender.rotation);
+				break;
 			case Particles.None:
 				return;
 
@@ -92,7 +94,7 @@ public class LevelVfx {
 	public void UnSubscribe() {
 		_levelEvents.BrickHitEvent -= OnBrickHit;
 		_levelEvents.BrickDamagedEvent -= OnBrickDamage;
-		_levelEvents.DamagebleDestroyedEvent  -= OnDamagebleDestroy;
+		_levelEvents.DamagebleDestroyedEvent -= OnDamagebleDestroy;
 		_levelEvents.WallHitEvent -= OnWallHit;
 		_levelEvents.PaddleHitEvent -= OnPaddleHit;
 

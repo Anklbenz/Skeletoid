@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7fc78242a185e45991b4bc88ec3ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectType: 4
+  effectType: 7
   hitPoints: 1
   navMeshAgent: {fileID: 5363145671135134800}
   animator: {fileID: 8225126158856464986}

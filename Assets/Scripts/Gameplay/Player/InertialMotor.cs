@@ -17,9 +17,8 @@ public class InertialMotor : MonoBehaviour, IPauseSensitive {
 		_input.HorizontalAxisChangedEvent += OnInput;
 	}
 
-	public void FixedTick() {
+	public void FixedTick() =>
 		MoveInertial();
-	}
 
 	private void OnInput(float xValue) =>
 			_moveVector = new Vector3(xValue, 0, 0);
@@ -39,10 +38,11 @@ public class InertialMotor : MonoBehaviour, IPauseSensitive {
 		paddleRigidbody.velocity = _velocityVector * _currentSpeed;
 	}
 
-	public void OnDestroy() =>
-			_input.HorizontalAxisChangedEvent -= OnInput;
+	public void OnDestroy() {
+		if (_input == null) return;
+		_input.HorizontalAxisChangedEvent -= OnInput;
+	}
 	public void SetPause(bool isPaused) {
 		paddleRigidbody.isKinematic = isPaused;
 	}
 }
-

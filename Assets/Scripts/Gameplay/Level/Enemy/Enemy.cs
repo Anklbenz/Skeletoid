@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Enemy : Damageble, IPauseSensitive {
+public class Enemy : Damageble {
 	private const float MIN_DISTANCE = 0.2f;
 	private const int LOW_PRIORITY_VALUE = 15;
 	private const int HIGH_PRIORITY_VALUE = 50;
@@ -16,6 +16,12 @@ public class Enemy : Damageble, IPauseSensitive {
 	public event Action<Vector3> HitEvent, DamagedEvent;
 	private SkeletonAnimator _skeletonAnimator;
 
+	public bool isNavEnabled {
+		set => navMeshAgent.enabled = value;
+	}
+	public bool isStopped {
+		set => navMeshAgent.isStopped = value;
+	}
 	public bool isPathComplete => (!navMeshAgent.pathPending && !navMeshAgent.hasPath) || navMeshAgent.remainingDistance < MIN_DISTANCE;
 
 	public Vector3 destination {
@@ -27,6 +33,7 @@ public class Enemy : Damageble, IPauseSensitive {
 		navMeshAgent.updateRotation = false;
 		navMeshAgent.avoidancePriority = Random.Range(LOW_PRIORITY_VALUE, HIGH_PRIORITY_VALUE);
 		navMeshAgent.speed = Random.Range(speedInterval.x, speedInterval.y);
+		navMeshAgent.enabled = navMeshAgent.isOnNavMesh;
 	}
 
 	protected override void Reflect(IBall ball, Collision collision) {
@@ -39,10 +46,8 @@ public class Enemy : Damageble, IPauseSensitive {
 			HitEvent?.Invoke(transform.position);
 	protected override void OnDestroyed() =>
 			NoLivesLeft?.Invoke(this);
-	public void SetPause(bool isPaused) =>
-			navMeshAgent.isStopped = isPaused;
 	private void FixedUpdate() =>
-			_skeletonAnimator.Move(navMeshAgent.desiredVelocity);
+			_skeletonAnimator.PlayMove(navMeshAgent.desiredVelocity);
 
 	protected override void OnCollisionEnter(Collision collision) {
 		base.OnCollisionEnter(collision);

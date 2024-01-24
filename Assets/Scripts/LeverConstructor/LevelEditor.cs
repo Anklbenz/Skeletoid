@@ -70,7 +70,8 @@ public class LevelEditor : MonoBehaviour {
 		List<Enemy> enemies = new();
 		foreach (Transform child in parent) {
 			if (!child.TryGetComponent<Enemy>(out var enemy)) continue;
-			var enemyCopy = CreateEnemy(container, enemy); 
+			var enemyCopy = CreateEnemy(container, enemy);
+	
 			enemies.Add(enemyCopy);
 
 		}

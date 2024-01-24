@@ -4,12 +4,12 @@ public class ParticlesPlayer {
 	private const string PARTICLES_PARENT_NAME = "ParticlesParent";
 
 	private readonly ParticlesConfig _config;
-	private PoolObjects<ParticleSystem> _dustDarkPool, _dustBrightPool, _dustCirclePool, _firePool, _waterPool, _grenadePool, _sparkPool, _damagePool;
+	private PoolObjects<ParticleSystem> _dustDarkPool, _dustBrightPool, _dustCirclePool, _firePool, _waterPool, _grenadePool, _sparkPool, _damagePool, _skullPool;
 	private GameObject _particlesParent;
 
 	public ParticlesPlayer(ParticlesConfig gameObjectsConfig) {
 		_config = gameObjectsConfig;
-	//	_backWallParticles = Object.Instantiate(_config.backWallParticlesPrefab);
+		//	_backWallParticles = Object.Instantiate(_config.backWallParticlesPrefab);
 	}
 	public void Initialize() {
 		_particlesParent = new GameObject(PARTICLES_PARENT_NAME);
@@ -21,6 +21,7 @@ public class ParticlesPlayer {
 		_waterPool = new PoolObjects<ParticleSystem>(_config.waterParticlesPrefab, _config.waterPoolSize, true, _particlesParent.transform);
 		_grenadePool = new PoolObjects<ParticleSystem>(_config.grenadeParticlesPrefab, _config.grenadePoolSize, true, _particlesParent.transform);
 		_damagePool = new PoolObjects<ParticleSystem>(_config.damagePrefab, _config.damagePoolSize, true, _particlesParent.transform);
+		_skullPool = new PoolObjects<ParticleSystem>(_config.skullParticlePrefab, _config.skullPoolSize, true, _particlesParent.transform);
 	}
 
 	public void PlaySpark(Vector3 position) =>
@@ -46,7 +47,14 @@ public class ParticlesPlayer {
 
 	public void PlayDamage(Vector3 position) =>
 			PlayOnPosition(_damagePool.GetFreeElement(), position);
-	
+
+	public void PlaySkull(Vector3 position, Quaternion rotation) =>
+			PlayOnPose(_skullPool.GetFreeElement(), position, rotation);
+
+	private void PlayOnPose(ParticleSystem particle, Vector3 position, Quaternion rotation) {
+		particle.transform.rotation = rotation;
+		PlayOnPosition(particle, position);
+	}
 	private void PlayOnPosition(ParticleSystem particle, Vector3 position) {
 		particle.transform.position = position;
 		particle.Play();

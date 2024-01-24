@@ -15,26 +15,19 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	private List<Brick> junkList => _level.junk;
 	private List<Enemy> enemiesList => _level.enemies;
 
-	private readonly BonusSystem _bonusSystem;
 	private readonly BallLaunch _ballLaunch;
 	private readonly BallSpeedIncrease _ballSpeedIncrease;
-	private readonly BotNavigationSystem _botNavigationSystem;
 	private readonly ILevelEvents _levelEvents;
 	private readonly IInput _input;
 	private Level _level;
 
-	public Gameplay(
-			BallLaunch ballLaunch,
-			BonusSystem bonusSystem,
+	public Gameplay(BallLaunch ballLaunch,
 			BallSpeedIncrease ballSpeedIncrease,
-			BotNavigationSystem botNavigationSystem,
 			ILevelEvents levelEvents,
 			IInput input) {
 	
 		_ballLaunch = ballLaunch;
-		_bonusSystem = bonusSystem;
 		_ballSpeedIncrease = ballSpeedIncrease;
-		_botNavigationSystem = botNavigationSystem;
 		_levelEvents = levelEvents;
 		_input = input;
 		SubscribeEvents();
@@ -66,8 +59,6 @@ public sealed class Gameplay : IPauseSensitive, IDisposable {
 	public void SetPause(bool isPaused) {
 		player.SetPause(isPaused);
 		ball.SetPause(isPaused);
-		_bonusSystem.SetPause(isPaused);
-		_botNavigationSystem.SetPause(isPaused);
 	}
 
 	private void OnDeadZoneReached() {

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worlds:
   - level:
-      levelPrefab: {fileID: 3032697494607248283, guid: f1bb50015d3ea8f4b9fd1523bcdf5a95, type: 3}
+      levelPrefab: {fileID: 765592739210227286, guid: a62eb99ce4d385f47b0e2fd08b85dfbb, type: 3}
       environmentPrefab: {fileID: 5460121658281674284, guid: 7eba43d843e926b48823f2bac5d5be81, type: 3}
     worldName: FirstJourney
     livesCount: 3
