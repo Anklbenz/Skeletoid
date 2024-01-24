@@ -28,3 +28,5 @@ MonoBehaviour:
   firePoolAmount: 3
   damageParticles: {fileID: 198126016265271784, guid: b1c799877ffba4546a7c9ca0cf1cd88e, type: 3}
   damagePoolAmount: 3
+  skullParticles: {fileID: 198080878838276266, guid: 96507105c4d3f22449820c5766e89e06, type: 3}
+  skullPoolAmount: 2

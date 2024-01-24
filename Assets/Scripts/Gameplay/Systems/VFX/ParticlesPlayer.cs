@@ -49,7 +49,8 @@ public class ParticlesPlayer {
 			PlayOnPosition(_damagePool.GetFreeElement(), position);
 
 	public void PlaySkull(Vector3 position, Quaternion rotation) =>
-			PlayOnPose(_skullPool.GetFreeElement(), position, rotation);
+			//PlayOnPose(_skullPool.GetFreeElement(), position, rotation);
+			PlayOnPosition(_skullPool.GetFreeElement(), position);
 
 	private void PlayOnPose(ParticleSystem particle, Vector3 position, Quaternion rotation) {
 		particle.transform.rotation = rotation;

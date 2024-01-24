@@ -28,7 +28,7 @@ public class BotNavigationSystem : IPauseSensitive {
 	private void Start() {
 		_timer.StartWithRepeatAlarm(PATH_REFRESH_RATE);
 		_timer.AlarmEvent += RefreshPaths;
-
+		RefreshPaths();
 		StopEnemies(false);
 	}
 

@@ -162,6 +162,10 @@ MonoBehaviour:
   isDeadZoneVisible: 1
   deadZoneLineNumber: 5
   deadZoneColor: {r: 0.6886792, g: 0.20400496, b: 0.4877578, a: 0.4392157}
+  isNavMapVisible: 1
+  navFieldSize: {x: 0, y: 0}
+  navCenterSize: {x: 0, y: 0}
+  navigationMapColor: {r: 1, g: 1, b: 1, a: 1}
   isHorizontalCenterLineVisible: 1
   horizontalCenterLineColor: {r: 0.9716981, g: 0.44815856, b: 0.10450332, a: 0.3254902}
   isVerticalCenterLineVisible: 1
@@ -538,7 +542,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.9581652, b: 0.7882353, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
