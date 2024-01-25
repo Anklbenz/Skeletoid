@@ -29,8 +29,10 @@ public class SensorInput : IInput, ITickable {
 		var swipeHappened = TryDetectSwipe();
 		if (swipeHappened) return;
 
-		if (touched) {
+		if(Input.touchCount > 0)
 			AnyTouchedNotify();
+		
+		if (touched) {
 			var horizontalCenter = Screen.width / 2;
 
 			if (horizontalCenter > touchOne.position.x)

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b041ada1fb08546886daf88af4904d, type: 3}
+  m_Name: SoundConfig
+  m_EditorClassIdentifier: 
+  sound: {fileID: 4742338371076813720, guid: 920cc5e0b56f2484a8c6c20ff265e835, type: 3}
+  poolAmount: 3
+  woodHit: {fileID: 8300000, guid: 649028ed8006c6b4fa080e38a36b5e51, type: 3}
+  steelHit: {fileID: 8300000, guid: cd80031a4a893b2449b2e1408bd8d161, type: 3}
+  skeletonHit: {fileID: 8300000, guid: 1d3f16ea5dc37a74489dd60629c25a46, type: 3}
+  wallHit: {fileID: 8300000, guid: f7fc6e506fb9c13419c123d6f423c116, type: 3}
+  paddleHit: {fileID: 8300000, guid: f7fc6e506fb9c13419c123d6f423c116, type: 3}

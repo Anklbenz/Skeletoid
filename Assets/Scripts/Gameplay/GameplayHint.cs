@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+/*
 public class GameplayHint : IDisposable {
 	private readonly IInput _input;
 	private readonly Timer _timer;
@@ -30,4 +31,4 @@ public class GameplayHint : IDisposable {
 
 	public void Dispose() =>
 			_input.AnyPressedEvent -= OnAnyKeyPressed;
-}
+}*/

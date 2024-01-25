@@ -209,6 +209,7 @@ MonoBehaviour:
   coinsConfig: {fileID: 11400000, guid: 08260542e970d3b41bb07433fa8e7099, type: 2}
   textDrawerConfig: {fileID: 11400000, guid: 6b726e250292dca469584302b049bbd7, type: 2}
   inputConfig: {fileID: 11400000, guid: d8ab38f33be2654449eca745ee50a6e0, type: 2}
+  soundConfig: {fileID: 11400000, guid: dca4183ca75ba114799adb44d20ff5ec, type: 2}
   mainCamera: {fileID: 1843323010}
   zoomedCamera: {fileID: 336685737}
 --- !u!1001 &336685736

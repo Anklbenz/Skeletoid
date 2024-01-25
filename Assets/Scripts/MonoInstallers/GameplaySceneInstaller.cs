@@ -12,6 +12,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private FlyingCoinsConfig coinsConfig;
 	[SerializeField] private TextDrawerConfig textDrawerConfig;
 	[SerializeField] private InputConfig inputConfig;
+	[SerializeField] private SoundConfig soundConfig;
 	[SerializeField] private CinemachineVirtualCamera mainCamera;
 	[SerializeField] private CinemachineVirtualCamera zoomedCamera;
 
@@ -24,7 +25,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallLoseSystem();
 		InstallWinSystem();
 		InstallHudSystem();
-		InstallParticlesService();
+		InstallVFX();
 		InstallFlyingCoinService();
 		InstallGameScenario();
 		InstallInitializeForThis();
@@ -96,12 +97,14 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		Container.BindInterfacesAndSelfTo<Gameplay>().AsSingle();
 	}
 
-	private void InstallParticlesService() {
+	private void InstallVFX() {
 		Container.Bind<ParticlesConfig>().FromInstance(particlesConfig);
 		Container.Bind<ParticlesPlayer>().AsSingle();
 		Container.Bind<TextDrawer>().AsSingle();
 		Container.Bind<TextDrawerConfig>().FromInstance(textDrawerConfig);
 		Container.Bind<LevelVfx>().AsSingle();
+		Container.Bind<SoundsPlayer>().AsSingle();
+		Container.Bind<SoundConfig>().FromInstance(soundConfig);
 	}
 
 	private void InstallInitializeForThis() =>

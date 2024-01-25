@@ -10,7 +10,6 @@ public class HudSystem : IFlyingTarget {
 
 	private HudView _view;
 	private int _hudCoinsCount;
-	private UniTaskCompletionSource _trainingSource;
 
 	public HudSystem(ProgressSystem progress) {
 		_progress = progress;
@@ -19,7 +18,6 @@ public class HudSystem : IFlyingTarget {
 	public void Initialize(HudView view) {
 		_view = view;
 		_view.PauseClickedEvent += OnPauseValueChanged;
-		_view.TrainRejectedEvent += OnTrainingRejected;
 		Refresh();
 	}
 	
@@ -31,18 +29,10 @@ public class HudSystem : IFlyingTarget {
 			_view.Close();
 	}
 
-	public async UniTask AwaitPlayTraining() {
-		_trainingSource = new UniTaskCompletionSource();
-		_view.isHudVisible = false;//StartTrainingAnimation();
-		_view.isTrainingVisible = true;
-
-		await _trainingSource.Task;
-		
-		_view.isHudVisible = true;//StartTrainingAnimation();
-		_view.isTrainingVisible = false;
+	public void PlayTraining(bool isPaying) {
+		_view.isHudVisible = !isPaying;
+		_view.isTrainingVisible = isPaying;
 	}
-	private void OnTrainingRejected() =>
-		_trainingSource.TrySetResult();
 
 	public void IncreaseCoinsCount(int count = 1) {
 		_hudCoinsCount += count;

@@ -1,19 +1,27 @@
-using Cysharp.Threading.Tasks;
-
 public class TrainingState : State {
 	private readonly StateSwitcher _stateSwitcher;
 	private readonly HudSystem _hudSystem;
+	private readonly IInput _input;
 
-	public TrainingState(StateSwitcher stateSwitcher, HudSystem hudSystem) : base(stateSwitcher) {
+	public TrainingState(StateSwitcher stateSwitcher, HudSystem hudSystem, IInput input) : base(stateSwitcher) {
 		_stateSwitcher = stateSwitcher;
 		_hudSystem = hudSystem;
+		_input = input;
 	}
 
-	public override async void Enter() =>
-			await PlayTraining();
+	public override void Enter() {
+		PlayTraining();
+		_input.AnyPressedEvent += CancelTraining;
+	}
 
-	private async UniTask PlayTraining() {
-		await _hudSystem.AwaitPlayTraining();
+	public override void Exit() =>
+			_input.AnyPressedEvent -= CancelTraining;
+
+	private void PlayTraining() =>
+			_hudSystem.PlayTraining(true);
+
+	private void CancelTraining() {
+		_hudSystem.PlayTraining(false);
 		_stateSwitcher.SetState<GameState>();
 	}
 }

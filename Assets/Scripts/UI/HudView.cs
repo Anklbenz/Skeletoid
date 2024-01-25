@@ -10,8 +10,7 @@ public class HudView : View {
 	[SerializeField] private TMP_Text skullsCountText, coinsCountText;
 	[SerializeField] private Button pauseButton;
 	[SerializeField] private AnimatedView hudParent, trainingAnimationParent;
-	[SerializeField] private Button trainingRejectButton;
-
+	
 	public event Action PauseClickedEvent, TrainRejectedEvent;
 	public Transform coinsTransform => coinsCountText.transform;
 
@@ -45,12 +44,9 @@ public class HudView : View {
 		}
 		get => hudParent.gameObject.activeInHierarchy;
 	}
-	private void Awake() {
+	private void Awake() =>
 		pauseButton.onClick.AddListener(PauseClickNotify);
-		trainingRejectButton.onClick.AddListener(TrainingRejectNotify);
-	}
-	private void TrainingRejectNotify() =>
-			TrainRejectedEvent?.Invoke();
+	
 	private void PauseClickNotify() =>
 			PauseClickedEvent?.Invoke();
 
