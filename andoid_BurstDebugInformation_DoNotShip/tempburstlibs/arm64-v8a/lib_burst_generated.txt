@@ -138,6 +138,7 @@ Library: lib_burst_generated
 --compilation-defines=MODULE_PHYSICS_EXISTS
 --compilation-defines=MODULE_PHYSICS_2D_EXISTS
 --compilation-defines=MODULE_PARTICLE_SYSTEM_EXISTS
+--compilation-defines=NMC_CAN_ACCESS_TERRAIN
 --compilation-defines=CINEMACHINE_TIMELINE
 --compilation-defines=CINEMACHINE_PHYSICS_2D
 --compilation-defines=CINEMACHINE_PHYSICS
@@ -161,6 +162,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\mariukh\Skeletoid\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Core.dll
 --root-assembly=C:\Users\mariukh\Skeletoid\Temp\StagingArea\Data\Managed\Unity.Animation.Rigging.dll
 --root-assembly=C:\Users\mariukh\Skeletoid\Temp\StagingArea\Data\Managed\Unity.Services.Core.Environments.Internal.dll
+--root-assembly=C:\Users\mariukh\Skeletoid\Temp\StagingArea\Data\Managed\Unity.AI.Navigation.dll
 --root-assembly=C:\Users\mariukh\Skeletoid\Temp\StagingArea\Data\Managed\Unity.TextMeshPro.dll
 --root-assembly=C:\Users\mariukh\Skeletoid\Temp\StagingArea\Data\Managed\Unity.Burst.dll
 --root-assembly=C:\Users\mariukh\Skeletoid\Temp\StagingArea\Data\Managed\Unity.RenderPipeline.Universal.ShaderLibrary.dll

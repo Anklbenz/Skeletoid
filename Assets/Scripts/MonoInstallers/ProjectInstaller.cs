@@ -8,8 +8,13 @@ public class ProjectInstaller : MonoInstaller, IInitializable {
 	[SerializeField] private GameConfig gameConfig;
 	[SerializeField] private Canvas projectCanvasPrefab;
 	[SerializeField] private FadeView sceneFadeTransitionsView;
+	
 	[SerializeField] private bool logEnabled;
-	[SerializeField] private GUIDebugLog logPrefab;
+	[SerializeField] private GUIDebugLog logPrefab;	
+	[SerializeField] private bool fpsEnabled;
+	[SerializeField] private FpsCounter fpsPrefab;
+
+	[SerializeField] private int targetFps;
 
 	public override void InstallBindings() {
 		InstallSceneLoader();
@@ -18,13 +23,16 @@ public class ProjectInstaller : MonoInstaller, IInitializable {
 		InstallProgressDataSystem();
 		InstallLivesRecoveryTimer();
 		InstallInitializableForThis();
+		InstallWebServices();
 	}
+	private void InstallWebServices() {
+		Container.Bind<WebServices>().AsSingle();
+	}
+
 	private void InstallInitializableForThis() {
 		Container.Bind<IInitializable>().FromInstance(this).AsSingle();
 	}
-
-
-
+	
 	private void InstallProjectStorage() {
 		Container.Bind<WorldsConfig>().FromInstance(worldsConfig).AsSingle();
 		Container.Bind<ProgressData>().AsSingle();
@@ -46,8 +54,13 @@ public class ProjectInstaller : MonoInstaller, IInitializable {
 		InitializeSceneLoaderWithFade();
 	}
 	private void InitializeSceneLoaderWithFade() {
+		Application.targetFrameRate = targetFps;
+		
 		if(logEnabled)
 			Container.InstantiatePrefabForComponent<GUIDebugLog>(logPrefab, this.transform);
+		
+		if(fpsEnabled)
+			Container.InstantiatePrefabForComponent<FpsCounter>(fpsPrefab, this.transform);
 		
 		var projectCanvas = Container.InstantiatePrefabForComponent<Canvas>(projectCanvasPrefab, this.transform);
 		var fadeView = Container.InstantiatePrefabForComponent<FadeView>(sceneFadeTransitionsView, projectCanvas.transform);

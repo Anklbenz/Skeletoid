@@ -1,3 +1,4 @@
+using UnityEngine;
 public class GameMenuState : State {
 	private readonly StateSwitcher _stateSwitcher;
 	private readonly GameMenu _gameMenu;
@@ -11,7 +12,9 @@ public class GameMenuState : State {
 		_gameMenu.ContinueEvent += OnResume;
 		_gameMenu.RestartEvent += OnRestart;
 		_gameMenu.QuitEvent += OnQuit;
+		_gameMenu.VolumeChangedEvent += OnVolumeChanged;
 	}
+
 
 	public override void Enter() {
 		_gameMenu.Open();
@@ -26,6 +29,11 @@ public class GameMenuState : State {
 		//reset score
 		_stateSwitcher.SetState<InitializeLevelState>();
 		_gameMenu.Close();
+	}
+
+	private void OnVolumeChanged(float volume) {
+		AudioListener.volume = volume;
+		_progressSystem.SaveVolumeValue(volume);
 	}
 
 	private void OnQuit() {

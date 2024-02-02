@@ -1,13 +1,17 @@
 using System;
+using UnityEngine;
 
 public class GameMenu {
+	public event Action<float> VolumeChangedEvent; 
 	public event Action ContinueEvent, RestartEvent, QuitEvent;
 	private PauseView _view;
+
 	public void Initialize(PauseView view) {
 		_view = view;
 		_view.ContinueEvent += OnContinueSelected;
 		_view.RestartEvent += OnRestartSelected;
 		_view.QuitEvent += OnQuitSelected;
+		_view.VolumeChangedEvent += OnVolumeChanged;
 	}
 
 	public void Open() =>
@@ -24,4 +28,6 @@ public class GameMenu {
 
 	private void OnRestartSelected() =>
 			RestartEvent?.Invoke();
+	private void OnVolumeChanged(float volume) =>
+			VolumeChangedEvent?.Invoke(volume);
 }

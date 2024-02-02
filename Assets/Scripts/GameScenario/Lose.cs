@@ -9,12 +9,16 @@ public class Lose {
 
 	private readonly GameplayConfig _gameplayConfig;
 	private readonly ProgressSystem _progressSystem;
-	//private readonly CameraSystem _cameraSystem;
+	private readonly WebServices _webServices;
 	private LoseView _view;
 
-	public Lose(GameplayConfig gameplayConfig, ProgressSystem progressSystem) {
+	public Lose(GameplayConfig gameplayConfig,
+			ProgressSystem progressSystem,
+			WebServices webServices) {
+
 		_gameplayConfig = gameplayConfig;
 		_progressSystem = progressSystem;
+		_webServices = webServices;
 	}
 
 	public void Initialize(LoseView view) {
@@ -32,9 +36,11 @@ public class Lose {
 		_view.SetLivesWithAnimation(livesCount + 1, livesCount, SPEND_LIFE_TEXT);
 		_view.Open();
 	}
-	
-	private void OnShowAdsClicked() {
-		Debug.Log("Show Ads");
+
+	private async void OnShowAdsClicked() {
+		var rewardEarned = await _webServices.ShowRewardVideo();
+		if (!rewardEarned) return;
+
 		var livesCount = _progressSystem.AddLife();
 		SetContinueButtonEnabled(livesCount > 0);
 		_view.SetLivesWithAnimation(livesCount - 1, livesCount, ADD_LIFE_TEXT);

@@ -34,12 +34,23 @@ public sealed class GameplaySceneInstaller : MonoInstaller, IInitializable {
 		InstallStarsTimer();
 		InstallBonus();
 		InstallControls();
+	
 	}
 	private void InstallControls() {
 		Container.Bind<InputConfig>().FromInstance(inputConfig).AsSingle();
-		Container.BindInterfacesAndSelfTo<KeyboardInput>().AsSingle();
-		//Container.BindInterfacesAndSelfTo<SensorInput>().AsSingle();
+		Container.Bind<ITickable>().To<IInput>().FromResolve();
+		if (Application.isMobilePlatform)
+			InstallTouchInput();
+		else
+			InstallKeyboardInput();
+
 	}
+	private void InstallKeyboardInput() =>
+		Container.Bind<IInput>().To<KeyboardInput>().AsSingle();
+	
+	private void InstallTouchInput() =>
+		Container.Bind<IInput>().To<TouchInput>().AsSingle();
+	
 	private void InstallTimer() {
 		//
 		var tickableTracker = new TickableTracker();

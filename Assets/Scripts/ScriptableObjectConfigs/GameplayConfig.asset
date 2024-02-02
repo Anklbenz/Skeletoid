@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 6919904815795975566, guid: 8abbce41e8e4e944b8c2f9adc34ea5ad, type: 3}
   damage: 1
-  startSpeed: 3.5
+  startSpeed: 4
   boostMultiplier: 1.0007
   permissibleAngleValue: 20
   correctionStepValue: 4
@@ -24,3 +24,4 @@ MonoBehaviour:
   showingAdsCount: 1
   delayBeforeWinSystemActivateValue: 300
   lookAtSkeletonDelay: 700
+  gameplayHintDelaySeconds: 700

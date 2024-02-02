@@ -624,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4379953654239011470, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c382ff84adb80f5438bd5a8cb1f19954, type: 3}
@@ -875,9 +875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef643c21e78b5c4bb03fde54171da6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: e8d87d88d57dd2f4abeab271b7849122, type: 3}
-  sp: {fileID: 4742338371076813720, guid: 920cc5e0b56f2484a8c6c20ff265e835, type: 3}
-  d: {fileID: 0}
 --- !u!4 &775984272
 Transform:
   m_ObjectHideFlags: 0

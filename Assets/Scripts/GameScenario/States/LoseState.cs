@@ -11,7 +11,7 @@ public class LoseState : State {
 			StateSwitcher stateSwitcher,
 			GameplayConfig gameplayConfig,
 			Lose lose,
-			PauseHandler pauseHandler,
+			
 			CameraZoom cameraZoom) : base(stateSwitcher) {
 
 	

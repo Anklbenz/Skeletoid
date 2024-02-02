@@ -5,6 +5,8 @@ public class ProgressData
 	public readonly Wallet currentCoinsWallet = new(0);
 	public readonly Wallet statsWallet = new(0);
 	public readonly Wallet keysWallet = new (2);
+
+	public float volume;
 	public WorldData[] worldsInfo { get; set; }
 	public long lastKeySpendTimeSeconds;
 }

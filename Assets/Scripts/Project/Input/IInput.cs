@@ -1,6 +1,6 @@
-using System;
+using System;using Zenject;
 
-public interface IInput {
+public interface IInput: ITickable {
 	event Action<float> HorizontalAxisChangedEvent;
 	event Action ShotEvent, AnyPressedEvent;
 

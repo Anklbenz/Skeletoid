@@ -1,5 +1,4 @@
 using System;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class HudSystem : IFlyingTarget {
@@ -9,6 +8,7 @@ public class HudSystem : IFlyingTarget {
 	private readonly ProgressSystem _progress;
 
 	private HudView _view;
+
 	private int _hudCoinsCount;
 
 	public HudSystem(ProgressSystem progress) {
@@ -16,11 +16,12 @@ public class HudSystem : IFlyingTarget {
 	}
 
 	public void Initialize(HudView view) {
+		var isMobile = Application.isMobilePlatform;
 		_view = view;
+		_view.SetCurrentTrainingAnimation(isMobile);
 		_view.PauseClickedEvent += OnPauseValueChanged;
 		Refresh();
 	}
-	
 
 	public void SetActive(bool isActive) {
 		if (isActive)
@@ -29,9 +30,14 @@ public class HudSystem : IFlyingTarget {
 			_view.Close();
 	}
 
-	public void PlayTraining(bool isPaying) {
-		_view.isHudVisible = !isPaying;
-		_view.isTrainingVisible = isPaying;
+	public void ShowTraining() {
+		_view.isHudVisible = false;
+		_view.isTrainingVisible = true;
+	}
+
+	public void HideTraining() {
+		_view.isHudVisible = true;
+		_view.isTrainingVisible = false;
 	}
 
 	public void IncreaseCoinsCount(int count = 1) {

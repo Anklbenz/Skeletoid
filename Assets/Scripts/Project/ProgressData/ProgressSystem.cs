@@ -130,4 +130,7 @@ public class ProgressSystem {
 
 	public void ResetCurrentCoins() =>
 			_progressData.currentCoinsWallet.Reset();
+
+	public void SaveVolumeValue(float volumeValue) =>
+			_progressData.volume = volumeValue;
 }

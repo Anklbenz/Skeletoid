@@ -1,8 +1,7 @@
 using System;
-using Zenject;
 using UnityEngine;
 
-public class KeyboardInput : IInput, ITickable {
+public class KeyboardInput : IInput/*, ITickable*/ {
 	public event Action<float> HorizontalAxisChangedEvent;
 	public event Action ShotEvent, AnyPressedEvent;
 	public bool enabled { get; set; } = true;

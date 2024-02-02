@@ -9,10 +9,16 @@ public class HudView : View {
 	[SerializeField] private string playTrigger = "Play";
 	[SerializeField] private TMP_Text skullsCountText, coinsCountText;
 	[SerializeField] private Button pauseButton;
-	[SerializeField] private AnimatedView hudParent, trainingAnimationParent;
-	
-	public event Action PauseClickedEvent, TrainRejectedEvent;
+	[SerializeField] private AnimatedView hudParent;
+	[SerializeField] private View trainingTouchAnimation, trainingKeyboardAnimation;
+
+	public event Action PauseClickedEvent;
 	public Transform coinsTransform => coinsCountText.transform;
+	private View _currentInputTrainingView;
+
+	public void SetCurrentTrainingAnimation(bool isMobile) {
+		_currentInputTrainingView = isMobile ? trainingTouchAnimation : trainingKeyboardAnimation;
+	}
 
 	public string skullsCount {
 		get => skullsCountText.text;
@@ -27,14 +33,12 @@ public class HudView : View {
 	public bool isTrainingVisible {
 		set {
 			if (value)
-				trainingAnimationParent.Open();
+				_currentInputTrainingView.Open();
 			else
-				trainingAnimationParent.Close();
+				_currentInputTrainingView.Close();
 		}
-
-		get => trainingAnimationParent.gameObject.activeInHierarchy;
 	}
-
+	
 	public bool isHudVisible {
 		set {
 			if (value)
@@ -45,8 +49,8 @@ public class HudView : View {
 		get => hudParent.gameObject.activeInHierarchy;
 	}
 	private void Awake() =>
-		pauseButton.onClick.AddListener(PauseClickNotify);
-	
+			pauseButton.onClick.AddListener(PauseClickNotify);
+
 	private void PauseClickNotify() =>
 			PauseClickedEvent?.Invoke();
 

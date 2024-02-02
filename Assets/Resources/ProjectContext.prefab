@@ -75,10 +75,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenesIndexes: {fileID: 11400000, guid: e4cd18b60c7b4144897a3b630b83711c, type: 2}
-  inputConfig: {fileID: 11400000, guid: d8ab38f33be2654449eca745ee50a6e0, type: 2}
   worldsConfig: {fileID: 11400000, guid: b7ac23be6bcbf864b935291db5743282, type: 2}
   gameConfig: {fileID: 11400000, guid: c7d7ac9945470304bb3c33563bd1f92f, type: 2}
   projectCanvasPrefab: {fileID: 6470354764147803031, guid: db13447ff52720b45ab4db82b4bdfb74, type: 3}
   sceneFadeTransitionsView: {fileID: 8812370178881013719, guid: 88ebae7d15b1c794e90f72a74a689334, type: 3}
   logEnabled: 1
   logPrefab: {fileID: 1682711050981622105, guid: 8de5edca9e246f84795d53ecaee39945, type: 3}
+  fpsEnabled: 1
+  fpsPrefab: {fileID: 8664280554969647182, guid: 6463db7c88f45704eba3dce33e1d80c4, type: 3}
+  targetFps: 200
