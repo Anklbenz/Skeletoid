@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using YG;
 
 public class WebServices {
@@ -11,22 +12,24 @@ public class WebServices {
 
 	public async UniTask<bool> ShowRewardVideo() {
 		_videoRewardCompletionSource = new UniTaskCompletionSource<bool>();
-		//_yandexGame.CloseVideoAd.AddListener(OnVideoRewardSuccess);
-		_yandexGame.RewardVideoAd.AddListener(OnVideoRewardSuccess);
-		_yandexGame.ErrorVideoAd.AddListener(OnVideoError);
 		_yandexGame._RewardedShow(0);
+
+		YandexGame.RewardVideoEvent += OnVideoRewardSuccess;
+		YandexGame.ErrorVideoEvent += OnVideoError;
 
 		var result = await _videoRewardCompletionSource.Task;
 
-		_yandexGame.CloseVideoAd.RemoveListener(OnVideoRewardSuccess);
-		_yandexGame.ErrorVideoAd.RemoveListener(OnVideoError);
+		YandexGame.ErrorVideoEvent -= OnVideoError;
+		YandexGame.RewardVideoEvent -= OnVideoRewardSuccess;
 
 		return result;
 	}
-	private void OnVideoRewardSuccess() {
+	private void OnVideoRewardSuccess(int i) {
+		Debug.Log("OnReward");
 		_videoRewardCompletionSource.TrySetResult(true);
 	}
 	private void OnVideoError() {
+		Debug.Log("OnError");
 		_videoRewardCompletionSource.TrySetResult(false);
 	}
 }

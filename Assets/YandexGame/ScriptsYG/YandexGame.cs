@@ -648,7 +648,7 @@ namespace YG
 
             CloseVideoAd.Invoke();
             CloseVideoEvent?.Invoke();
-
+Debug.Log("Closed "+ rewardAdResult);
             if (rewardAdResult == RewardAdResult.Success)
             {
                 RewardVideoAd.Invoke();

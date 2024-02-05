@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class Lose {
@@ -39,9 +40,12 @@ public class Lose {
 
 	private async void OnShowAdsClicked() {
 		var rewardEarned = await _webServices.ShowRewardVideo();
+		Debug.Log("Reward is "+ rewardEarned);
 		if (!rewardEarned) return;
-
+         
+		Debug.Log("Lives "+ _progressSystem.livesCount);
 		var livesCount = _progressSystem.AddLife();
+		Debug.Log("Lives after adding "+ livesCount);
 		SetContinueButtonEnabled(livesCount > 0);
 		_view.SetLivesWithAnimation(livesCount - 1, livesCount, ADD_LIFE_TEXT);
 	}
