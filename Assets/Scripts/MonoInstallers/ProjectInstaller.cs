@@ -26,7 +26,7 @@ public class ProjectInstaller : MonoInstaller, IInitializable {
 		InstallWebServices();
 	}
 	private void InstallWebServices() {
-		Container.Bind<WebServices>().AsSingle();
+		Container.Bind<AdvSDK>().AsSingle();
 	}
 
 	private void InstallInitializableForThis() {

@@ -9,8 +9,8 @@ public class BootInstaller : MonoInstaller, IInitializable {
 	}
 
 	public void Initialize() {
-		var webServices = Container.Resolve<WebServices>();
-		webServices.Initialize(yandexGame);
+		var advSDk = Container.Resolve<AdvSDK>();
+		advSDk.Initialize(yandexGame);
 
 		var loaderService = Container.Resolve<SceneLoader>();
 		loaderService.GoToWorldMapScene();

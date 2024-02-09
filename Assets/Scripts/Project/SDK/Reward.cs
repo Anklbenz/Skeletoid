@@ -1,12 +1,12 @@
-using Cysharp.Threading.Tasks;
-using UnityEngine;
 using YG;
+using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class WebServices {
-	private YandexGame _yandexGame;
+public class Reward {
+	private readonly YandexGame _yandexGame;
 	private UniTaskCompletionSource<bool> _videoRewardCompletionSource;
 
-	public void Initialize(YandexGame yandexGame) {
+	public Reward(YandexGame yandexGame) {
 		_yandexGame = yandexGame;
 	}
 

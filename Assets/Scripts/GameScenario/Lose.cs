@@ -10,16 +10,16 @@ public class Lose {
 
 	private readonly GameplayConfig _gameplayConfig;
 	private readonly ProgressSystem _progressSystem;
-	private readonly WebServices _webServices;
+	private readonly AdvSDK _advSDK;
 	private LoseView _view;
 
 	public Lose(GameplayConfig gameplayConfig,
 			ProgressSystem progressSystem,
-			WebServices webServices) {
+			AdvSDK advSDK) {
 
 		_gameplayConfig = gameplayConfig;
 		_progressSystem = progressSystem;
-		_webServices = webServices;
+		_advSDK = advSDK;
 	}
 
 	public void Initialize(LoseView view) {
@@ -39,7 +39,7 @@ public class Lose {
 	}
 
 	private async void OnShowAdsClicked() {
-		var rewardEarned = await _webServices.ShowRewardVideo();
+		var rewardEarned = await _advSDK.reward.ShowRewardVideo();
 		Debug.Log("Reward is "+ rewardEarned);
 		if (!rewardEarned) return;
          
